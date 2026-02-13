@@ -1,0 +1,385 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content=" initial-scale=1,  width=device-width, viewport-fit=cover">
+
+    <!-- MDB CSS -->
+    <link rel="stylesheet" href="plugins/fontawesome-free-5.14.0-web/css/all.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/mdb.lite.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/style.css">
+    <link rel="stylesheet" href="plugins/c3/css/c3/c3.css">
+    <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.bundle.css">
+
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="css/mycss/mscss.css">
+    <style>
+    </style>
+    <title>Inicio</title>
+</head>
+
+<body class="hidden-sn">
+
+    <!--Double navigation-->
+    <header>
+        <!-- Sidebar navigation -->
+        <div id="slide-out" class="side-nav elegant-color-dark lighten-1">
+            <ul class="custom-scrollbar">
+                <!-- Logo -->
+                <li class="waves-effect">
+
+                    <img src="images/8.png" class="" style="width:100%; height:140px;">
+
+                </li>
+
+                <!--/. Logo -->
+                <!-- Side navigation links -->
+                <li>
+                    <ul class="collapsible collapsible-accordion">
+                        <li hidden>
+                            <a class="waves-effect arrow-r">
+                                <i class="fas fa-home"></i> INICIO
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect arrow-r" id="btn_impresoras" data-toggle="modal"
+                                data-target="#modal_impresoras">
+                                <i class="fas fa-print"></i> IMPRESORAS
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect arrow-r" id="BtnConfigServidor" href="PanelServidor.html">
+                                <i class="fas fa-server"></i> SERVIDOR
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect arrow-r" id="btn_licencia">
+                                <i class="fas fa-key"></i> LICENCIA
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect arrow-r" href="acercade.html">
+                                <i class="fas fa-info-circle"></i> ACERCA DE
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect arrow-r" id="btnRegresar">
+                                <i class="fas fa-sign-out-alt"></i> SALIR
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <!--/. Side navigation links -->
+            </ul>
+            <div class="mask-strong"></div>
+        </div>
+        <!--/. Sidebar navigation -->
+        <!-- Navbar -->
+        <nav
+            class="navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav text-white elegant-color-dark lighten-1">
+            <!-- SideNav slide-out button -->
+            <div class="float-left">
+                <a href="#" data-activates="slide-out" class="button-collapse"><i class="fas fa-bars"></i></a>
+            </div>
+            <!-- Breadcrumb-->
+            <div class="breadcrumb-dn mr-auto">
+                <p></p>
+            </div>
+
+        </nav>
+        <!-- /.Navbar -->
+    </header>
+    <!--/.Double navigation-->
+
+    <div class="container-fluid pt-4 px-2 pb-5">
+
+        <!-- Card content -->
+        <div class="row pt-5">
+
+            <div class="col-12 text-center">
+                <img src="images/logo.png" class="mb-1" width="256" />
+            </div>
+
+
+            <div class="col-lg-12 my-0 mx-0">
+                <button class="btn btn-dark btn-block mb-2 pl-1 pr-1" id="btn_inventario">
+                    <i class="fas fa-barcode fa-lg"></i><br />Conteo de inventario físico
+                </button>
+            </div>
+
+            <div class="col-6 my-0 mx-0 pr-1 pl-3">
+                <button class="btn btn-dark btn-block mb-2 pl-1 pr-1" id="btn_catalogo">
+                    <i class="fas fa-boxes fa-lg"></i><br />Catálogo de<br>productos
+                </button>
+            </div>
+
+            <div class="col-6 my-0 mx-0 pr-3 pl-1">
+                <button class="btn btn-dark btn-block mb-2 pl-1 pr-1" id="btnConsulta">
+                    <i class="fas fa-search fa-lg"></i><br />
+                    <small>Consulta de<br />productos</small>
+                </button>
+            </div>
+
+            <div class="col-lg-12 my-0 mx-0">
+                <button class="btn btn-dark btn-block mb-2 pl-1 pr-1" id="btn_resumen">
+                    <i class="fas fa-table fa-lg"></i><br />Reportes de inventario
+                </button>
+            </div>
+
+            <div class="col-lg-12" hidden>
+                <button class="btn btn-dark btn-block mb-2 pl-1 pr-1" id="btn_configuraciones">
+                    <i class="fas fa-cogs fa-lg"></i><br />Panel de control
+                </button>
+            </div>
+
+
+            <!-- Card image -->
+            <div class="col-lg-12 my-0 mx-0">
+                <div class="mx-1 my-1 view-cascade gradient-card-header deep-blue-gradient rounded">
+                    <div id="doughnutChart" class=""></div>
+                </div>
+            </div>
+            <!-- Card image -->
+        </div>
+        <!-- Card content -->
+
+
+
+        <div id="demo"></div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal_info" tabindex="-1" role="dialog" aria-labelledby="modal_titulo"
+            aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+
+                <!--Content-->
+                <div class="modal-content">
+                    <!--Header-->
+                    <!--<div class="modal-header">
+                    <p class="heading lead" id="lbl_info_header"><i class="fa fa-info-circle"></i> Acerca de </p>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                    </button>
+                    </div>-->
+                    <!--Body-->
+                    <div class="modal-body">
+                        <div class="text-center">
+
+                            <img src="images/logoSSM2a.png" width="60" />
+
+                            <p>
+                                Simple Stock Mobile es un producto desarrollado y licenciado por <strong>Código
+                                    Fractal</strong>.
+                                <br />
+                                <a href="https://www.simplestockmobile.com/index.html#acercade"
+                                    target="_blank">www.simplestockmobile.com</a>
+                            </p>
+
+                            <button class="btn btn-sm aqua-gradient" data-dismiss="modal"><i class="fas fa-check"></i>
+                                Aceptar</button>
+
+                        </div>
+                    </div>
+
+                    <!--Footer-->
+                    <!--<div class="modal-footer justify-content-center">
+                    <button class="btn btn-dark" data-dismiss="modal"><i class="fa fa-check"></i> Aceptar</button>
+                    </div>-->
+                </div>
+                <!--/.Content-->
+
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="modalImportacion" tabindex="-1" role="dialog" aria-labelledby="modal_titulo"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-full-width" role="document">
+
+                <!--Content-->
+                <div class="modal-content text-center modal-content-full-width">
+                    <!--Header-->
+                    <div class="modal-header d-flex justify-content-center modal-header-full-width">
+                        <h6 class="modal-title">
+                            <i class="fas fa-file-import"></i> Seleccione un método de importación
+                        </h6>
+                        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>-->
+                    </div>
+                    <!--Body-->
+                    <div class="modal-body border-bottom">
+
+                        <div class="form-group">
+                            <button class="btn btn-mdb-color btn-block pl-1 pr-1" id="btnImportacionSSR">
+                                <i class="fa fa-wifi"></i><br />Importar desde servidor<br />
+                                <small>Requiere una suscripción vigente a Simple Stock Report.</small>
+                            </button>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-green btn-block pl-1 pr-1" id="btn_catalogo2">
+                                <i class="far fa-file-excel"></i><br />Importación desde archivo XLSX<br />
+                                <small>Recomendado para la mayoría de los usuarios.</small>
+                            </button>
+                        </div>
+
+                        <div class="alert alert-warning text-center small" role="alert" id="">
+                            <i class="fa fa-warning"></i> La importación desde el <strong>Servidor</strong> se
+                            recomienda para usuarios que realicen la toma de inventario en varios dispositivos.
+                        </div>
+
+                        <button class="btn btn-md btn-dark " data-dismiss="modal">Regresar</button>
+
+                    </div>
+
+                    <!--/.Content-->
+
+                </div>
+            </div>
+        </div>
+        <!---->
+        <!--Configuración de impresión-->
+        <div class="modal fade" id="modal_impresoras" tabindex="-1" role="dialog" aria-labelledby="modal_titulo"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-full-width" role="document">
+
+                <!--Content-->
+                <div class="modal-content modal-content-full-width">
+                    <!--Header-->
+                    <div class="modal-header modal-header-full-width">
+                        <h6 class="modal-title">
+                            <i class="fa fa-print"></i> Configuración de impresoras
+                        </h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <!--Body-->
+                    <div class="modal-body small border-bottom">
+                        <h6 class="text-center">
+                            Impresora de tickets
+                        </h6>
+                        <div class="form-group">
+                            Seleccione el lenguaje su de impresora de tickets
+                            <select name="combo_marca_impresora" id="combo_marca_impresora" class="custom-select"
+                                required>
+                                <option value="CF" selected>ESC/POS</option>
+                                <option value="Zebra">CPCL (Zebra)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            Seleccione la impresora de <strong>tickets</strong> predeterminada
+                            <select name="" id="combo_dispositivos_bluetooth_0" class="custom-select" required></select>
+                        </div>
+
+                        <div class="alert alert-warning text-center" role="alert" id="lbl_mensaje_impresora_0">
+                            <i class="fa fa-warning"></i> Modelos compatibles: <strong>Zebra MZ220, Zebra iMZ220,
+                                Zebra RW220, Zebra QLn220 e impresoras ESC/POS</strong><br />No se garantiza la
+                            compatibilidad con otros modelos.
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-dark  btn-block pl-1 pr-1" id="btn_imprimir_prueba">
+                                <i class="fa fa-print"></i> Probar configuración
+                            </button>
+                        </div>
+
+                        <hr class="text-info" style="border-top: 1px dashed;" />
+                        <h6 class="text-center">
+                            Impresora de etiquetas
+                        </h6>
+                        <div class="form-group">
+                            Seleccione la impresora de <strong>etiquetas</strong> predeterminada
+                            <select name="" id="combo_dispositivos_bluetooth_1" class="custom-select" required></select>
+                        </div>
+                        <div class="alert alert-warning text-center" role="alert" id="lbl_mensaje_impresora_1">
+                            <i class="fa fa-warning"></i> Modelos compatibles: <strong>Zebra RW220 y
+                                QLn220</strong><br />No se garantiza la compatibilidad con otros modelos.
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-dark  btn-block pl-1 pr-1" id="btn_imprimir_etiqueta">
+                                <i class="fa fa-print"></i> Probar configuración
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!--/Footer-->
+                <!--/.Content-->
+
+            </div>
+        </div>
+        <!--  -->
+
+
+    </div>
+
+
+
+    <footer id="footer" class="fixed-bottom border-top shadow-sm bg-white py-0 pl-2 pr-1">
+
+        <h6 class="mt-2 mb-2 text-muted text-center">
+            <small id="lbl_footer">
+            </small>
+        </h6>
+
+        <!--<button class="btn btn-sm btn-danger" id="btn_cerrar_sesion">
+        <i class="fa fa-power-off"></i>
+        </button>
+        <button class="btn btn-sm btn-dark" id="" data-toggle="modal" data-target="#modal_info">
+            <i class="fa fa-info-circle"></i> Acerca de
+        </button>
+            -->
+    </footer>
+
+    <!--scripts-->
+    <script src="cordova.js"></script>
+    <script src="scripts/platformOverrides.js"></script>
+
+    <!--MDB-->
+    <script src="plugins/MDBPro4.19.1/js/jquery.min.js"></script>
+    <script src="plugins/MDBPro4.19.1/js/popper.min.js"></script>
+    <script src="plugins/MDBPro4.19.1/js/bootstrap.min.js"></script>
+    <script src="plugins/MDBPro4.19.1/js/mdb.min.js"></script>
+    <script src="plugins/sweetalert2/sweetalert2.bundle.js"></script>
+
+    <script src="plugins/loadingOverlay/loadingoverlay.min.js"></script>
+    <script src="plugins/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="plugins/localStorageDB-master/localstoragedb.min.js"></script>
+
+    <script src="plugins/alasql/alasql.min.js"></script>
+    <script src="plugins/chart.js"></script>
+    <script src="plugins/c3/js/d3/d3.js"></script>
+    <script src="plugins/c3/js/c3/c3.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+
+    <script src="scripts/mscripts/sha256.js"></script>
+    <script src="scripts/mscripts/general.js"></script>
+    <script src="scripts/mscripts/bd.js"></script>
+    <script src="scripts/mscripts/licencia.js"></script>
+    <script src="scripts/mscripts/gps.js"></script>
+    <script src="scripts/mscripts/bluetooth.js"></script>
+    <script src="scripts/mscripts/inicio.js"></script>
+    <script>
+        $(document).ready(function () {
+            // SideNav Button Initialization
+            $(".button-collapse").sideNav();
+            // SideNav Scrollbar Initialization
+            var sideNavScrollbar = document.querySelector('.custom-scrollbar');
+            var ps = new PerfectScrollbar(sideNavScrollbar);
+        });
+    </script>
+
+</body>
+
+</html>

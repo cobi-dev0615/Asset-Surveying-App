@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+
+    <!-- Bootstrap core CSS -->
+    <!--
+    <link rel="stylesheet" href="plugins/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/fontawesome-free-5.14.0-web/css/all.min.css">
+    -->
+    <!-- MDB CSS -->
+    <link rel="stylesheet" href="plugins/fontawesome-free-5.14.0-web/css/all.min.css">
+    <!---->
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="plugins/MDBPro4.19.1/css/mdb.lite.min.css">-->
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/style.css">
+
+    <link rel="stylesheet" href="plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="plugins/select2/css/select2-bootstrap.css">
+    <link rel="stylesheet" href="css/mycss/mscss.css">
+    <!-- Custom styles for this template -->
+    <style></style>
+    <title>Ubicación</title>
+</head>
+
+<body class="">
+
+    <!--header-->
+    <header class="fixed-top border-bottom shadow-sm cyan text-white">
+        <h6 class="mt-2 mb-2 text-center" id="">
+            <i class="fa fa-barcode"></i> Conteo de inventario cruzado
+        </h6>
+    </header>
+
+    <!--container-->
+    <div class="container-fluid py-5">
+
+        <div class="form-group">
+            <label for="txt_usuario" class="small">
+                <i class="fa fa-user"></i> Capture el nombre del usuario que realiza la toma de inventario.
+            </label>
+            <input type="search" class="form-control" id="txt_usuario" aria-describedby="" placeholder="" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="txt_almacen" class="small">
+                <i class="fas fa-warehouse"></i> Capture el nombre del almacén, bodega, sucursal, tienda o departamento donde se realizará la toma de inventario.
+            </label>
+            <!--<input type="text" class="form-control" id="txt_almacen" aria-describedby="" placeholder="" autocomplete="off">-->
+            <select name="txt_almacen" id="txt_almacen" class="form-control" style="width: 100%;"></select>
+        </div>
+        <div class="form-group">
+            <label for="comboNConteo" class="small">
+                <i class="fas fa-list-ol"></i> Seleccione el número de conteo .
+            </label>
+            <!--<input type="text" class="form-control" id="txt_almacen" aria-describedby="" placeholder="" autocomplete="off">-->
+            <select name="comboNConteo" id="comboNConteo" class="custom-select" style="width: 100%;">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+            </select>
+        </div>
+        <button class="btn btn-primary btn-block text-white" id="btn_iniciar_conteo">
+            <i class="fas fa-exchange-alt"></i> INICIAR CONTEO CRUZADO
+        </button>
+
+        <label id="mensaje" class="not-displayed"></label>
+
+    </div>
+
+    <!--Opciones de captura-->
+    <div class="modal fade" id="modalUbicaciones" tabindex="-1" role="dialog" aria-labelledby="modal_titulo" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-full-width" role="document">
+
+            <!--Content-->
+            <div class="modal-content modal-content-full-width">
+                <!--Header-->
+                <div class="modal-header modal-header-full-width p-1">
+                    <h6 class="modal-title small text-danger text-center">
+                        Encontré inventario capturado en las siguientes ubicaciones, seleccione una si desea continuarla o de clic en el botón <strong>Siguiente</strong> si desea iniciar una ubicación diferente.
+
+                    </h6>
+
+                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>-->
+
+                </div>
+                <!--Body-->
+                <div class="modal-body p-0">
+
+                    <ul class="list-group" id="listaUbicaciones"></ul>
+
+                </div>
+                <!--Footer-->
+                <div class="modal-footer modal-footer-full-width p-2">
+
+                    <button class="btn btn-sm btn-warning" id="" data-dismiss="modal">
+                        <i class="fa fa-undo"></i> Cancelar
+                    </button>
+
+                    <button class="btn btn-sm btn-primary" id="btnSiguiente">
+                        <i class="fa fa-arrow-right"></i> Siguiente
+                    </button>
+                </div>
+                <!--Footer-->
+            </div>
+            <!--/.Content-->
+
+        </div>
+    </div>
+    <!---->
+    <!--footer-->
+    <footer id="footer" class="fixed-bottom border-top shadow-sm alert alert-warning mb-0 p-0">
+        <h6 class="mt-2 mb-2 text-danger text-center">
+            <small id="">
+                <strong>Inventario cruzado: </strong> Te permite realizar dos conteos y generar un reporte con las diferencias entre cada uno.
+            </small>
+        </h6>
+    </footer>
+    <!--scripts-->
+
+    <script src="cordova.js"></script>
+    <script src="scripts/platformOverrides.js"></script>
+
+    <!--
+    <script src="plugins/jquery/jquery-3.4.1.min.js"></script>
+    <script src="plugins/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    -->
+    <!--MDB-->
+    <script type="text/javascript" src="plugins/MDBPro4.19.1/js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="plugins/MDBPro4.19.1/js/popper.min.js"></script>-->
+    <script type="text/javascript" src="plugins/MDBPro4.19.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="plugins/MDBPro4.19.1/js/mdb.lite.min.js"></script>
+
+    <script src="plugins/loadingOverlay/loadingoverlay.min.js"></script>
+    
+    <script src="plugins/select2/js/select2.min.js"></script>
+    <!--<script>
+
+    </script>-->
+    <script src="plugins/alasql/alasql.min.js"></script>
+    <script src="plugins/localStorageDB-master/localstoragedb.min.js"></script>
+
+    <!--<script src="scripts/mscripts/sha256.js"></script>-->
+    <script src="scripts/mscripts/general.js"></script>
+    <script src="scripts/mscripts/bd.js"></script>
+    <!--<script src="scripts/mscripts/licencia.js"></script>-->
+    <!---->
+    <script src="scripts/mscripts/inventario_ubicacion_cruzado.js"></script>
+    <script>
+
+    </script>
+</body>
+</html>

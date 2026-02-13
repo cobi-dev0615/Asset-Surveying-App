@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <item
+        android:state_checked="true"
+        android:id="@+id/chevron__up"
+        android:drawable="@drawable/dxe_chevron__up"/>
+    <item
+        android:id="@+id/chevron__down"
+        android:drawable="@drawable/dxe_chevron__down"/>
+    <transition
+        android:drawable="@drawable/_dxe_chevron__0_res_0x7f08000a"
+        android:toId="@+id/chevron__up"
+        android:fromId="@+id/chevron__down"/>
+    <transition
+        android:drawable="@drawable/_dxe_chevron__1_res_0x7f08000b"
+        android:toId="@+id/chevron__down"
+        android:fromId="@+id/chevron__up"/>
+</animated-selector>

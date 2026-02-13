@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1,   width=device-width">
+        <!-- Bootstrap core CSS -->
+        <!-- MDB CSS -->
+        <link rel="stylesheet" href="plugins/fontawesome-free-5.14.0-web/css/all.min.css">
+        <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/mdb.lite.min.css">
+        <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/style.css">
+
+        <!-- Custom styles for this template -->
+        <style></style>
+        <title>Panel de activación</title>
+    </head>
+    <body class="">
+
+      
+
+         <!--Navbar -->
+    <nav class="pl-2 pr-2 py-0 navbar elegant-color-dark lighten-1 text-center fixed-top">
+        <ul class="navbar-nav nav-flex-icons">
+            <li class="nav-item" id="btnRegresar">
+                <a class="nav-link waves-effect z-depth-0 btn btn-sm btn-floating m-1 p-0" onclick="window.history.back();">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </li>
+        </ul>
+        <span class="navbar-text ml-auto white-text">
+            <i class="fa fa-shopping-cart"></i> Adquirir suscripción
+        </span>
+        <ul class="navbar-nav ml-auto nav-flex-icons">
+            <li class="nav-item">
+                <a class="nav-link waves-effect z-depth-0 btn btn-sm btn-floating m-1 p-0" data-toggle="modal" data-target="#modalAyuda">
+                    
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!--/.Navbar -->
+
+        <!--container-->
+     
+            <div class="container-fluid pt-5 pb-5 text-center">
+            <div class="row">
+                <div class="col">
+                    <form class="card p-2 mb-3">
+                        <div class="form-group">
+                            <label class="text-dark small">
+                                <i class="fa fa-calendar"></i> Seleccione el tiempo que desea utilizar la aplicación en este dispositivo.
+                            </label>
+                            <select name="" id="comboTipoLicencia" class="custom-select text-primary font-weight-bold" required>
+                                <option value="1">1 semana</option>
+                                <option value="4" selected>1 mes</option>
+                                <option value="6">3 meses</option>
+                                <option value="7">6 meses</option>
+                                <option value="8">12 meses</option>
+                                <option value="9" hidden>Tiempo indefinido</option>
+                            </select>
+                        </div>
+                    </form>
+                    <div class="form-group">
+                        <ul class="list-group mb-3">
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">Subtotal (USD)</h6>
+                                    <small class="text-muted"></small>
+                                </div>
+                                <span class="text-muted" id="lblSubtotal">8</span>
+                            </li>
+
+                            <li class="list-group-item d-flex justify-content-between" id="seccionDescuento">
+                                <div class="">
+                                    <h6 class="my-0">Descuento (USD)</h6>
+                                    <small id="lblDescuentoConcepto"></small>
+                                </div>
+                                <span class="" id="lblDescuento">0</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <h6 class="my-0">Total (USD)</h6>
+                                <strong id="lblImporte">8</strong>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--<form class="card p-2 mb-3">
+<div class="input-group">
+<input type="text" class="form-control" placeholder="Código de descuento">
+<div class="input-group-append">
+<button class="btn btn-secondary">Canjear</button>
+</div>
+</div>
+</form>-->
+                    <form class="card p-2 mb-3">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="text-dark small">
+                                    <i class="fa fa-credit-card"></i> Seleccione el método de pago.
+                                </label>
+
+                                <div id="paypal-button-container" class="col-12"></div>
+
+                               
+
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!---->
+        <!--footer-->
+        <footer id="footer" class="fixed-bottom border-top shadow-sm alert alert-warning mb-0 p-0">
+            <h6 class="mt-2 mb-2 text-danger text-center">
+                <small id="">
+                    * No cierre la aplicación ni desconecte de Internet su dispositivo durante el proceso de pago.<br />
+                    * Le haremos llegar un correo con la información de su código de activación. 
+                </small>
+            </h6>
+        </footer>
+
+        <!--scripts-->
+
+        <script src="cordova.js"></script>
+        <script src="scripts/platformOverrides.js"></script>
+
+        <!--MDB-->
+        <script src="plugins/MDBPro4.19.1/js/jquery.min.js"></script>
+        <!--<script src="plugins/MDBPro4.19.1/js/popper.min.js"></script>-->
+        <script src="plugins/MDBPro4.19.1/js/bootstrap.min.js"></script>
+        <script src="plugins/MDBPro4.19.1/js/mdb.lite.min.js"></script>
+
+        <script src="plugins/loadingOverlay/loadingoverlay.min.js"></script>
+
+        <script src="plugins/localStorageDB-master/localstoragedb.min.js"></script>
+        <script src="scripts/mscripts/sha256.js"></script>
+        <script src="scripts/mscripts/general.js"></script>
+        <script src="scripts/mscripts/bd.js"></script>
+        <script src="scripts/mscripts/licencia.js"></script>
+
+        <script src="scripts/mscripts/panel_pago.js"></script>
+        <script src="https://www.paypal.com/sdk/js?client-id=AXcZ7rXv9tSyArqimnqAlTwZpwFnaMVlqIAFTjifqPiXGtHTJOJuRhRPbk_blt6ji8zZ7qWUeN6TBPcH&currency=USD" data-sdk-integration-source="button-factory"></script>
+        <script src="scripts/mscripts/paypal.js"></script>
+
+    </body>
+</html>

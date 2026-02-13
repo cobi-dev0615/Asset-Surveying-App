@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <item
+        android:state_checked="true"
+        android:id="@+id/drop_down__up"
+        android:drawable="@drawable/dxe_drop_down__up"/>
+    <item
+        android:id="@+id/drop_down__down"
+        android:drawable="@drawable/dxe_drop_down__down"/>
+    <transition
+        android:drawable="@drawable/_dxe_drop_down__0_res_0x7f08000c"
+        android:toId="@+id/drop_down__up"
+        android:fromId="@+id/drop_down__down"/>
+    <transition
+        android:drawable="@drawable/_dxe_drop_down__1_res_0x7f08000d"
+        android:toId="@+id/drop_down__down"
+        android:fromId="@+id/drop_down__up"/>
+</animated-selector>

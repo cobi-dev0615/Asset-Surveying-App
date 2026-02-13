@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="chart_palette_default">
+        <item>#ff42a5f5</item>
+        <item>#ffff5252</item>
+        <item>#ff4caf50</item>
+        <item>#ffffcc00</item>
+        <item>#ffff9500</item>
+        <item>#ffcd74e2</item>
+        <item>#ffbdbdbd</item>
+    </array>
+</resources>

@@ -1,0 +1,321 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1,   width=device-width, viewport-fit=cover">
+
+    <!-- MDB CSS -->
+    <link rel="stylesheet" href="plugins/fontawesome-free-5.14.0-web/css/all.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/mdb.lite.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/style.css">
+    <link rel="stylesheet" href="plugins/c3/css/c3/c3.css">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="css/mycss/mscss.css">
+    <style>
+        /* .scrollC {
+                width: 600px;
+                overflow-x: scroll;
+                white-space: nowrap;
+            } */
+    </style>
+    <title>Inicio</title>
+</head>
+
+<body class="hidden-sn">
+
+    <!--Double navigation-->
+    <header>
+        <!-- Sidebar navigation -->
+        <div id="slide-out" class="side-nav elegant-color-dark lighten-1">
+            <ul class="custom-scrollbar">
+                <!-- Logo -->
+                <li class="waves-effect">
+                    <img src="images/8.png" class="" style="width:100%; height:140px;">
+                </li>
+
+                <!--/. Logo -->
+                <!-- Side navigation links -->
+                <!-- <li>
+                        <a class="waves-effect arrow-r" id="">
+                            <i class="fas fa-building"></i>
+                        </a>
+                    </li> -->
+
+                <li>
+                    <ul class="collapsible collapsible-accordion">
+                        <!-- <li>
+                                <a class="waves-effect arrow-r" id="btn_impresoras" data-toggle="modal"
+                                    data-target="#modal_impresoras">
+                                    <i class="fas fa-print"></i> IMPRESORAS
+                                </a>
+                            </li> -->
+                        <!-- <li>
+                                <a class="waves-effect arrow-r" id="BtnConfigServidor" href="PanelServidor.html">
+                                    <i class="fas fa-server"></i> SERVIDOR
+                                </a>
+                            </li> -->
+                        <!-- <li>
+                                <a class="waves-effect arrow-r" id="btn_licencia">
+                                    <i class="fas fa-key"></i> LICENCIA
+                                </a>
+                            </li> -->
+                        <li>
+                            <a class="waves-effect arrow-r" href="acercade.html">
+                                <i class="fas fa-info-circle"></i> ACERCA DE
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect arrow-r" id="btnSalir">
+                                <i class="fas fa-sign-out-alt"></i> SALIR
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <!--/. Side navigation links -->
+            </ul>
+            <div class="mask-strong"></div>
+        </div>
+        <!--/. Sidebar navigation -->
+        <!-- Navbar -->
+        <nav
+            class="navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav text-white elegant-color-dark lighten-1">
+            <!-- SideNav slide-out button -->
+            <div class="float-left">
+                <a href="#" data-activates="slide-out" class="button-collapse">
+                    <i class="fas fa-bars"></i> <span id="lblNombreEmpresa"></span>
+                </a>
+
+            </div>
+            <!-- Breadcrumb-->
+            <div class="fa-pull-right" id="">
+                <a class="nav-link waves-effect z-depth-0 btn btn-sm btn-floating m-1 p-0" id="btnActualizar">
+                    <i class="fas fa-sync fa-lg"></i>
+                </a>
+            </div>
+        </nav>
+        <!-- /.Navbar -->
+    </header>
+    <!--/.Double navigation-->
+
+    <div class="container-fluid pt-5 pb-5">
+
+        <div class="mt-4 mb-1">
+            <h5 id="lblNombreSucursal" class="subheader-title">
+            </h5>
+            <h6 id="lblMsgInicial" class="subheader-title ">
+            </h6>
+        </div>
+        <div class="card-deck mb-3 text-center mt-0">
+            <div class="card mb-4 z-depth-1 waves-effect col" id="">
+                <div class="card-header mdb-color white-text">
+                    <h6 class="my-0 font-weight-normal">
+                        AVANCE GENERAL DEL INVENTARIO
+
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div id="graficaAvanceInventario" style="height:400px;">
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-4 z-depth-1 waves-effect col" id="contenido_cobranza">
+                <div class="card-header mdb-color white-text">
+                    <h6 class="my-0 font-weight-normal">
+                        AVANCE POR ÁREA
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div id="graficaAvanceDepartamento" style="height:400px;">
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-4 z-depth-1 waves-effect col" id="contenido_cobranza">
+                <div class="card-header mdb-color white-text">
+                    <h6 class="my-0 font-weight-normal">
+                        ACTIVOS INVENTARIADOS POR CATEGORÍA
+                    </h6>
+                </div>
+                <div class="card-body" id="">
+                    <div class="scrollC">
+                        <div id="graficaAvanceCategoria">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- Grid row -->
+
+
+        <!--Modal: modalSalir-->
+        <div class="modal fade" id="modalSalir" tabindex="-1" role="dialog" aria-labelledby="modal_titulo"
+            aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered modal-notify" role="document">
+                <!--Content-->
+                <div class="modal-content text-center">
+                    <!--Header-->
+                    <!--<div class="modal-header d-flex justify-content-center">
+                    <p class="heading">¡Atención!</p>
+                    </div>-->
+                    <!--Body-->
+                    <div class="modal-body">
+                        <p class="text-center">
+                            <i class="fas fa-exclamation-circle fa-3x"></i>
+                        </p>
+                        <h5>¿Desea cerrar su sesión?</h5>
+
+                        <button class="btn btn-md btn-outline-dark" data-dismiss="modal">No</button>
+                        <button class="btn btn-md btn-dark" id="btnModalSalir">Si</button>
+                    </div>
+
+                    <!--Footer-->
+                    <!--<div class="modal-footer flex-center">
+                    <button class="btn btn-outline-red" data-dismiss="modal">No</button>
+                    <button class="btn btn-danger" id="btnAceptarEliminar">Si</button>
+                    </div>-->
+                </div>
+                <!--/.Content-->
+            </div>
+        </div>
+
+        <!---->
+        <!--Configuración de impresión-->
+        <div class="modal fade" id="modal_impresoras" tabindex="-1" role="dialog" aria-labelledby="modal_titulo"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-full-width" role="document">
+
+                <!--Content-->
+                <div class="modal-content modal-content-full-width">
+                    <!--Header-->
+                    <div class="modal-header modal-header-full-width">
+                        <h6 class="modal-title">
+                            <i class="fa fa-print"></i> Configuración de impresoras
+                        </h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <!--Body-->
+                    <div class="modal-body small border-bottom">
+                        <h6 class="text-center">
+                            Impresora de tickets
+                        </h6>
+                        <div class="form-group">
+                            Seleccione el lenguaje su de impresora de tickets
+                            <select name="combo_marca_impresora" id="combo_marca_impresora" class="custom-select"
+                                required>
+                                <option value="CF" selected>ESC/POS</option>
+                                <option value="Zebra">CPCL (Zebra)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            Seleccione la impresora de <strong>tickets</strong> predeterminada
+                            <select name="" id="combo_dispositivos_bluetooth_0" class="custom-select" required></select>
+                        </div>
+
+                        <div class="alert alert-warning text-center" role="alert" id="lbl_mensaje_impresora_0">
+                            <i class="fa fa-warning"></i> Modelos compatibles: <strong>Zebra MZ220, Zebra iMZ220,
+                                Zebra RW220, Zebra QLn220 e impresoras ESC/POS</strong><br />No se garantiza la
+                            compatibilidad con otros modelos.
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-dark  btn-block pl-1 pr-1 pt-2 pb-2" id="btn_imprimir_prueba">
+                                <i class="fa fa-print"></i> Probar configuración
+                            </button>
+                        </div>
+
+                        <hr class="text-info" style="border-top: 1px dashed;" />
+                        <h6 class="text-center">
+                            Impresora de etiquetas
+                        </h6>
+                        <div class="form-group">
+                            Seleccione la impresora de <strong>etiquetas</strong> predeterminada
+                            <select name="" id="combo_dispositivos_bluetooth_1" class="custom-select" required></select>
+                        </div>
+                        <div class="alert alert-warning text-center" role="alert" id="lbl_mensaje_impresora_1">
+                            <i class="fa fa-warning"></i> Modelos compatibles: <strong>Zebra RW220 y
+                                QLn220</strong><br />No se garantiza la compatibilidad con otros modelos.
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-dark  btn-block pl-1 pr-1 pt-2 pb-2" id="btn_imprimir_etiqueta">
+                                <i class="fa fa-print"></i> Probar configuración
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!--Footer-->
+                    <!--<div class="modal-body small">
+
+                    </div>-->
+                </div>
+                <!--/Footer-->
+                <!--/.Content-->
+
+            </div>
+        </div>
+        <!--  -->
+
+
+    </div>
+
+
+
+    <footer id="footer" class="fixed-bottom border-top shadow-sm bg-white py-0 px-2 py-1">
+
+        <div class="col-lg-12" id="seccionBtn1">
+            <button class="btn btn-elegant btn-lg btn-block btn-rounded mb-2 pl-1 pr-1 pt-2 pb-2" id="btn_inventario">
+                INVENTARIO DE ACTIVOS
+            </button>
+        </div>
+
+        <div class="text-center p-0">
+            <span id="lblVersion" class="text-muted small m-0">
+            </span>
+        </div>
+
+    </footer>
+
+    <!--scripts-->
+    <script src="cordova.js"></script>
+    <script src="scripts/platformOverrides.js"></script>
+
+    <!--MDB-->
+    <script src="plugins/MDBPro4.19.1/js/jquery.min.js"></script>
+    <script src="plugins/MDBPro4.19.1/js/bootstrap.min.js"></script>
+    <script src="plugins/MDBPro4.19.1/js/mdb.lite.min.js"></script>
+
+    <script src="plugins/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="plugins/loadingOverlay/loadingoverlay.min.js"></script>
+    <script src="plugins/localStorageDB-master/localstoragedb.min.js"></script>
+    <script src="plugins/c3/js/d3/d3.js"></script>
+    <script src="plugins/c3/js/c3/c3.js"></script>
+    <script src="scripts/mscripts/sha256.js"></script>
+    <script src="scripts/mscripts/general.js"></script>
+    <script src="scripts/mscripts/bd.js"></script>
+    <!-- <script src="scripts/mscripts/licencia.js"></script> -->
+    <script src="scripts/mscripts/gps.js"></script>
+    <script src="scripts/mscripts/bluetooth.js"></script>
+    <script src="scripts/mscripts/inicio.js"></script>
+    <!-- <script src="scripts/mscripts/cpanel.js"></script> -->
+
+    <script>
+        $(document).ready(function () {
+            // SideNav Initialization
+            $(".button-collapse").sideNav({
+                closeOnClick: true, // Closes side-nav on &lt;a&gt; clicks, useful for Angular/Meteor
+            });
+        });
+    </script>
+
+</body>
+
+</html>

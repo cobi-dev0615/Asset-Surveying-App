@@ -1,0 +1,363 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1,   width=device-width">
+    <!-- MDB CSS -->
+    <link rel="stylesheet" href="plugins/fontawesome-free-5.14.0-web/css/all.min.css">
+    <!---->
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/mdb.lite.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/style.css">
+
+    <link rel="stylesheet" href="plugins/DataTables/datatables.min.css" />
+    <!--<link rel="stylesheet" href="plugins/MDBPro4.19.1/css/addons/datatables.min.css" />-->
+    <!-- Custom styles for this template -->
+    <!--<link rel="stylesheet" href="css/mycss/mscss.css">-->
+    <style></style>
+    <title>Reportes inventario</title>
+</head>
+
+<body class="">
+
+    <!--Navbar -->
+    <nav class="pl-2 pr-2 py-0 navbar elegant-color-dark lighten-1 text-center fixed-top">
+        <ul class="navbar-nav nav-flex-icons">
+            <li class="nav-item" id="btnRegresar">
+                <a class="nav-link waves-effect z-depth-0 btn btn-sm btn-floating m-1 p-0">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </li>
+        </ul>
+        <span class="navbar-text ml-auto white-text">
+            <i class="fa fa-table"></i> Reportes de inventario
+        </span>
+        <ul class="navbar-nav ml-auto nav-flex-icons">
+            <li class="nav-item">
+                <a class="nav-link waves-effect z-depth-0 btn btn-sm btn-floating m-1 p-0" data-toggle="modal" data-target="#modalAyuda">
+                    <i class="fas fa-question-circle"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!--/.Navbar -->
+    
+    <!--container-->
+    <div class="container-fluid pt-5 pb-5">
+
+        <div class="form-group text-center small">
+
+            <label for="combo_tipo_reporte" class="text-danger">
+                Seleccione el tipo de reporte que desea consultar
+            </label>
+
+            <select name="combo_tipo_reporte" id="combo_tipo_reporte" class="custom-select custom-select-sm">
+                <option value="0">Reporte de conteo agrupado por producto</option>
+                <option value="1">Reporte de conteo agrupado por producto y ubicación</option>
+                <option value="3" selected>Reporte de conteo a detalle</option>
+                <!--<option value="2">Reporte de diferencias general</option>-->
+                <!--<option value="4">Reporte de inventario cruzado</option>-->
+            </select>
+        </div>
+
+        <table id="tabla_datos" class="table nowrap table-striped table-bordered table-sm" style="width:100%"></table>
+
+        <!--<div class="form-group">
+        <progress id="barra_progreso" value="0" max="100" style="width:100%;"></progress>
+    </div>-->
+        <div class="row small">
+            <div class="col pt-2 d-block" style="line-height: 0.8;" id="seccionTotales">
+                <label id="lbl_n_productos" class="text-primary font-weight-bold">Conteo total: 0</label><br />
+                <label id="lbl_importe_inventario" class="text-primary">Valor de inventario: 0</label><br />
+                <label id="lbl_n_registros" class="text-primary">Registros: 0</label><br />
+                <label id="lblNAlmacenes" class="text-primary">Almacences visitados: 0</label><br />
+                <label id="lblNUbicaciones" class="text-primary">Ubicaciones visitadas: 0</label>
+            </div>
+            <div class="col pt-2 d-none" style="line-height: 0.8;" id="seccionDatosDiferencias">
+                <label id="lblInventarioReal" class="text-primary">Conteo total: 0</label><br />
+                <label id="lblInventarioTeorico" class="text-secondary">Conteo teórico: 0</label><br />
+                <label id="lblInventarioDiferencia" class="text-danger font-weight-bold">Diferencia: 0</label><br />
+                <label id="lblImporteRealTotal" class="text-primary">Valor de inventario contado: 0</label><br />
+                <label id="lblImporteTeoricoTotal" class="text-secondary">Valor de inventario teórico: 0</label><br />
+                <label id="lblImporteDiferencia" class="text-danger font-weight-bold">Diferencia: 0</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-md btn-dark  btn-block pl-1 pr-1 pt-2 pb-2" id="btnExportar">
+                <i class="fas fa-share-alt"></i> Exportar reporte seleccionado
+            </button>
+        </div>
+
+        <div class="row">
+            <div class="col pr-2">
+                <button class="btn btn-md btn-primary btn-block pl-1 pr-1 pt-2 pb-2" id="btn_imprimir">
+                    <i class="fa fa-print"></i> Imprimir<br />reporte general
+                </button>
+            </div>
+            <div class="col pl-2">
+                <button class="btn btn-md btn-danger btn-block pl-1 pr-1 pt-2 pb-2" id="btn_eliminar">
+                    <i class="fa fa-trash"></i> Eliminar<br />inventario
+                </button>
+            </div>
+        </div>
+
+        <!--Opciones de exportación-->
+        <div class="modal fade" id="modalExportacion" tabindex="-1" role="dialog" aria-labelledby="modal_titulo" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-notify" role="document">
+                <!--Content-->
+                <div class="modal-content text-center">
+                    <!--Header-->
+                    <div class="modal-header d-flex justify-content-center">
+                        <h6 class="modal-title">
+                            <i class="fas fa-share-alt"></i> Seleccione un método de exportación
+                        </h6>
+                        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>-->
+                    </div>
+                    <!--Body-->
+                    <div class="modal-body border-bottom">
+<!--
+                        <div class="form-group">
+                            <button class="btn btn-success btn-block pl-1 pr-1 pt-2 pb-2" id="btnCompartirWA">
+                                <i class="fab fa-whatsapp fa-lg"></i><br />Exportar y compartir por Whats App<br />
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-purple btn-block pl-1 pr-1 pt-2 pb-2" id="btnCompartirEmail">
+                                <i class="far fa-envelope fa-lg"></i><br />Exportar y compartir por Email<br />
+                            </button>
+                        </div>
+-->
+                        <div class="form-group">
+                            <button class="btn btn-dark  btn-block pl-1 pr-1 pt-2 pb-2" id="btn_exportar_csv">
+                                <i class="fas fa-mobile-alt fa-lg"></i><br />Exportar y guardar en el dispositivo<br />
+                            </button>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-mdb-color btn-block pl-1 pr-1 pt-2 pb-2" id="btnExportarSSR">
+                                <i class="fas fa-sync-alt"></i><br />Exportar a servidor<br />
+                            </button>
+                            <div class="alert alert-warning text-center small" role="alert" id="">
+                                <i class="fa fa-warning"></i> La exportación al <strong>Servidor</strong> se recomienda para usuarios que realicen la toma de inventario en varios dispositivos.
+                            </div>
+                        </div>
+
+                        
+
+                        <button class="btn btn-sm btn-amber" data-dismiss="modal"><i class="fas fa-chevron-left"></i> Regresar</button>
+
+                    </div>
+
+                    <!--/.Content-->
+
+                </div>
+            </div>
+        </div>
+        <!---->
+
+        <!--Modal: modalConfirmDelete-->
+
+        <div class="modal fade" id="modalEliminarInventario" tabindex="-1" role="dialog" aria-labelledby="modal_titulo" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered modal-notify" role="document">
+                <!--Content-->
+                <div class="modal-content text-center">
+                    <!--Header-->
+                    <!--<div class="modal-header d-flex justify-content-center">
+                    <p class="heading">¡Atención!</p>
+                </div>-->
+                    <!--Body-->
+                    <!--<div class="modal-body">
+                    <p class="text-center">
+                        <i class="fas fa-exclamation-triangle fa-4x animated rotateIn"></i>
+                    <p>
+                        Al eliminar el inventario se eliminan todos los registros capturados y esta acción no se podrá deshacer.
+                    </p>
+                    <p>
+                        <h5>¿Desea continuar?</h5>
+                    </p>
+                </div>-->
+
+
+                    <div class="modal-body">
+                        <p class="text-center">
+                            <i class="fas fa-exclamation-triangle fa-3x text-danger"></i>
+                        </p>
+                        <h6 class="small">
+                            Al eliminar el inventario se eliminan todos los registros capturados y esta acción no se podrá deshacer.
+                        </h6>
+
+                        <h5>¿Desea continuar?</h5>
+
+                        <button class="btn btn-md btn-outline-red" data-dismiss="modal">No</button>
+                        <button class="btn btn-md btn-danger" id="btnAceptarEliminar">Si</button>
+                    </div>
+
+                    <!--Footer-->
+                    <!--<div class="modal-footer flex-center">
+                    <button class="btn btn-outline-red" data-dismiss="modal">No</button>
+                    <button class="btn btn-danger" id="btnAceptarEliminar">Si</button>
+                </div>-->
+                </div>
+                <!--/.Content-->
+            </div>
+        </div>
+
+        <!--Modal: modalAyuda-->
+        <div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_titulo" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-notify" role="document">
+                <!--Content-->
+                <div class="modal-content text-center p-0">
+                    <!--Header-->
+                    
+                    <!--Body-->
+                    <div class="modal-body border-bottom m-0 small">
+
+                       
+                        <div>
+                            <h5 class="alert-heading">Tipos de reporte</h5>
+                            
+                            <hr />
+                            <p class="mb-0">
+                                <span class="font-weight-bold">1. AGRUPADO POR PRODUCTO:</span> Concentra todas las lecturas realizadas durante el inventario y suma las cantidades únicamente por producto.
+
+                            </p>
+                            <p class="mb-0">
+                                <span class="font-weight-bold">2. AGRUPADO POR PRODUCTO Y UBICACIÓN:</span>  Concentra todas las lecturas realizadas durante el inventario y suma las cantidades por producto en las diferentes ubicaciones y almacenes en que las fue contado.
+
+</p>
+                            <p class="mb-0">
+                                <span class="font-weight-bold">3. A DETALLE:</span>  Concentra todas las lecturas realizadas durante el inventario en el orden en que fueron capturadas con detalles como fecha, hora y usuario, este reporte no agrupa cantidades.
+
+</p>
+                            <p class="mb-0">
+                                <span class="font-weight-bold">4. DIFERENCIAS:</span> Compara el inventario teórico contra el inventario real para calcular las diferencias de stock de cada producto e identificar las pérdidas con mayor facilidad.
+
+</p>
+                        </div>
+                         
+                        <button class="btn btn-sm btn-dark" data-dismiss="modal"><i class="fas fa-check"></i> Aceptar</button>
+
+                    </div>
+
+                    <!--/.Content-->
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+    <!--footer-->
+    <!--<footer id="footer" class="fixed-bottom bg-white border-top shadow-sm">
+        <h6 class="mt-2 mb-2 text-muted text-center">
+            <small id="lbl_footer"></small>
+        </h6>
+    </footer>-->
+    <!--scripts-->
+    <script src="cordova.js"></script>
+    <script src="scripts/platformOverrides.js"></script>
+    <!--MDB-->
+    <script src="plugins/MDBPro4.19.1/js/jquery.min.js"></script>
+    <!--<script src="plugins/MDBPro4.19.1/js/popper.min.js"></script>-->
+    <script src="plugins/MDBPro4.19.1/js/bootstrap.min.js"></script>
+    <script src="plugins/MDBPro4.19.1/js/mdb.lite.min.js"></script>
+
+
+    <script src="plugins/loadingOverlay/loadingoverlay.min.js"></script>
+
+    <script src="plugins/DataTables/datatables.min.js"></script>
+    <!--<script src="plugins/MDBPro4.19.1/js/addons/datatables.min.js"></script>-->
+    <script src="scripts/datatables/sum().js"></script>
+    <script src="scripts/datatables/fnGetColumnData.js"></script>
+    <script src="plugins/alasql/alasql.min.js"></script>
+    <script src="plugins/alasql/xlsx.core.min.js"></script>
+    <script src="plugins/localStorageDB-master/localstoragedb.min.js"></script>
+    <script src="scripts/mscripts/sha256.js"></script>
+    <script src="scripts/mscripts/general.js"></script>
+    <script src="scripts/mscripts/bd.js"></script>
+    <script src="scripts/mscripts/licencia.js"></script>
+    
+    <script>
+        var data = [];
+        var altoPantalla = screen.height;
+        var anchoPantalla = screen.width;
+        //console.log(anchoPantalla + ' * ' + altoPantalla);
+        var altoTabla = '705px';
+        if (altoPantalla <= 1024) {
+            altoTabla = '665px';
+        }
+        if (altoPantalla <= 1140) {
+            altoTabla = '305px';
+        }
+        if (altoPantalla <= 992) {
+            altoTabla = '365px';
+        }
+        if (altoPantalla <= 864) { //laptop ASUS
+            altoTabla = '345px';
+        }
+        if (altoPantalla <= 768) {
+            altoTabla = '275px';
+        }
+        if (altoPantalla <= 640) { //HTC One M8
+            altoTabla = '270px';
+        }
+        if (altoPantalla <= 576) {
+            altoTabla = '175px';
+        }
+        if (altoPantalla <= 534) { //Speedata
+            altoTabla = '110px';
+        }
+
+        var tabla = $('#tabla_datos').DataTable({
+            //destroy: true,
+            processing: true,
+            //deferLoading: 57,
+            ordering: false,
+            //order: [[0, "asc"]],
+            bFilter: false,
+            bInfo: false,
+            bLengthChange: false,
+
+            bStateSave: false, // saves sort state using localStorage
+
+            paging: true,
+            pageLength: 30,
+            pagingType: 'numbers',
+            dom: '<"top"pt>',
+
+            scrollY: altoTabla,
+            scrollX: true,
+            searching: false,
+            autoWidth: true,
+            //headers: cabeceras,
+            data: data,
+            columns: [
+                { title: 'Cantidad', data: 'cantidad' },
+                { title: 'Código 1', data: 'codigo_1' },
+                { title: 'Descripción', data: 'descripcion' },
+                { title: 'Precio venta', data: 'precio_venta' },
+                { title: 'Importe', data: 'importe' }
+
+            ],
+            columnDefs: [
+                { className: 'small', 'targets': '_all' }
+            ]
+        });
+
+
+    </script>
+    <script src="scripts/mscripts/bluetooth.js"></script>
+    <script src="scripts/mscripts/inventario_reporte.js"></script>
+
+</body>
+
+</html>

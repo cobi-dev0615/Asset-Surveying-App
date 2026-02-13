@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1,   width=device-width">
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="plugins/fontawesome-free-5.14.0-web/css/all.min.css">
+    <link rel="stylesheet" href="css/mycss/mscss.css" />
+    <title></title>
+</head>
+<body class="">
+    <div data-role="page">
+        <!--header-->
+        <div data-role="header" class="header" data-position="fixed">
+            <h1 id="">Importación de catálogo</h1>
+        </div>
+        <div role="main" class="ui-content" id="contenido">
+            <h1 style="font-size:12px; color: maroon;">Información del catálogo actual importado en el dispositivo</h1>
+
+            <label style="font-size:12px;" id="lbl_nombre_inventario">Nombre inventario: </label>
+            <label style="font-size:12px;" id="lbl_fecha_creacion">Fecha de creación: </label>
+            <label style="font-size:12px;" id="lbl_creado_por">Creado por: </label>
+            <label style="font-size:12px;" id="lbl_n_productos">Número de productos en catálogo: 0</label>
+
+            <button class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-mini" id="btn_sincronizar">
+                <i class="fa fa-refresh"></i><br />Importar catálogo desde servidor
+            </button>
+
+        </div>
+        <!--footer-->
+        <footer data-role="footer" data-position="fixed">
+            <h4 id="lbl_footer"></h4>
+        </footer>
+    </div>
+
+    <!--scripts-->
+    <script src="cordova.js"></script>
+    <script src="scripts/platformOverrides.js"></script>
+
+    <script src="plugins/jquery/jquery-3.4.1.min.js"></script>
+    <script src="plugins/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <script src="plugins/loadingOverlay/loadingoverlay.min.js"></script>
+
+    <script src="plugins/localStorageDB-master/localstoragedb.min.js"></script>
+    <script src="scripts/mscripts/sha256.js"></script>
+    <script src="scripts/mscripts/general.js"></script>
+    <script src="scripts/mscripts/bd.js"></script>
+    <script src="scripts/mscripts/licencia.js"></script>
+    
+    <script src="scripts/mscripts/inicio.js"></script>
+</body>
+</html>

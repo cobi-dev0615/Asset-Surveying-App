@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+
+    <!-- Bootstrap core CSS -->
+    <!--
+    <link rel="stylesheet" href="plugins/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/fontawesome-free-5.14.0-web/css/all.min.css">
+    -->
+    <!-- MDB CSS -->
+    <link rel="stylesheet" href="plugins/fontawesome-free-5.14.0-web/css/all.min.css">
+    <!---->
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/mdb.lite.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/style.css">
+
+    <link rel="stylesheet" href="plugins/DataTables/datatables.min.css" />
+    <!-- Custom styles for this template -->
+    <style></style>
+    <title>Reportes inventario</title>
+</head>
+
+<body class="">
+    <!--header-->
+    <header class="fixed-top border-bottom shadow-sm cyan text-white">
+        <h6 class="mt-2 mb-2 text-center" id="">
+            <i class="fa fa-table"></i> Reportes de inventario
+        </h6>
+    </header>
+
+    <!--container-->
+    <div class="container-fluid py-5">
+
+        <!--<a href="#" download="info.csv" target="_blank" id="downloadlink">Download</a>-->
+
+        <div class="form-group text-center">
+
+            <label for="combo_tipo_reporte" class="text-danger">
+                Seleccione el tipo de reporte que desea consultar
+            </label>
+
+            <select name="combo_tipo_reporte" id="combo_tipo_reporte" class="custom-select custom-select-sm text-info font-weight-bold">
+                <option value="0" selected>Conteo agrupado por producto</option>
+                <option value="1">Conteo agrupado por producto y ubicación</option>
+                <option value="2">Reporte de diferencias</option>
+                <option value="3">Conteo a detalle</option>
+            </select>
+        </div>
+
+        <table id="tablaDatos" class="table nowrap table-striped table-bordered" style="width:100%">
+
+        </table>
+
+        <!--<div class="form-group">
+        <progress id="barra_progreso" value="0" max="100" style="width:100%;"></progress>
+    </div>-->
+
+        <p style="line-height: 0.8;" class="pt-2">
+            <label id="lbl_n_productos" class="text-danger">Conteo total: 0</label><br />
+            <label id="lbl_importe_inventario" class="text-danger">Valor de inventario: 0</label><br />
+            <label id="lbl_n_registros" class="text-danger">Registros: 0</label>
+        </p>
+
+        <!--<div class="form-group">
+        <button class="btn btn-dark  btn-block btn-md pl-1 pr-1" id="btn_exportar_csv">
+            <i class="fa fa-file"></i> Exportar reporte seleccionado a CSV
+        </button>
+    </div>-->
+
+        <div class="form-group">
+            <button class="btn btn-dark  btn-block pl-1 pr-1 pt-2 pb-2" id="btnExportarSSR">
+                <i class="fas fa-share-alt"></i> Exportar reporte seleccionado
+            </button>
+        </div>
+
+        <div class="row">
+            <div class="col-6 col-sm-6">
+                <button class="btn btn-primary btn-block pl-1 pr-1 pt-2 pb-2" id="btn_imprimir">
+                    <i class="fa fa-print"></i> Imprimir<br />reporte general
+                </button>
+            </div>
+            <div class="col-6 col-sm-6">
+                <button class="btn btn-danger btn-block pl-1 pr-1 pt-2 pb-2" id="btn_eliminar">
+                    <i class="fa fa-trash"></i> Eliminar<br />inventario
+                </button>
+            </div>
+        </div>
+
+        <!--Opciones de exportación-->
+
+
+        <div class="modal fade" id="modalExportacion" tabindex="-1" role="dialog" aria-labelledby="modal_titulo" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-notify" role="document">
+
+                <!--Content-->
+                <div class="modal-content text-center">
+                    <!--Header-->
+                    <div class="modal-header d-flex justify-content-center">
+                        <h6 class="modal-title">
+                            <i class="fas fa-share-alt"></i> Seleccione un método de exportación
+                        </h6>
+                        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>-->
+                    </div>
+                    <!--Body-->
+                    <div class="modal-body border-bottom">
+
+                        <div class="form-group">
+                            <button class="btn btn-success btn-block pl-1 pr-1 pt-2 pb-2" id="btnCompartirWA">
+                                <i class="fab fa-whatsapp fa-2x"></i><br />Exportar y compartir por Whats App<br />
+                            </button>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-block pl-1 pr-1 pt-2 pb-2" id="btnCompartirEmail">
+                                <i class="far fa-envelope fa-2x"></i><br />Exportar y compartir por Email<br />
+                            </button>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-secondary btn-block pl-1 pr-1 pt-2 pb-2" id="btn_exportar_csv">
+                                <i class="fas fa-mobile-alt fa-2x"></i><br />Exportar y guardar en el dispositivo<br />
+                            </button>
+                        </div>
+
+                        <!--<div class="alert alert-warning text-center" role="alert" id="">
+        <i class="fa fa-warning"></i> La exportación a <strong>Simple Stock Report</strong> se recomienda para usuarios que realicen la toma de inventario en varios dispositivos y solo está disponible clientes con más de <strong>10 licencias permanentes</strong> vigentes.
+    </div>-->
+
+                        <button class="btn btn-md btn-dark " data-dismiss="modal">Regresar</button>
+
+                    </div>
+
+                    <!--/.Content-->
+
+                </div>
+            </div>
+        </div>
+        <!---->
+        <!--Modal: modalConfirmDelete-->
+
+        <div class="modal fade" id="modalEliminarInventario" tabindex="-1" role="dialog" aria-labelledby="modal_titulo" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered modal-notify modal-danger" role="document">
+                <!--Content-->
+                <div class="modal-content text-center">
+                    <!--Header-->
+                    <div class="modal-header d-flex justify-content-center">
+                        <p class="heading">¡Atención!</p>
+                    </div>
+
+                    <!--Body-->
+                    <div class="modal-body">
+                        <p class="text-center">
+                            <i class="fas fa-exclamation-triangle fa-4x animated rotateIn"></i>
+                        <p>
+                            Al eliminar el inventario se eliminan todos los registros capturados y esta acción no se podrá deshacer.
+                        </p>
+                        <p>
+                            <h5>¿Desea continuar?</h5>
+                        </p>
+                    </div>
+               
+                <!--Footer-->
+                <div class="modal-footer flex-center">
+                    <button class="btn btn-outline-red" data-dismiss="modal">No</button>
+                    <button class="btn btn-danger" id="btnAceptarEliminar">Si</button>
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+        <!--Modal: modalConfirmDelete-->
+
+
+    </div>
+
+
+
+    <!--footer-->
+    <footer id="footer" class="fixed-bottom bg-white border-top shadow-sm">
+        <h6 class="mt-2 mb-2 text-muted text-center">
+            <small id="lbl_footer"></small>
+        </h6>
+    </footer>
+
+    <!--scripts-->
+    <script src="cordova.js"></script>
+    <script src="scripts/platformOverrides.js"></script>
+
+    <!--
+    <script src="plugins/jquery/jquery-3.4.1.min.js"></script>
+    <script src="plugins/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    -->
+    <!--MDB-->
+    <script type="text/javascript" src="plugins/MDBPro4.19.1/js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="plugins/MDBPro4.19.1/js/popper.min.js"></script>-->
+    <script type="text/javascript" src="plugins/MDBPro4.19.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="plugins/MDBPro4.19.1/js/mdb.lite.min.js"></script>
+
+
+    <script src="plugins/loadingOverlay/loadingoverlay.min.js"></script>
+
+    <script src="plugins/DataTables/datatables.min.js"></script>
+    <script src="scripts/datatables/sum().js"></script>
+    <script src="scripts/datatables/fnGetColumnData.js"></script>
+
+    <script src="plugins/alasql/alasql.min.js"></script>
+    <script src="plugins/alasql/xlsx.core.min.js"></script>
+
+    <script src="plugins/localStorageDB-master/localstoragedb.min.js"></script>
+    <script src="scripts/mscripts/sha256.js"></script>
+    <script src="scripts/mscripts/general.js"></script>
+    <script src="scripts/mscripts/bd.js"></script>
+    <script src="scripts/mscripts/licencia.js"></script>
+    
+    <script>
+        var data = [];
+        var altoPantalla = screen.height;
+        var anchoPantalla = screen.width;
+        //console.log(anchoPantalla + ' * ' + altoPantalla);
+        var altoTabla = '730px';
+        if (altoPantalla <= 1024) {
+            altoTabla = '690px';
+        }
+        if (altoPantalla <= 1140) {
+            altoTabla = '330px';
+        }
+        if (altoPantalla <= 992) {
+            altoTabla = '390px';
+        }
+        if (altoPantalla <= 864) { //laptop ASUS
+            altoTabla = '370px';
+        }
+        if (altoPantalla <= 768) {
+            altoTabla = '300px';
+        }
+        if (altoPantalla <= 640) { //HTC One M8
+            altoTabla = '250px';
+        }
+        if (altoPantalla <= 576) {
+            altoTabla = '200px';
+        }
+        if (altoPantalla <= 534) { //Speedata
+            altoTabla = '145'; // solo para esta pantalla
+        }
+
+        var tabla = $('#tablaDatos').DataTable({
+            //destroy: true,
+            processing: true,
+            //deferLoading: 57,
+            ordering: false,
+            //order: [[0, "asc"]],
+            bFilter: false,
+            bInfo: false,
+            bLengthChange: false,
+            paging: false,
+            bStateSave: false, // saves sort state using localStorage
+            scrollY: altoTabla,
+            scrollX: true,
+            searching: false,
+            autoWidth: true,
+            //headers: cabeceras,
+            data: data,
+            columns: [
+                { title: 'Cantidad', data: 'cantidad' },
+                { title: 'Código 1', data: 'codigo_1' },
+                { title: 'Descripción', data: 'descripcion' },
+                { title: 'Precio venta', data: 'precio_venta' },
+                { title: 'Importe', data: 'importe' }
+
+            ],
+            columnDefs: [
+                { className: 'small', 'targets': '_all' }
+            ]
+        });
+
+    </script>
+    <script src="scripts/mscripts/bluetooth.js"></script>
+    <script src="scripts/mscripts/inventario_reporte.js"></script>
+
+</body>
+
+</html>

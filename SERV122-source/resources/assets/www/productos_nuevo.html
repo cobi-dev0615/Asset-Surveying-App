@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+
+    <!-- MDB CSS -->
+    <link rel="stylesheet" href="plugins/fontawesome-free-5.14.0-web/css/all.min.css">
+    <!---->
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/mdb.lite.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/style.css">
+
+    <!-- Custom styles for this template -->
+    <style></style>
+    <title>Nuevo producto</title>
+</head>
+
+<body class="">
+    <!--Navbar -->
+    <nav class="pl-2 pr-2 py-0 navbar elegant-color-dark lighten-1 text-center fixed-top">
+        <ul class="navbar-nav nav-flex-icons">
+            <li class="nav-item" id="btnRegresar">
+                <a class="nav-link waves-effect z-depth-0 btn btn-sm btn-floating m-1 p-0">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </li>
+        </ul>
+        <span class="navbar-text ml-auto white-text">
+            <i class="fas fa-box"></i> Registrar producto nuevo
+        </span>
+        <ul class="navbar-nav ml-auto nav-flex-icons">
+            <li class="nav-item">
+                <a class="nav-link waves-effect z-depth-0 btn btn-sm btn-floating m-1 p-0" data-toggle="modal"
+                    data-target="#modalAyuda">
+                    <i class="fas fa-question-circle"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!--/.Navbar -->
+
+
+
+    <div class="container-fluid py-5">
+
+        <form onsubmit="return false" id="form_registro" class="small">
+
+            <div class="form-group">
+                <i class="fa fa-barcode text-danger"></i> <label class="text-danger">Código 1 del producto *</label>
+
+                <div class="input-group mb-1">
+                    <input type="search" class="form-control form-control-sm"
+                        placeholder="Código principal del producto" autocomplete="off" id="txt_codigo_1">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <i class="fa fa-barcode"></i> SKU del producto
+
+                <div class="input-group mb-1">
+                    <input type="search" class="form-control form-control-sm" placeholder="Código alterno del producto"
+                        autocomplete="off" id="txt_codigo_2">
+
+                </div>
+
+
+            </div>
+
+            <div class="form-group" hidden>
+                <i class="fa fa-barcode"></i> Código 3 del producto
+                <div class="input-group mb-1">
+                    <input type="search" class="form-control form-control-sm" placeholder="Código alterno del producto"
+                        autocomplete="off" id="txt_codigo_3">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <i class="fa fa-info text-danger"></i> <label class="text-danger">Descripción *</label>
+                <textarea class="form-control form-control-sm" id="txt_descripcion"></textarea>
+            </div>
+
+            <div class="form-group">
+                <i class="fas fa-info"></i> Unidad de medida
+                <input type="text" class="form-control form-control-sm" id="txtUnidadMedida" />
+            </div>
+
+            <div class="form-group">
+                <i class="fas fa-dollar-sign"></i> Precio de venta
+                <input type="number" class="form-control form-control-sm" id="txt_precio_venta" step="any" />
+            </div>
+
+            <div class="form-group">
+                <i class="fa fa-cubes"></i> Cantidad teórica
+                <input type="number" class="form-control form-control-sm" id="txt_cantidad_teorica" step="any"
+                    value="" />
+            </div>
+
+            <div class="form-group">
+                <i class="fas fa-hashtag"></i> Factor
+                <input type="number" class="form-control form-control-sm" id="txtFactor" step="any" min="1" max="9999"
+                    value="1" />
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-lg btn-dark btn-block pl-1 pr-1 pt-2 pb-2 mb-3" id="btn_guardar">
+                        <i class="fa fa-save"></i> Guardar
+                    </button>
+
+                    <button class="btn btn-lg btn-amber btn-block pl-1 pr-1 pt-2 pb-2" id="btn_cancelar">
+                        <i class="fas fa-delete-left"></i> Limpiar campos
+                    </button>
+
+
+                </div>
+
+            </div>
+        </form>
+
+        <div id="seccion_acciones" style="display:none;">
+
+            <div class="row">
+                <div class="alert alert-success col" role="alert">
+                    <i class="fa fa-check"></i> El producto fue registrado existosamente.<br />
+                    ¿Qué desea hacer ahora?
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 col-sm-6">
+                    <button class="btn btn-md btn-amber btn-block pl-1 pr-1 pt-2 pb-2" id="btn_salir">
+                        <i class="fa fa-undo fa-lg"></i> Regresar<br />al catálogo
+                    </button>
+                </div>
+                <div class="col-6 col-sm-6">
+                    <button class="btn btn-md btn-dark  btn-block pl-1 pr-1 pt-2 pb-2" id="btn_nuevo_producto">
+                        <i class="fa fa-cube fa-lg"></i> Registrar<br />otro producto
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!--Modal: modalAyuda-->
+        <div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_titulo"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-notify" role="document">
+                <!--Content-->
+                <div class="modal-content text-center p-0">
+                    <!--Header-->
+                    <!--Body-->
+                    <div class="modal-body border-bottom m-0 small">
+
+
+                        <div>
+                            <h5 class="alert-heading">¿Qué significan estos datos?</h5>
+                            <p>
+
+                            </p>
+                            <hr />
+                            <p class="mb-0">
+                                <span class="font-weight-bold text-danger">Código 1:</span>
+                                <span>Es el código principal del producto y el que será leido mediante su código de
+                                    barras.</span>
+                            </p>
+                            <p class="mb-0">
+                                <span class="font-weight-bold">SKU:</span>
+                                <span>
+                                    Código alterno con el que se puede buscar el producto.
+                                </span>
+                            </p>
+                            <p class="mb-0">
+                                <span class="font-weight-bold">Código 3:</span>
+                                <span>
+                                    Código alterno con el que se puede buscar el producto.
+                                </span>
+                            </p>
+                            <p class="mb-0">
+                                <span class="font-weight-bold text-danger">Descripción:</span>
+                                <span>
+                                    Descripción o nombre del producto para la fácil identificación del producto durante
+                                    el proceso de inventario.
+                                </span>
+                            </p>
+                            <p class="mb-0">
+                                <span class="font-weight-bold">Precio de venta:</span>
+                                <span>
+                                    Precio de venta del producto en números enteros o decimales.
+                                </span>
+                            </p>
+                            <p class="mb-0">
+                                <span class="font-weight-bold">Cantidad teórica:</span>
+                                <span>
+                                    Cantidad teórica con la que se compararán los resultados en la sección de reportes.
+                                </span>
+                            </p>
+
+                        </div>
+
+                        <button class="btn btn-md btn-block btn-dark" data-dismiss="modal"><i class="fas fa-check"></i>
+                            Aceptar</button>
+
+                    </div>
+
+                    <!--/.Content-->
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--footer-->
+    <!--<footer id="footer" class="fixed-bottom bg-white border-top shadow-sm">
+        <h6 class="mt-2 mb-2 text-muted text-center">
+            <small id="lbl_footer"></small>
+        </h6>
+    </footer>-->
+    <!--scripts-->
+    <script src="cordova.js"></script>
+    <script src="scripts/platformOverrides.js"></script>
+
+    <!--MDB-->
+    <script type="text/javascript" src="plugins/MDBPro4.19.1/js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="plugins/MDBPro4.19.1/js/popper.min.js"></script>-->
+    <script type="text/javascript" src="plugins/MDBPro4.19.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="plugins/MDBPro4.19.1/js/mdb.lite.min.js"></script>
+
+    <script src="plugins/localStorageDB-master/localstoragedb.min.js"></script>
+    <script src="scripts/mscripts/sha256.js"></script>
+    <script src="scripts/mscripts/general.js"></script>
+    <script src="scripts/mscripts/bd.js"></script>
+    <script src="scripts/mscripts/licencia.js"></script>
+
+    <script src="scripts/mscripts/productos_nuevo.js"></script>
+
+</body>
+
+</html>

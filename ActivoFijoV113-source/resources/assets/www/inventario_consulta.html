@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1,   width=device-width">
+        <!-- Bootstrap core CSS -->
+        <!-- MDB CSS -->
+        <link rel="stylesheet" href="plugins/fontawesome-free-5.14.0-web/css/all.min.css">
+        <!---->
+        <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/mdb.lite.min.css">
+        <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/style.css">
+        <!-- Custom styles for this template -->
+        <link rel="stylesheet" href="css/mycss/mscss.css" />
+        <style></style>
+        <title>Consulta de inventario</title>
+    </head>
+
+    <body class="">
+        <!--Navbar -->
+        <nav class="pl-2 pr-2 py-0 navbar elegant-color-dark lighten-1 text-center fixed-top">
+            <ul class="navbar-nav nav-flex-icons">
+                <li class="nav-item" id="btnRegresar">
+                    <a class="nav-link waves-effect z-depth-0 btn btn-sm btn-floating m-1 p-0">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </li>
+            </ul>
+            <span class="navbar-text ml-auto white-text"><i class="fas fa-search"></i> Búsqueda de inventario</span>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item">
+                    <a class="nav-link waves-effect z-depth-0 btn btn-sm btn-floating m-1 p-0">
+                        &nbsp; &nbsp;
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!--/.Navbar -->
+        <!--header-->
+
+        <header class="border-bottom shadow-sm bg-white sticky-top pt-5">
+
+            <div class="container-fluid">
+
+                <!--  -->
+                <label class="small" id="lblInstrucciones">captura el producto a consultar</label>
+
+                <div class="input-group">
+                    <input type="search" class="form-control form-control-sm" placeholder="Buscar producto..." autocomplete="off" id="txt_lectura">
+                    <div class="input-group-append" id="">
+                        <button class="btn btn-sm btn-dark  m-0 px-3" id="btn_buscar">
+                            <i class="fas fa-search"></i> Buscar
+                        </button>
+                        
+                    </div>
+                </div>
+                <label class="text-danger small" id="lbl_total">
+                    -
+                </label>
+                <!--  -->
+            </div>
+        </header>
+        <div class="container-fluid py-0">
+            <!--card -->
+
+            <div class="card card-default" id="">
+                <div id="" class="panel-collapse collapse show" aria-expanded="true">
+                    <ul class="list-group" id="lista_0">
+                        <!--list-->
+                        <!--<li class="list-group-item card mt-1 waves-effect" id="" hidden>
+                            <div class="card-body card-body-cascade text-center m-0">
+                                <h5 class="card-title m-0"><strong>123456789000</strong></h5>
+                                <h6 class="font-weight-bold indigo-text p-0">DESCRIPCIÓN DEL PRODUCTO</h6>
+                                <p class="card-text m-0">
+                                    <label class="m-0">
+                                        CÓDIGO 2: <span class="font-weight-bold">A2000</span>
+                                    </label><br />
+                                    <label class="m-0">
+                                        CÓDIGO 3: <span class="font-weight-bold">A3000</span>
+                                    </label><br />
+                                    <label class="m-0">
+                                        PRECIO DE VENTA: <span class="font-weight-bold">0</span>
+                                    </label><br />
+                                </p>
+                                <p class="card-text m-0">
+                                    <label class="m-0 text-danger">
+                                        CANTIDAD: <span class="font-weight-bold">0</span>
+                                    </label><br />
+                                    <label class="m-0 text-primary">
+                                        UBICACIÓN: <span class="font-weight-bold">Rack A2</span>
+                                    </label><br />
+                                    <label class="m-0 text-primary">
+                                        ALMACÉN: <span class="font-weight-bold">Bodega A</span>
+                                    </label><br />
+
+                                </p>
+                                <hr class="m-0">
+                               
+                                <a class="btn-floating btn-md btn-danger" onclick="alert('Eliminar');"><i class="fas fa-trash-alt"></i></a>
+                            </div>
+                        </li>-->
+
+
+                      
+
+                        <!---->
+                    </ul>
+                    <!--/list-->
+                </div>
+            </div>
+
+            <!--/card -->
+            <div hidden>
+
+                <label class="small" id="lbl_id"></label><br />
+                <label class="small" id="">Código 1: </label><br />
+                <label class="small" id="lbl_codigo_1"></label><br />
+                <label class="small" id="lbl_codigo_2"></label><br />
+                <label class="small" id="lbl_codigo_3"></label><br />
+                <label class="small" id="">Descripción:</label><br />
+                <label class="small" id="lbl_descripcion"></label><br />
+                <label class="small" id="lbl_categoria"></label><br />
+                <label class="small" id="lbl_modelo"></label><br />
+                <label class="small" id="lbl_marca"></label><br />
+                <label class="small" id="lbl_precio"></label>
+
+            </div>
+
+
+            <!--<div class="fixed-action-btn" style="bottom: 10px; right: -10px;">
+                <a class="btn btn-floating aqua-gradient float-right" id="btn_agregar_producto">
+                    <i class="fas fa-plus"></i>
+                </a>
+            </div>-->
+
+            <!--Modal: modalAlertaCatalogo-->
+
+            <div class="modal fade" id="modalAlertaCatalogo" tabindex="-1" role="dialog" aria-labelledby="modal_titulo" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog modal-dialog-centered modal-notify" role="document">
+                    <!--Content-->
+                    <div class="modal-content text-center">
+                        <!--Header-->
+
+                        <div class="modal-body">
+                            <p class="text-center">
+                                <i class="fas fa-exclamation-circle fa-3x text-info"></i>
+                            </p>
+                            <h6 class="small">
+                                Actualmente no hay productos registrados en el catálogo.
+                            </h6>
+
+                            <h5>¿Desea importar su catálogo?</h5>
+
+                            <button class="btn btn-md btn-outline-cyan" data-dismiss="modal">No</button>
+                            <button class="btn btn-md btn-info" id="btnModalImportar">Si</button>
+                        </div>
+
+                    </div>
+                    <!--/.Content-->
+                </div>
+            </div>
+
+            <!--Modal: modalAlertaCatalogo-->
+
+
+        </div>
+
+        <!--footer-->
+        <!--<footer id="footer" class="fixed-bottom bg-white border-top shadow-sm">
+        <h6 class="mt-2 mb-2 text-muted text-center">
+            <small id="lbl_footer"></small>
+        </h6>
+    </footer>-->
+        <!--scripts-->
+        <script src="cordova.js"></script>
+        <script src="scripts/platformOverrides.js"></script>
+
+        <!--MDB-->
+        <script src="plugins/MDBPro4.19.1/js/jquery.min.js"></script>
+        <!--<script src="plugins/MDBPro4.19.1/js/popper.min.js"></script>-->
+        <script src="plugins/MDBPro4.19.1/js/bootstrap.min.js"></script>
+        <script src="plugins/MDBPro4.19.1/js/mdb.lite.min.js"></script>
+
+        <script src="plugins/loadingOverlay/loadingoverlay.min.js"></script>
+        <script src="plugins/alasql/alasql.min.js"></script>
+        <script src="plugins/alasql/xlsx.core.min.js"></script>
+        <script src="plugins/localStorageDB-master/localstoragedb.min.js"></script>
+        <script src="scripts/mscripts/sha256.js"></script>
+        <script src="scripts/mscripts/general.js"></script>
+        <script src="scripts/mscripts/bd.js"></script>
+        <script src="scripts/mscripts/licencia.js"></script>
+        
+        <script src="scripts/mscripts/bluetooth.js"></script>
+        <script src="scripts/mscripts/inventario_consulta.js"></script>
+        <script>
+
+        </script>
+    </body>
+</html>

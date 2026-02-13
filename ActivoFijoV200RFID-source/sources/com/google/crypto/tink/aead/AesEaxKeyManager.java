@@ -1,0 +1,122 @@
+package com.google.crypto.tink.aead;
+
+import com.google.crypto.tink.Aead;
+import com.google.crypto.tink.ConfigurationV0$$ExternalSyntheticLambda17;
+import com.google.crypto.tink.Key;
+import com.google.crypto.tink.KeyManager;
+import com.google.crypto.tink.KeyTemplate;
+import com.google.crypto.tink.Parameters;
+import com.google.crypto.tink.aead.AesEaxParameters;
+import com.google.crypto.tink.aead.internal.AesEaxProtoSerialization;
+import com.google.crypto.tink.config.internal.TinkFipsUtil;
+import com.google.crypto.tink.internal.KeyManagerRegistry;
+import com.google.crypto.tink.internal.LegacyKeyManagerImpl;
+import com.google.crypto.tink.internal.MutableKeyCreationRegistry;
+import com.google.crypto.tink.internal.MutableParametersRegistry;
+import com.google.crypto.tink.internal.MutablePrimitiveRegistry;
+import com.google.crypto.tink.internal.PrimitiveConstructor;
+import com.google.crypto.tink.internal.TinkBugException;
+import com.google.crypto.tink.proto.KeyData;
+import com.google.crypto.tink.util.SecretBytes;
+import java.security.GeneralSecurityException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import javax.annotation.Nullable;
+
+/* loaded from: classes2.dex */
+public final class AesEaxKeyManager {
+    private static final PrimitiveConstructor<AesEaxKey, Aead> AES_EAX_PRIMITIVE_CONSTRUCTOR = PrimitiveConstructor.create(new ConfigurationV0$$ExternalSyntheticLambda17(), AesEaxKey.class, Aead.class);
+    private static final KeyManager<Aead> legacyKeyManager = LegacyKeyManagerImpl.create(getKeyType(), Aead.class, KeyData.KeyMaterialType.SYMMETRIC, com.google.crypto.tink.proto.AesEaxKey.parser());
+    private static final MutableKeyCreationRegistry.KeyCreator<AesEaxParameters> KEY_CREATOR = new MutableKeyCreationRegistry.KeyCreator() { // from class: com.google.crypto.tink.aead.AesEaxKeyManager$$ExternalSyntheticLambda1
+        @Override // com.google.crypto.tink.internal.MutableKeyCreationRegistry.KeyCreator
+        public final Key createKey(Parameters parameters, Integer num) {
+            AesEaxKey createAesEaxKey;
+            createAesEaxKey = AesEaxKeyManager.createAesEaxKey((AesEaxParameters) parameters, num);
+            return createAesEaxKey;
+        }
+    };
+
+    private static final void validate(AesEaxParameters parameters) throws GeneralSecurityException {
+        if (parameters.getKeySizeBytes() == 24) {
+            throw new GeneralSecurityException("192 bit AES GCM Parameters are not valid");
+        }
+    }
+
+    static String getKeyType() {
+        return "type.googleapis.com/google.crypto.tink.AesEaxKey";
+    }
+
+    private static Map<String, Parameters> namedParameters() throws GeneralSecurityException {
+        HashMap hashMap = new HashMap();
+        hashMap.put("AES128_EAX", PredefinedAeadParameters.AES128_EAX);
+        hashMap.put("AES128_EAX_RAW", AesEaxParameters.builder().setIvSizeBytes(16).setKeySizeBytes(16).setTagSizeBytes(16).setVariant(AesEaxParameters.Variant.NO_PREFIX).build());
+        hashMap.put("AES256_EAX", PredefinedAeadParameters.AES256_EAX);
+        hashMap.put("AES256_EAX_RAW", AesEaxParameters.builder().setIvSizeBytes(16).setKeySizeBytes(32).setTagSizeBytes(16).setVariant(AesEaxParameters.Variant.NO_PREFIX).build());
+        return Collections.unmodifiableMap(hashMap);
+    }
+
+    /* JADX INFO: Access modifiers changed from: private */
+    public static AesEaxKey createAesEaxKey(AesEaxParameters parameters, @Nullable Integer idRequirement) throws GeneralSecurityException {
+        validate(parameters);
+        return AesEaxKey.builder().setParameters(parameters).setIdRequirement(idRequirement).setKeyBytes(SecretBytes.randomBytes(parameters.getKeySizeBytes())).build();
+    }
+
+    public static void register(boolean newKeyAllowed) throws GeneralSecurityException {
+        if (!TinkFipsUtil.AlgorithmFipsCompatibility.ALGORITHM_NOT_FIPS.isCompatible()) {
+            throw new GeneralSecurityException("Registering AES EAX is not supported in FIPS mode");
+        }
+        AesEaxProtoSerialization.register();
+        MutablePrimitiveRegistry.globalInstance().registerPrimitiveConstructor(AES_EAX_PRIMITIVE_CONSTRUCTOR);
+        MutableParametersRegistry.globalInstance().putAll(namedParameters());
+        MutableKeyCreationRegistry.globalInstance().add(KEY_CREATOR, AesEaxParameters.class);
+        KeyManagerRegistry.globalInstance().registerKeyManager(legacyKeyManager, newKeyAllowed);
+    }
+
+    public static final KeyTemplate aes128EaxTemplate() {
+        return (KeyTemplate) TinkBugException.exceptionIsBug(new TinkBugException.ThrowingSupplier() { // from class: com.google.crypto.tink.aead.AesEaxKeyManager$$ExternalSyntheticLambda0
+            @Override // com.google.crypto.tink.internal.TinkBugException.ThrowingSupplier
+            public final Object get() {
+                KeyTemplate createFrom;
+                createFrom = KeyTemplate.createFrom(AesEaxParameters.builder().setIvSizeBytes(16).setKeySizeBytes(16).setTagSizeBytes(16).setVariant(AesEaxParameters.Variant.TINK).build());
+                return createFrom;
+            }
+        });
+    }
+
+    public static final KeyTemplate rawAes128EaxTemplate() {
+        return (KeyTemplate) TinkBugException.exceptionIsBug(new TinkBugException.ThrowingSupplier() { // from class: com.google.crypto.tink.aead.AesEaxKeyManager$$ExternalSyntheticLambda2
+            @Override // com.google.crypto.tink.internal.TinkBugException.ThrowingSupplier
+            public final Object get() {
+                KeyTemplate createFrom;
+                createFrom = KeyTemplate.createFrom(AesEaxParameters.builder().setIvSizeBytes(16).setKeySizeBytes(16).setTagSizeBytes(16).setVariant(AesEaxParameters.Variant.NO_PREFIX).build());
+                return createFrom;
+            }
+        });
+    }
+
+    public static final KeyTemplate aes256EaxTemplate() {
+        return (KeyTemplate) TinkBugException.exceptionIsBug(new TinkBugException.ThrowingSupplier() { // from class: com.google.crypto.tink.aead.AesEaxKeyManager$$ExternalSyntheticLambda3
+            @Override // com.google.crypto.tink.internal.TinkBugException.ThrowingSupplier
+            public final Object get() {
+                KeyTemplate createFrom;
+                createFrom = KeyTemplate.createFrom(AesEaxParameters.builder().setIvSizeBytes(16).setKeySizeBytes(32).setTagSizeBytes(16).setVariant(AesEaxParameters.Variant.TINK).build());
+                return createFrom;
+            }
+        });
+    }
+
+    public static final KeyTemplate rawAes256EaxTemplate() {
+        return (KeyTemplate) TinkBugException.exceptionIsBug(new TinkBugException.ThrowingSupplier() { // from class: com.google.crypto.tink.aead.AesEaxKeyManager$$ExternalSyntheticLambda4
+            @Override // com.google.crypto.tink.internal.TinkBugException.ThrowingSupplier
+            public final Object get() {
+                KeyTemplate createFrom;
+                createFrom = KeyTemplate.createFrom(AesEaxParameters.builder().setIvSizeBytes(16).setKeySizeBytes(32).setTagSizeBytes(16).setVariant(AesEaxParameters.Variant.NO_PREFIX).build());
+                return createFrom;
+            }
+        });
+    }
+
+    private AesEaxKeyManager() {
+    }
+}

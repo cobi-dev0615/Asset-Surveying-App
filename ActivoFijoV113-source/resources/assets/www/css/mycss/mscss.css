@@ -1,0 +1,67 @@
+
+/*
+    Bot�n flotante
+*/
+.float {
+    bottom: 40px;
+    right: 20px;
+    box-shadow: 2px 2px 3px #999;
+    animation: bot-to-top 2s ease-out;
+    
+}
+
+.float-top {
+   
+    box-shadow: 2px 2px 3px #999;
+    animation: bot-to-top 2s ease-out;
+}
+
+@keyframes bot-to-top {
+    0% {
+        bottom: -40px
+    }
+
+    50% {
+        bottom: 40px
+    }
+}
+
+/*
+    Modal pantalla completa
+*/
+
+.modal-dialog-full-width {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+}
+
+.modal-content-full-width {
+    height: auto !important;
+    min-height: 100% !important;
+    border-radius: 0 !important;
+    background-color: #ececec !important
+}
+
+.modal-header-full-width {
+    border-bottom: 1px solid #9ea2a2 !important;
+}
+
+.modal-footer-full-width {
+    border-top: 1px solid #9ea2a2 !important;
+}
+
+.modal-body {
+    height: 250px;
+    overflow-y: auto;
+}
+
+
+/****/
+.btn-cyan  {
+    background-color: #00bcd4;
+    /*color: white;*/
+    
+}

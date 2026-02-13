@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport"
+            content="initial-scale=1, width=device-width">
+        <!-- Bootstrap core CSS -->
+        <!--
+    <link rel="stylesheet" href="plugins/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/fontawesome-free-5.14.0-web/css/all.min.css">
+    -->
+        <!-- MDB CSS -->
+        <link rel="stylesheet" href="plugins/fontawesome-free-5.14.0-web/css/all.min.css">
+        <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/mdb.lite.min.css">
+        <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/style.css">
+        <style></style>
+        <title>Licencia vigente</title>
+    </head>
+
+    <body class="">
+
+        <!--Navbar -->
+        <nav class="pl-2 pr-2 py-0 navbar navbar-dark elegant-color-dark lighten-1 text-center fixed-top">
+            <ul class="navbar-nav nav-flex-icons">
+                <li class="nav-item" id="btnRegresar">
+                    <a class="nav-link waves-effect z-depth-0 btn btn-sm btn-floating m-0 p-0">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </li>
+            </ul>
+            <span class="navbar-text ml-auto white-text" id="">Información de licencia</span>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item" id="opcionEliminarLicencia" hidden>
+                    <div class="btn-group dropleft">
+                        <button type="button" class="btn btn-danger btn-sm dropdown-toggle px-3" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" id="btnEliminarLicencia">Eliminar licencia</a>
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+        </nav>
+
+        <!--container-->
+        <div class="container pt-5 text-center">
+            <!--header-->
+            <label class="mt-2 mb-2" id="lbl_mensaje">
+                Licencia vigente a nombre de Código Fractal<br />ID de activación <strong>0</strong>
+            </label>
+            <div class="form-group text-center">
+                <img src="images/bot0.gif" class="w-100" />
+            </div>
+        </div>
+
+        <!--footer-->
+        <footer id="footer" class="fixed-bottom bg-white" style="padding: 5px 10px 10px 10px;">
+            <div class="alert alert-warning text-center small">
+                Si tiene alguna duda respecto a su compra contáctenos al correo
+                <b>ventas@codigofractal.com</b> mencionando su <b>ID de activación</b>.
+            </div>
+            <button class="btn btn-success btn-block btn-rounded" id="btn_aceptar">
+                <i class="fas fa-check"></i> Aceptar
+            </button>
+        </footer>
+
+        <!--scripts-->
+        <script src="cordova.js"></script>
+        <script src="scripts/platformOverrides.js"></script>
+
+        <!--MDB-->
+        <script src="plugins/MDBPro4.19.1/js/jquery.min.js"></script>
+        <script src="plugins/MDBPro4.19.1/js/popper.min.js"></script>
+        <script src="plugins/MDBPro4.19.1/js/bootstrap.min.js"></script>
+        <script src="plugins/MDBPro4.19.1/js/mdb.min.js"></script>
+        <script src="plugins/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="plugins/loadingOverlay/loadingoverlay.min.js"></script>
+        <script src="plugins/localStorageDB-master/localstoragedb.min.js"></script>
+        <script src="scripts/mscripts/general.js"></script>
+        <script src="scripts/mscripts/bd.js"></script>
+        <script src="scripts/mscripts/licencia.js"></script>
+        <script src="scripts/mscripts/panel_licencia_activa.js"></script>
+
+    </body>
+
+</html>

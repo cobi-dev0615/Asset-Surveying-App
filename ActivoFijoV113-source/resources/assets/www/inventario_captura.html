@@ -1,0 +1,801 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1,   width=device-width">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/mdb.lite.min.css">
+    <link rel="stylesheet" href="plugins/fontawesome-free-5.14.0-web/css/all.min.css">
+    <link rel="stylesheet" href="plugins/DataTables/datatables.min.css" />
+    <link rel="stylesheet" href="plugins/s2/select2.bundle.css" />
+    <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.bundle.css">
+
+    <!-- <link rel="stylesheet" href="plugins/select2/css/select2.css"> -->
+    <!-- <link rel="stylesheet" href="plugins/select2/css/select2-bootstrap.css"> -->
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="css/mycss/mscss.css" />
+    <style>
+    </style>
+    <title>Captura de inventario</title>
+</head>
+
+<body class="small cyan-skin">
+
+    <!--Navbar -->
+    <!-- <nav class="pl-2 pr-2 py-0 navbar elegant-color-dark lighten-1 text-center fixed-top">
+            <ul class="navbar-nav nav-flex-icons">
+                <li class="nav-item" id="btn_salir">
+                    <a class="nav-link waves-effect z-depth-0 btn btn-sm btn-floating m-1 p-0">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </li>
+            </ul>
+            <span class="navbar-text ml-auto white-text" id="lblTitulo">
+            </span>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item">
+                    <a class="nav-link waves-effect z-depth-0 btn btn-sm btn-floating m-1 p-0" data-toggle="modal"
+                        data-target="#modalOpcionesZ" id="btnOpcionesCaptura">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav> -->
+    <!--/.Navbar -->
+
+    <!--container-->
+    <div class="container-fluid pt-1">
+        <div class="row p-0">
+            <div class="col pt-0 pl-1 pr-1 pb-0">
+                <table id="tabla_campos" class="display compact w-100" border="0">
+                    <tr id="filaCategorias">
+                        <td>
+                            <div class="form-group mb-1">
+                                <label class="form-label m-0" for="selectCategoria">
+                                    Selecciona la categoría a inventariar
+                                </label>
+                                <select class="custom-select custom-select-sm" id="selectCategoria">
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="fila_ubicacion" hidden>
+                        <td>
+
+                            <div class="input-group mb-1">
+                                <input type="search" class="form-control"
+                                    placeholder="Ubicación/Marbete/Rack/Pallet/Tarima" autocomplete="off"
+                                    id="txt_ubicacion" value="A1">
+
+                                <button class="btn btn-sm btn-dark m-0 px-3" id="btn_buscar_0">
+                                    <i class="fa fa-check"></i> Aceptar
+                                </button>
+
+                            </div>
+
+                        </td>
+                    </tr>
+
+                    <tr id="fila_codigo">
+                        <td>
+                            <div class="input-group mb-1">
+                                <input type="search" class="form-control form-control-sm" placeholder="Código de activo"
+                                    autocomplete="off" id="txtCodigo">
+
+                                <div class="input-group-append" id="">
+                                    <button class="btn btn-sm btn-dark  m-0 px-3" id="btn_buscar_1">
+                                        <i class="fa fa-check"></i> Aceptar
+                                    </button>
+                                    <!-- <button class="btn btn-sm btn-outline-black m-0 px-3 z-depth-0 waves-effect"
+                                            id="btn_camara_0">
+                                            <i class="fas fa-camera fa-lg"></i>
+                                        </button> -->
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr id="seccionDescripcion" hidden>
+                        <td class="">
+                            <label class="text-primary font-weight-light" id="lbl_descripcion"></label>
+                        </td>
+                    </tr>
+
+                    <tr id="" hidden>
+                        <td class="">
+                            <label class="text-secondary font-weight-light" id=""></label>
+                        </td>
+                    </tr>
+
+                    <tr id="fila_caducidad" hidden>
+                        <td>
+                            <div class="input-group mb-1">
+                                <input type="search" class="form-control form-control-sm"
+                                    placeholder="Fecha de caducidad" autocomplete="off" id="txt_fecha_caducidad"
+                                    readonly>
+                                <div class="input-group-append" id="">
+                                    <button class="btn btn-sm btn-dark m-0 px-3" id="btn_buscar_3">
+                                        <i class="fa fa-check"></i> Aceptar
+                                    </button>
+
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+
+
+
+                </table>
+                <!-- <table id="tabla_datos" class="table table-striped table-bordered small" style="width:100%;">-->
+            </div>
+        </div>
+
+        <div class="row p-0">
+            <div class="col p-0">
+                <table id="tabla_datos" class="table nowrap row-border table-hover table-sm p-0 w-100">
+                </table>
+
+            </div>
+        </div>
+
+        <div class="row p-0">
+            <div class="col mb-5 p-0">
+                <table id="tablaTotales" border="0" class="w-100">
+                    <thead>
+                        <tr>
+                            <th width="50%"></th>
+                            <th width="50%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="2">
+                                <div class="text-danger" style="line-height: 0.8;">
+                                    <!-- <label id="lbl_conteo_total" class="">CONTEO TOTAL: <strong>0</strong></label>
+                                        <br />
+                                        <label id="lbl_importe_total" class="">VALOR DE INVENTARIO:
+                                            <strong>0</strong></label>
+                                        <br /> -->
+
+                                    <!-- <br />
+                                        <label id="lblTotalFactor" class="">TOTAL FACTOR: <strong>0</strong></label> -->
+
+                                </div>
+                            </td>
+                            <td id="td_lbl_tipo_conteo" class="text-right" style="line-height: 0.8;" hidden>
+
+                                <div class="col-auto">
+                                    <label class="font-weight-bold" for="chk_tipo_conteo">Conteo por unidad</label>
+                                    <!--<input type="checkbox" class="" id="chk_tipo_conteo" name="chk_tipo_conteo">-->
+
+                                    <div class="switch">
+                                        <label>
+                                            Off
+                                            <input type="checkbox" id="chk_tipo_conteo" name="chk_tipo_conteo">
+                                            <span class="lever"></span> On
+                                        </label>
+                                    </div>
+
+                                </div>
+
+
+                            </td>
+                        </tr>
+
+
+
+                    </tbody>
+                </table>
+
+                <!-- -->
+                <!--/Tabla productos-->
+            </div>
+        </div>
+
+
+
+    </div>
+    <!--Código forzado-->
+    <div class="modal fade" id="modalRegistro" role="dialog" aria-labelledby="modal_titulo" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-full-width" role="document">
+
+            <!--Content-->
+            <div class="modal-content modal-content-full-width">
+                <!--Header-->
+                <div class="modal-header modal-header-full-width py-2">
+                    <h6 class="modal-title" id="lblTituloFormulario">
+                        REGISTRO DE ACTIVO NUEVO
+                    </h6>
+                </div>
+                <!--Body-->
+                <div class="modal-body" id="formRegistro">
+
+                    <div class="form-group mb-2">
+                        <label class="form-label m-0" for="txtCodigo1Forzado">NÚMERO DE ACTIVO </label>
+                        <input type="search" class="form-control form-control-sm" id="txtCodigo1Forzado">
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label class="form-label m-0" for="txtCodigo2Forzado">
+                            NÚMERO DE TAG
+                        </label>
+                        <input type="search" class="form-control form-control-sm" id="txtCodigo2Forzado" readonly>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label class="form-label m-0 text-danger" for="txtCodigo3Forzado">CÓDIGO DE TAG NUEVO</label>
+                        <input type="search" class="form-control form-control-sm" id="txtCodigo3Forzado">
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label class="form-label m-0" for="txtNSerieViejo">
+                            NÚMERO DE SERIE ACTUAL
+                        </label>
+                        <input type="search" class="form-control form-control-sm" id="txtNSerieViejo" readonly>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <!-- <i class="fa fa-barcode"></i>  -->
+                        <label for="txtNSerieForzado" class="mb-0" id="lblNumeroSerie">
+                            NÚMERO DE SERIE REVISADO
+                        </label>
+                        <div class="input-group mb-1">
+                            <input type="search" class="form-control form-control-sm" placeholder="" autocomplete="off"
+                                id="txtNSerieForzado">
+                            <div class="input-group-append" id="" hidden>
+                                <button class="btn btn-sm btn-outline-primary m-0 px-3 z-depth-0 waves-effect"
+                                    id="btnCamaraNSerie">
+                                    <i class="fas fa-barcode fa-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label class="form-label m-0" for="txtCategoriaForzado">
+                            CATEGORÍA
+                        </label>
+                        <select class="custom-select custom-select-sm" id="txtCategoriaForzado">
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label class="form-label m-0" for="selectMarca">
+                            MARCA
+                        </label>
+                        <select class="select2 form-control w-100" id="selectMarca">
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label for="txtDescripcionForzado" class="form-label m-0 text-danger">DESCRIPCIÓN DEL
+                            ACTIVO</label>
+                        <textarea class="form-control form-control-sm" id="txtDescripcionForzado" rows="2"
+                            data-inline="true" placeholder="" required></textarea>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label for="txtObservaciones" class="form-label m-0">COMENTARIOS</label>
+                        <textarea class="form-control form-control-sm" id="txtObservaciones" rows="2" data-inline="true"
+                            placeholder=""></textarea>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label class="form-label m-0 text-danger" for="txtCantidad">
+                            UNIDADES
+                        </label>
+                        <input type="number" class="form-control form-control-sm" id="txtCantidad" value="0">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="view" id="btnCamaraFoto1">
+                                    <img src="images/bg-black.png" class="img-thumbnail w-100" alt="" id="picFoto1">
+                                    <div class="mask flex-center waves-effect waves-light rgba-teal-slight">
+                                        <i class="fas fa-camera fa-3x text-white"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="view" id="btnCamaraFoto2">
+                                    <img src="images/bg-black.png" class="img-thumbnail w-100" alt="" id="picFoto2">
+                                    <div class="mask flex-center waves-effect waves-light rgba-teal-slight">
+                                        <i class="fas fa-camera fa-3x text-white"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="view" id="btnCamaraFoto3">
+                                    <img src="images/bg-black.png" class="img-thumbnail w-100" alt="" id="picFoto3">
+                                    <div class="mask flex-center waves-effect waves-light rgba-teal-slight">
+                                        <i class="fas fa-camera fa-3x text-white"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                        </div>
+                    </div>
+
+                    <!-- <button class="btn btn-dark btn-block btn-md mb-3" id="btnAceptarForzado">
+                        <i class="fa fa-check"></i> Aceptar
+                    </button>
+                    <button class="btn btn-warning btn-block btn-md" id="btnCancelarForzado" data-dismiss="modal">
+                        <i class="fas fa-chevron-left"></i> Cancelar
+                    </button> -->
+
+                </div>
+                <!--Footer-->
+                <div class="modal-footer modal-footer-full-width">
+                    <button class="btn btn-dark btn-block btn-md mb-3" id="btnAceptarForzado">
+                        <i class="fa fa-check"></i> Aceptar
+                    </button>
+                    <button class="btn btn-warning btn-block btn-md" id="btnCancelarForzado" data-dismiss="modal">
+                        <i class="fas fa-chevron-left"></i> Cancelar
+                    </button>
+                </div>
+                <!--Footer-->
+            </div>
+            <!--/.Content-->
+
+        </div>
+    </div>
+    <!---->
+    <!--Números serie-->
+    <div class="modal fade" id="modal_n_series" tabindex="-1" role="dialog" aria-labelledby="modal_titulo"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-full-width" role="document">
+
+            <!--Content-->
+            <div class="modal-content modal-content-full-width">
+                <!--Header-->
+                <div class="modal-header modal-header-full-width">
+                    <h6 class="modal-title">
+                        <i class="fa fa-barcode"></i> Capture los números de serie
+                    </h6>
+                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>-->
+                </div>
+                <!--Body-->
+                <div class="modal-body p-1">
+
+                    <div class="input-group mb-1">
+                        <input type="search" class="form-control form-control-sm" placeholder="Número de serie..."
+                            autocomplete="off" id="txt_sn">
+                        <div class="input-group-append" id="">
+                            <button class="btn btn-sm btn-dark  m-0 px-3" id="btnAceptarSerie">
+                                <i class="fa fa-check"></i> Aceptar
+                            </button>
+
+                        </div>
+                    </div>
+
+
+
+                    <label id="lbl_total_n_series" class="text-danger font-weight-bold m-1">0</label>
+                    <!--<div style="width: 100%; height: 200px; overflow: auto">-->
+                    <table id="tabla_n_series" class="table nowrap table-striped table-bordered table-hover table-sm"
+                        cellspacing="0" style="width:100%;">
+                        <thead>
+                            <tr class="elegant-color-dark text-white">
+                                <th width="80%">Número de serie</th>
+                                <th width="20%"><i class="fa fa-close"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody class="ui-bar-a"></tbody>
+                    </table>
+                    <!--</div>-->
+                </div>
+                <!--Footer-->
+                <div class="modal-footer modal-footer-full-width p-2">
+                    <button class="btn btn-amber btn-md" id="btn_cancelar_n_series" data-dismiss="modal">
+                        <i class="fas fa-chevron-left"></i> Cancelar
+                    </button>
+                    <button class="btn btn-dark  btn-md" id="btn_aceptar_n_series">
+                        <i class="fa fa-check"></i> Aceptar
+                    </button>
+
+                </div>
+                <!--Footer-->
+            </div>
+            <!--/.Content-->
+
+        </div>
+    </div>
+    <!---->
+    <!--Menú de opciones-->
+    <div class="modal fade" id="modalOpciones" tabindex="-1" role="dialog" aria-labelledby="modal_titulo"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-full-width" role="document">
+
+            <!--Content-->
+            <div class="modal-content modal-content-full-width">
+                <!--Header-->
+                <div class="modal-header modal-header-full-width">
+                    <h6 class="modal-title">
+                        <i class="fa fa-gears"></i> Menú de opciones
+                    </h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!--Body-->
+                <div class="modal-body p-0">
+
+                    <!-- List group -->
+                    <div class="list-group">
+
+                        <!-- Item -->
+                        <a id="BtnModalCatalogo"
+                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center waves-effect"
+                            hidden>
+                            <div>
+                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                    <h6><i class="fas fa-search"></i> Buscar producto desde catálogo</h6>
+                                </div>
+                                <p class="mb-1 text-secondary">
+                                    Permite buscar productos por descripción desde el catálogo
+                                </p>
+                            </div>
+                            <i class="fas fa-chevron-right fa-2x"></i>
+                        </a>
+                        <!-- Item -->
+
+                        <!-- Item -->
+                        <a id="btnOpcionesCaptura1"
+                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center waves-effect">
+                            <div>
+                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                    <h6><i class="fa fa-barcode"></i> Opciones de captura</h6>
+                                </div>
+                                <p class="mb-1 text-secondary">
+                                    Permite personalizar varias opciones para la toma adecuada de su inventario
+                                </p>
+                            </div>
+
+                            <i class="fas fa-chevron-right fa-2x"></i>
+                        </a>
+                        <!-- Item -->
+                        <a id="btnExportar"
+                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center waves-effect"
+                            hidden>
+                            <div>
+                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                    <h6><i class="fas fa-share-alt"></i> Exportar reporte a detalle</h6>
+                                </div>
+                                <p class="mb-1 text-secondary">
+                                    Se exporta el reporte a detalle de todo el inventario capturado
+                                </p>
+                            </div>
+                            <i class="fas fa-chevron-right fa-2x"></i>
+                        </a>
+                        <!-- Item -->
+                        <a id="btn_imprimir"
+                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center waves-effect"
+                            hidden>
+                            <div>
+                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                    <h6><i class="fa fa-print"></i> Imprimir reporte de ubicación</h6>
+                                </div>
+                                <p class="mb-1 text-secondary">
+                                    Permite imprimir un ticket con un reporte del inventario capturado en la
+                                    ubicación actual
+                                </p>
+                            </div>
+
+                            <i class="fas fa-chevron-right fa-2x"></i>
+                        </a>
+
+                        <!-- Item -->
+                        <!-- Item -->
+                        <a id="btn_eliminar"
+                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center waves-effect"
+                            hidden>
+                            <div>
+                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                    <h6><i class="fa fa-trash"></i> Eliminar registro seleccionado</h6>
+                                </div>
+                                <p class="mb-1 text-secondary">
+                                    Permite eliminar el registro seleccionado
+                                </p>
+                            </div>
+
+                            <i class="fas fa-chevron-right fa-2x"></i>
+                        </a>
+                        <!-- Item -->
+                        <!-- Item -->
+                        <a id="btnOpcionEliminarUbicacion"
+                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center waves-effect"
+                            hidden>
+                            <div>
+                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                    <h6><i class="fa fa-th-large"></i> Eliminar ubicación</h6>
+                                </div>
+                                <p class="mb-1 text-secondary">
+                                    Permite eliminar todos los registros de una ubicación completa
+                                </p>
+                            </div>
+
+                            <i class="fas fa-chevron-right fa-2x"></i>
+                        </a>
+                        <!-- Item -->
+
+
+                    </div>
+                    <!-- List group -->
+
+                </div>
+                <!--Footer-->
+                <div class="modal-footer modal-footer-full-width p-2">
+                    <div class="form-group">
+
+                    </div>
+                </div>
+                <!--Footer-->
+            </div>
+            <!--/.Content-->
+
+        </div>
+    </div>
+
+    <!---->
+    <!--Opciones de captura-->
+    <div class="modal fade" id="modalOpcionesLectura" tabindex="-1" role="dialog" aria-labelledby="modal_titulo"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-full-width" role="document">
+
+            <!--Content-->
+            <div class="modal-content modal-content-full-width">
+                <!--Header-->
+                <div class="modal-header modal-header-full-width">
+                    <h6 class="modal-title">
+                        <i class="fa fa-barcode"></i> Opciones de captura
+                    </h6>
+                    <!--
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    -->
+                </div>
+                <!--Body-->
+                <div class="modal-body p-0">
+
+                    <div class="list-group">
+
+                        <!-- Item -->
+                        <!-- <a id=""
+                                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center waves-effect">
+                                <div>
+                                    <div class="d-flex w-100 justify-content-between align-items-center">
+                                        <h6>Validar catálogo de productos</h6>
+                                    </div>
+                                    <label for="chkValidarCatalogo" class="mb-1 text-secondary">
+                                        Permite validar el catálogo de productos al realizar el conteo de inventario.
+                                    </label>
+                                </div>
+                                <div>
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" id="chkValidarCatalogo" name="chkValidarCatalogo">
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </a> -->
+
+                        <a id=""
+                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center waves-effect">
+                            <div>
+                                <h6>Permitir códigos forzados</h6>
+                                <label for="chk_forzados" class="mb-1 text-secondary">
+                                    Permite forzar la captura de productos que no se encuentren en el catálogo de
+                                    productos
+                                </label>
+                            </div>
+                            <div>
+                                <!--<input type="checkbox" class="" id="chk_forzados" name="chk_forzados">-->
+                                <div class="switch">
+                                    <label>
+
+                                        <input type="checkbox" id="chk_forzados" name="chk_forzados">
+                                        <span class="lever"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- <a id=""
+                                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center waves-effect"
+                                hidden>
+                                <div>
+                                    <h6>Capturar número de lote</h6>
+                                    <label for="chk_lotes" class="mb-1 text-secondary">Permite capturar el número de
+                                        lote de los productos.</label>
+                                </div>
+                                <div>
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" id="chk_lotes" name="chk_lotes">
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </a> -->
+
+                        <!-- <a id=""
+                                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center waves-effect"
+                                hidden>
+                                <div>
+                                    <h6>Capturar fecha de caducidad</h6>
+                                    <label for="chk_caducidad" class="mb-1 text-secondary">Permite capturar la fecha de
+                                        caducidad de los productos.</label>
+                                </div>
+                                <div>
+                                    <div class="switch">
+                                        <label>
+
+                                            <input type="checkbox" id="chk_caducidad" name="chk_caducidad">
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </a> -->
+
+                        <!-- <a id=""
+                                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center waves-effect"
+                                hidden>
+                                <div>
+                                    <h6 for="chk_n_series">Capturar productos con número de serie</h6>
+                                    <label for="chk_n_series" class="mb-1 text-secondary">Permite capturar productos con
+                                        números de serie y guardarlos de manera unitaria.</label>
+                                </div>
+                                <div>
+                                    <div class="switch">
+                                        <label>
+
+                                            <input type="checkbox" id="chk_n_series" name="chk_n_series">
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </a> -->
+
+                        <!-- <a id=""
+                                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center waves-effect"
+                                hidden>
+                                <div>
+                                    <h6>Capturar cantidades negativas</h6>
+
+                                    <label for="chk_cant_negativa" class="mb-1 text-secondary">Permite capturar
+                                        cantidades menores a cero.</label>
+                                </div>
+                                <div>
+                                    <div class="switch">
+                                        <label>
+
+                                            <input type="checkbox" id="chk_cant_negativa" name="chk_cant_negativa">
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </a> -->
+
+                        <!-- <a id=""
+                                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center waves-effect"
+                                hidden>
+                                <div>
+                                    <h6>Capturar cantidades en cero</h6>
+                                    <label for="chk_cant_cero" class="mb-1 text-secondary">Permite productos sin
+                                        existencia.</label>
+                                </div>
+                                <div>
+                                    <div class="switch">
+                                        <label>
+
+                                            <input type="checkbox" id="chk_cant_cero" name="chk_cant_cero">
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </a> -->
+
+                        <a id=""
+                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center waves-effect">
+                            <div>
+                                <h6>Capturar las coordenadas de las lecturas</h6>
+                                <label for="chkGPS" class="mb-1 text-secondary">
+                                    Permite capturar la latitud y longitud de la ubicación de los productos.
+                                    <br />
+                                    <span class="text-danger">
+                                        <i class="fas fa-exclamation-triangle"></i> Se requiere encender el GPS del
+                                        dispositivo.
+                                    </span>
+                                </label>
+                                <!--<label for="chkGPS" class="text-danger small">Se requieren permisos de acceso a ubicación y la activación del GPS del dispositivo.</label>-->
+                            </div>
+                            <div>
+                                <!--<input type="checkbox" class="" id="chkGPS" name="chkGPS">-->
+                                <div class="switch">
+                                    <label>
+
+                                        <input type="checkbox" id="chkGPS" name="chkGPS">
+                                        <span class="lever"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+
+                </div>
+                <!--Footer-->
+                <div class="modal-footer modal-footer-full-width p-2">
+
+                    <!--<button class="btn btn-warning" id="" >
+                    <i class="fas fa-chevron-left"></i> Cancelar
+                    </button>-->
+
+                    <button class="btn btn-sm btn-dark  text-white" id="btnAceptarOpcionesLectura" data-dismiss="modal">
+                        <i class="fa fa-check"></i> Aceptar
+                    </button>
+
+                </div>
+                <!--Footer-->
+            </div>
+            <!--/.Content-->
+
+        </div>
+    </div>
+    <!---->
+
+
+
+    <!--footer-->
+    <footer id="footer" class="fixed-bottom bg-white border-top shadow-sm p-1">
+        <h6 id="lbl_n_filas" class="text-danger"></h6>
+    </footer>
+
+    <!--scripts-->
+    <script src="cordova.js"></script>
+    <script src="scripts/platformOverrides.js"></script>
+
+    <!--MDB-->
+    <script src="plugins/MDBPro4.19.1/js/jquery.min.js"></script>
+    <script src="plugins/MDBPro4.19.1/js/popper.min.js"></script>
+    <script src="plugins/MDBPro4.19.1/js/bootstrap.min.js"></script>
+    <script src="plugins/MDBPro4.19.1/js/mdb.lite.min.js"></script>
+    <script src="plugins/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="plugins/sweetalert2/sweetalert2.bundle.js"></script>
+
+    <script src="plugins/loadingOverlay/loadingoverlay.min.js"></script>
+    <script src="plugins/DataTables/datatables.min.js"></script>
+    <script src="plugins/DataTables/sum().js"></script>
+    <script src="plugins/DataTables/Select-1.3.0/js/dataTables.select.min.js"></script>
+    <script src="plugins/DataTables/fnGetColumnData.js"></script>
+    <!-- <script src="plugins/select2/js/select2.min.js"></script> -->
+    <script src="plugins/s2/select2.bundle.js"></script>
+    <script src="plugins/localStorageDB-master/localstoragedb.min.js"></script>
+    <script src="plugins/alasql/alasql.min.js"></script>
+    <script src="scripts/mscripts/sha256.js"></script>
+    <script src="scripts/mscripts/general.js"></script>
+    <script src="scripts/mscripts/bd.js"></script>
+    <script src="scripts/mscripts/licencia.js"></script>
+    <script src="scripts/mscripts/bluetooth.js"></script>
+    <script src="scripts/mscripts/gps.js"></script>
+    <script src="scripts/mscripts/inventario_captura.js"></script>
+
+</body>
+
+</html>

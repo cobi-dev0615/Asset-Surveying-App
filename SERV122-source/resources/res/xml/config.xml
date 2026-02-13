@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:xyxrgf="http://www.w3.org/ns/widgets"
+    id="cf.ser.ssm"
+    version="1.2.2">
+    <feature name="BluetoothSerial">
+        <param
+            name="android-package"
+            value="com.megster.cordova.BluetoothSerial"/>
+    </feature>
+    <feature name="Device">
+        <param
+            name="android-package"
+            value="org.apache.cordova.device.Device"/>
+    </feature>
+    <feature name="Notification">
+        <param
+            name="android-package"
+            value="org.apache.cordova.dialogs.Notification"/>
+    </feature>
+    <feature name="File">
+        <param
+            name="android-package"
+            value="org.apache.cordova.file.FileUtils"/>
+        <param
+            name="onload"
+            value="true"/>
+    </feature>
+    <allow-navigation href="cdvfile:*"/>
+    <feature name="Geolocation">
+        <param
+            name="android-package"
+            value="org.apache.cordova.geolocation.Geolocation"/>
+    </feature>
+    <feature name="Media">
+        <param
+            name="android-package"
+            value="org.apache.cordova.media.AudioHandler"/>
+    </feature>
+    <feature name="NavigationBar">
+        <param
+            name="android-package"
+            value="com.viniciusfagundes.cordova.plugin.navigationbar.NavigationBar"/>
+        <param
+            name="onload"
+            value="true"/>
+    </feature>
+    <feature name="SplashScreen">
+        <param
+            name="android-package"
+            value="org.apache.cordova.splashscreen.SplashScreen"/>
+        <param
+            name="onload"
+            value="true"/>
+    </feature>
+    <feature name="StatusBar">
+        <param
+            name="android-package"
+            value="org.apache.cordova.statusbar.StatusBar"/>
+        <param
+            name="onload"
+            value="true"/>
+    </feature>
+    <feature name="Toast">
+        <param
+            name="android-package"
+            value="nl.xservices.plugins.Toast"/>
+    </feature>
+    <feature name="SQLitePlugin">
+        <param
+            name="android-package"
+            value="io.sqlc.SQLitePlugin"/>
+    </feature>
+    <feature name="InAppBrowser">
+        <param
+            name="android-package"
+            value="org.apache.cordova.inappbrowser.InAppBrowser"/>
+    </feature>
+    <name>SER Inventarios
+    </name>
+    <description>App para toma de inventario personalizada para la empresa SER
+    </description>
+    <author
+        email="dev@cordova.apache.org"
+        href="http://cordova.io">Código Fractal by @marcxploit
+    </author>
+    <content src="index.html"/>
+    <access origin="*"/>
+    <allow-navigation href="*"/>
+    <allow-intent href="*"/>
+    <allow-intent href="http://*/*"/>
+    <allow-intent href="https://*/*"/>
+    <allow-intent href="tel:*"/>
+    <allow-intent href="sms:*"/>
+    <allow-intent href="mailto:*"/>
+    <allow-intent href="geo:*"/>
+    <access
+        allows-arbitrary-loads-for-media="true"
+        allows-arbitrary-loads-in-web-content="true"
+        allows-local-networking="true"
+        origin="*"/>
+    <allow-intent href="market:*"/>
+    <icon
+        density="ldpi"
+        src="res/icons/android/icon-36-ldpi.png"/>
+    <icon
+        density="mdpi"
+        src="res/icons/android/icon-48-mdpi.png"/>
+    <icon
+        density="hdpi"
+        src="res/icons/android/icon-72-hdpi.png"/>
+    <icon
+        density="xhdpi"
+        src="res/icons/android/icon-96-xhdpi.png"/>
+    <splash
+        density="land-hdpi"
+        src="res/screens/android/screen-hdpi-landscape.png"/>
+    <splash
+        density="land-ldpi"
+        src="res/screens/android/screen-ldpi-landscape.png"/>
+    <splash
+        density="land-mdpi"
+        src="res/screens/android/screen-mdpi-landscape.png"/>
+    <splash
+        density="land-xhdpi"
+        src="res/screens/android/screen-xhdpi-landscape.png"/>
+    <splash
+        density="port-hdpi"
+        src="res/screens/android/screen-hdpi-portrait.png"/>
+    <splash
+        density="port-ldpi"
+        src="res/screens/android/screen-ldpi-portrait.png"/>
+    <splash
+        density="port-mdpi"
+        src="res/screens/android/screen-mdpi-portrait.png"/>
+    <splash
+        density="port-xhdpi"
+        src="res/screens/android/screen-xhdpi-portrait.png"/>
+    <preference
+        name="loglevel"
+        value="DEBUG"/>
+    <preference
+        name="StatusBarOverlaysWebView"
+        value="false"/>
+    <preference
+        name="android-minSdkVersion"
+        value="21"/>
+    <preference
+        name="android-maxSdkVersion"
+        value="33"/>
+    <preference
+        name="android-targetSdkVersion"
+        value="30"/>
+    <preference
+        name="Orientation"
+        value="portrait"/>
+    <preference
+        name="NavigationBarBackgroundColor"
+        value="#212121"/>
+    <preference
+        name="StatusBarBackgroundColor"
+        value="#212121"/>
+    <preference
+        name="Fullscreen"
+        value="false"/>
+    <preference
+        name="AndroidPersistentFileLocation"
+        value="Internal"/>
+    <preference
+        name="ShowSplashScreenSpinner"
+        value="false"/>
+    <preference
+        name="AndroidInsecureFileModeEnabled"
+        value="true"/>
+    <preference
+        name="resizeOnFullScreen"
+        value="false"/>
+    <preference
+        name="scheme"
+        value="http"/>
+    <preference
+        name="Scheme"
+        value="https"/>
+    <preference
+        name="usesCleartextTraffic"
+        value="true"/>
+</widget>

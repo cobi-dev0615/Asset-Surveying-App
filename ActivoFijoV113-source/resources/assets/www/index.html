@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+    <!-- Bootstrap core CSS -->
+    <!-- MDB CSS -->
+    <link rel="stylesheet" href="plugins/fontawesome-free-5.14.0-web/css/all.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/mdb.lite.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/style.css">
+    <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.bundle.css">
+    <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="plugins/select2/css/select2-bootstrap.min.css">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="css/mycss/mscss.css">
+    <style>
+    </style>
+    <title>Login</title>
+</head>
+
+<body>
+
+    <!--Navbar -->
+    <nav class="pl-2 pr-2 py-0 navbar elegant-color-dark lighten-1 text-center fixed-top">
+        <ul class="navbar-nav nav-flex-icons">
+            <!-- <li class="nav-item" id="btnRegresar">
+                    <a class="nav-link waves-effect z-depth-0 btn btn-sm btn-floating m-1 p-0">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </li> -->
+        </ul>
+        <span class="navbar-text ml-auto white-text" id="">ACTIVO FIJO</span>
+        <ul class="navbar-nav ml-auto nav-flex-icons">
+            <!-- <li class="nav-item">
+                    <a class="nav-link waves-effect z-depth-0 btn btn-sm btn-floating m-1 p-0">
+                        &nbsp;
+                    </a>
+                </li> -->
+        </ul>
+    </nav>
+    <!--/.Navbar -->
+
+    <div class="container-fluid mt-5 mb-5">
+        <p class="text-center">
+            <img src="images/logo.png" width="196" title="logo" />
+        </p>
+        <form id="formLogin" onsubmit="return false" autocomplete="off">
+            <div class="form-group">
+                <i class="fa fa-building"></i> <label class="form-label" for="txtEmpresas">Selecciona la empresa a
+                    consultar</label>
+                <select class="custom-select" id="txtEmpresas">
+                </select>
+            </div>
+            <!-- <div class="form-group">
+                    <i class="fa fa-warehouse"></i> <label class="form-label" for="comboInventarios">Selecciona la
+                        sucursal a consultar</label>
+                    <select class="custom-select" id="comboInventarios">
+                    </select>
+                </div> -->
+            <div class="md-form md-outline input-with-pre-icon">
+                <i class="fas fa-user input-prefix"></i>
+                <input type="text" id="txtUsuario" class="form-control form-control-lg">
+                <label for="txtUsuario">
+                    Usuario
+                </label>
+            </div>
+            <div class="md-form md-outline input-with-pre-icon">
+                <i class="fas fa-key input-prefix"></i>
+                <input type="password" id="txtPassword" class="form-control form-control-lg">
+                <label for="txtPassword">
+                    Contraseña
+                </label>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-elegant btn-block btn-rounded" id="btnLogin">
+                    <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+                </button>
+            </div>
+            <div id="lblMensaje"></div>
+        </form>
+
+
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal_info" tabindex="-1" role="dialog" aria-labelledby="modal_titulo"
+        aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+
+            <!--Content-->
+            <div class="modal-content">
+                <!--Header-->
+                <!--<div class="modal-header">
+                    <p class="heading lead" id="lbl_info_header"><i class="fa fa-info-circle"></i> Acerca de </p>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                    </button>
+                </div>-->
+                <!--Body-->
+                <div class="modal-body">
+                    <div class="text-center">
+
+                        <p><i class="fas fa-wifi"></i>
+                            Conexión de servidor
+
+                            <input type="search" class="form-control" name="" id="txtServidor" value="">
+                        <div class="alert alert-warning small">
+                            Cambiar la información de conexión puede ocasionar el mal funcionamiento de la
+                            aplicación.
+                        </div>
+                        </p>
+
+                        <button class="btn btn-elegant btn-md btn-rounded" id="btnAceptarConexion">
+                            <i class="fa fas-check"></i> Aceptar</button>
+
+                    </div>
+                </div>
+
+                <!--Footer-->
+                <!--<div class="modal-footer justify-content-center">
+                    <button class="btn btn-elegant " data-dismiss="modal"><i class="fa fa-check"></i> Aceptar</button>
+                </div>-->
+            </div>
+            <!--/.Content-->
+
+        </div>
+    </div>
+
+    <!-- modal sucursal -->
+    <!-- <div class="modal fade" id="modalInventarios" tabindex="-1" role="dialog" aria-labelledby="modal_titulo"
+        aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="text-center">
+                        <div class="form-group">                            
+                            <select class="select2 form-control w-100" id="comboInventarios">
+                            </select>
+                        </div>
+                        <div id="lblMensaje2"></div>
+                    </div>
+
+                </div>
+          
+                <div class="modal-footer d-flex">
+                    <button class="btn btn-light btn-md btn-rounded" id="" data-dismiss="modal">
+                        <i class="fas fa-undo"></i> Cancelar</button>
+                    <button class="btn btn-elegant btn-md btn-rounded" id="btnAceptarInventario">
+                        <i class="fas fa-paper-plane"></i> Entrar</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="modal fade" id="modalInventarios" tabindex="1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title" id="lblAccionRegistro">
+                        Selecciona el inventario que deseas consultar
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="alert alert-warning" role="alert" hidden>
+                        <h4 class="alert-heading">¡Atención!</h4>
+                        <p class=""></p>
+                    </div>
+
+                    <form onsubmit="return false" id="formRegistro" autocomplete="off">
+
+
+                        <div class="form-group">
+                            <!-- <label class="form-label text-danger" for="comboInventarios">Selecciona los inventarios a
+                        los que el usuario tendrá acceso </label> -->
+                            <select class="select2 form-control w-100" id="comboInventarios">
+                            </select>
+                        </div>
+                        <div id="lblMensaje2"></div>
+
+                    </form>
+
+
+
+                </div>
+                <div class="modal-footer d-flex">
+
+                    <button class="btn btn-success btn-block mb-2" id="btnAceptarInventario">
+                        <i class="fas fa-check"></i> Aceptar
+                    </button>
+
+                    <button class="btn btn-warning btn-block" id="" data-dismiss="modal">
+                        <i class="fas fa-chevron-left"></i> Regresar
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /modal sucursal -->
+
+    <footer id="footer" class="navbar fixed-bottom bg-white border-top shadow-sm py-0">
+
+        <h6 class="mt-2 mb-2 text-muted text-center">
+            <small id="lbl_footer">
+            </small>
+        </h6>
+
+        <button class="btn btn-sm btn-elegant btn-rounded" id="" data-toggle="modal" data-target="#modal_info">
+            <i class="fa fa-wifi"></i> Conexión
+        </button>
+
+    </footer>
+
+    <!--scripts-->
+    <script src="cordova.js"></script>
+    <script src="scripts/platformOverrides.js"></script>
+
+    <!--MDB-->
+    <script src="plugins/MDBPro4.19.1/js/jquery.min.js"></script>
+    <script src="plugins/MDBPro4.19.1/js/popper.min.js"></script>
+    <script src="plugins/MDBPro4.19.1/js/bootstrap.min.js"></script>
+    <script src="plugins/MDBPro4.19.1/js/mdb.lite.min.js"></script>
+    <script src="plugins/sweetalert2/sweetalert2.bundle.js"></script>
+    <script src="plugins/select2/js/select2.min.js"></script>
+    <script src="plugins/loadingOverlay/loadingoverlay.min.js"></script>
+    <script src="plugins/localStorageDB-master/localstoragedb.min.js"></script>
+    <script src="scripts/mscripts/sha256.js"></script>
+    <script src="scripts/mscripts/general.js"></script>
+    <script src="scripts/mscripts/bd.js"></script>
+    <!-- <script src="scripts/mscripts/licencia.js"></script> -->
+    <script src="scripts/mscripts/index.js"></script>
+
+    <script>
+
+    </script>
+
+</body>
+
+</html>

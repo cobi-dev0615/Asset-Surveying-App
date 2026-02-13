@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:state_checked="true"
+        android:id="@+id/ic_checkbox_indeterminate"
+        android:drawable="@drawable/dxe_checkbox_indeterminate"
+        app:state_indeterminate="true"/>
+    <item
+        android:state_checked="true"
+        android:id="@+id/ic_checkbox_checked"
+        android:drawable="@drawable/dxe_checkbox_checked"/>
+    <item
+        android:id="@+id/ic_checkbox_unchecked"
+        android:drawable="@drawable/dxe_checkbox_unchecked"/>
+    <transition
+        android:drawable="@drawable/dxe_checkbox_unchecked_to_checked"
+        android:toId="@+id/ic_checkbox_checked"
+        android:fromId="@+id/ic_checkbox_unchecked"/>
+    <transition
+        android:drawable="@drawable/dxe_checkbox_unchecked_to_indeterminate"
+        android:toId="@+id/ic_checkbox_indeterminate"
+        android:fromId="@+id/ic_checkbox_unchecked"/>
+    <transition
+        android:drawable="@drawable/dxe_checkbox_checked_to_unchecked"
+        android:toId="@+id/ic_checkbox_unchecked"
+        android:fromId="@+id/ic_checkbox_checked"/>
+    <transition
+        android:drawable="@drawable/dxe_checkbox_checked_to_indeterminate"
+        android:toId="@+id/ic_checkbox_indeterminate"
+        android:fromId="@+id/ic_checkbox_checked"/>
+    <transition
+        android:drawable="@drawable/dxe_checkbox_indeterminate_to_unchecked"
+        android:toId="@+id/ic_checkbox_unchecked"
+        android:fromId="@+id/ic_checkbox_indeterminate"/>
+    <transition
+        android:drawable="@drawable/dxe_checkbox_indeterminate_to_checked"
+        android:toId="@+id/ic_checkbox_checked"
+        android:fromId="@+id/ic_checkbox_indeterminate"/>
+</animated-selector>

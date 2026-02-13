@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content=" initial-scale=1,  width=device-width">
+
+    <!-- MDB CSS -->
+    <link rel="stylesheet" href="plugins/fontawesome-free-5.14.0-web/css/all.min.css">
+    <!---->
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/mdb.lite.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/style.css">
+
+    <link rel="stylesheet" href="plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="plugins/select2/css/select2-bootstrap.css">
+    <link rel="stylesheet" href="css/mycss/mscss.css">
+    <!-- Custom styles for this template -->
+    <style></style>
+    <title>Ubicación</title>
+</head>
+
+<body class="">
+
+    <!--Navbar -->
+    <nav class="pl-2 pr-2 py-0 navbar elegant-color-dark lighten-1 text-center fixed-top">
+        <ul class="navbar-nav nav-flex-icons">
+            <li class="nav-item" id="btnRegresar">
+                <a class="nav-link waves-effect z-depth-0 btn btn-sm btn-floating m-1 p-0">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </li>
+        </ul>
+        <span class="navbar-text ml-auto white-text"><i class="fa fa-barcode"></i> Conteo de inventario</span>
+        <ul class="navbar-nav ml-auto nav-flex-icons">
+            <li class="nav-item">
+                <a class="nav-link waves-effect z-depth-0 btn btn-sm btn-floating m-1 p-0">
+                    &nbsp;
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!--/.Navbar -->
+    <!--header-->
+    <!--<header class="fixed-top border-bottom shadow-sm cyan text-white">
+        <h6 class="mt-2 mb-2 text-center" id="">
+            <i class="fa fa-barcode"></i> Conteo de inventario
+        </h6>
+    </header>-->
+    <!--container-->
+    <div class="container-fluid py-5">
+
+        <div class="form-group">
+            <label for="txt_usuario" class="small">
+                <i class="fa fa-user"></i> Capture el nombre del usuario que realiza la toma de inventario.
+            </label>
+            <input type="search" class="form-control" id="txt_usuario" aria-describedby="" placeholder=""
+                autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="txt_almacen" class="small">
+                <i class="fas fa-warehouse"></i> Capture el nombre del almacén, bodega, sucursal, tienda o
+                departamento donde se realizará la toma de inventario.
+            </label>
+            <!--<input type="text" class="form-control" id="txt_almacen" aria-describedby="" placeholder="" autocomplete="off">-->
+            <select name="txt_almacen" id="txt_almacen" class="form-control" style="width: 100%;"></select>
+        </div>
+
+        <div class="form-group">
+            <label for="txtNConteo" class="small">
+                <i class="fa fa-info"></i> Número de conteo.
+            </label>
+            <select class="browser-default custom-select" id="txtNConteo">
+                <option value="1">1</option>
+                <option value="2">2</option>
+            </select>
+        </div>
+
+
+        <button class="btn btn-dark  btn-block text-white" id="btn_iniciar_conteo">
+            <i class="fa fa-barcode me-2"></i> INICIAR CONTEO DE INVENTARIO
+        </button>
+        <label id="mensaje" class="not-displayed"></label>
+
+    </div>
+
+    
+    <div class="modal fade" id="modalUbicaciones" tabindex="-1" role="dialog" aria-labelledby="modal_titulo"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-full-width" role="document">
+
+            <!--Content-->
+            <div class="modal-content modal-content-full-width">
+                <!--Header-->
+                <div class="modal-header modal-header-full-width p-1">
+                    <h6 class="modal-title small text-danger text-center">
+                        Encontré inventario capturado en las siguientes ubicaciones, seleccione una si desea
+                        continuarla o de clic en el botón <strong>Siguiente</strong> si desea iniciar una ubicación
+                        diferente.
+
+                    </h6>
+
+                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>-->
+
+                </div>
+                <!--Body-->
+                <div class="modal-body p-0">
+
+                    <div class="list-group" id="listaUbicaciones">
+                        <a href="#"
+                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="d-flex w-100 justify-content-between align-items-center m-0">
+                                    <h6>Ubicación: A</h6>
+                                </div>
+                                <p class="m-0 text-secondary small">
+                                    Conteo total: 0
+                                </p>
+                            </div>
+                            <i class="fas fa-chevron-right fa-2x"></i>
+                        </a>
+
+                        <a href="#"
+                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="d-flex w-100 justify-content-between align-items-center m-0">
+                                    <h6>Ubicación: B</h6>
+                                </div>
+                                <p class="m-0 text-secondary small">
+                                    Conteo total: 0
+                                </p>
+                            </div>
+                            <i class="fas fa-chevron-right fa-2x"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+                <!--Footer-->
+                <div class="modal-footer modal-footer-full-width px-2 py-0">
+                    <button class="btn btn-md btn-block btn-dark mb-2" id="btnSiguiente">
+                        <i class="fas fa-chevron-right"></i> Siguiente
+                    </button>
+
+                    <button class="btn btn-md btn-block btn-amber" id="" data-dismiss="modal">
+                        <i class="fas fa-chevron-left"></i> Cancelar
+                    </button>
+
+                    
+                </div>
+                <!--Footer-->
+            </div>
+            <!--/.Content-->
+
+        </div>
+    </div>
+    
+    <!--footer-->
+    <!--<footer id="footer" class="fixed-bottom bg-white border-top shadow-sm">
+        <h6 class="mt-2 mb-2 text-muted text-center">
+            <small id="lbl_footer"></small>
+        </h6>
+    </footer>-->
+    <!--scripts-->
+
+    <script src="cordova.js"></script>
+    <script src="scripts/platformOverrides.js"></script>
+
+    <!--MDB-->
+    <script type="text/javascript" src="plugins/MDBPro4.19.1/js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="plugins/MDBPro4.19.1/js/popper.min.js"></script>-->
+    <script type="text/javascript" src="plugins/MDBPro4.19.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="plugins/MDBPro4.19.1/js/mdb.lite.min.js"></script>
+
+    <script src="plugins/loadingOverlay/loadingoverlay.min.js"></script>
+    <script src="plugins/select2/js/select2.min.js"></script>
+    <!--<script>
+
+    </script>-->
+    <script src="plugins/alasql/alasql.min.js"></script>
+    <script src="plugins/localStorageDB-master/localstoragedb.min.js"></script>
+
+    <!--<script src="scripts/mscripts/sha256.js"></script>-->
+    <script src="scripts/mscripts/general.js"></script>
+    <script src="scripts/mscripts/bd.js"></script>
+    <!--<script src="scripts/mscripts/licencia.js"></script>-->
+    <!---->
+    <script src="scripts/mscripts/inventario_ubicacion.js"></script>
+    <script>
+
+    </script>
+</body>
+
+</html>
