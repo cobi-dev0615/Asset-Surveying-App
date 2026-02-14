@@ -12,7 +12,7 @@ class Inventario extends Model
         'empresa_id', 'sucursal_id', 'nombre', 'usuario_id', 'nombre_usuario',
         'auditor', 'firma_auditor', 'gerente', 'firma_gerente',
         'subgerente', 'firma_subgerente', 'inicio_conteo', 'fin_conteo',
-        'status_id', 'finalizado', 'comentarios', 'motivo_cancelacion',
+        'status_id', 'finalizado', 'comentarios', 'motivo_cancelacion', 'eliminado',
     ];
 
     protected function casts(): array

@@ -10,7 +10,7 @@ class Sucursal extends Model
 {
     protected $table = 'sucursales';
 
-    protected $fillable = ['empresa_id', 'codigo', 'nombre', 'ciudad', 'direccion'];
+    protected $fillable = ['empresa_id', 'codigo', 'nombre', 'ciudad', 'direccion', 'eliminado'];
 
     protected function casts(): array
     {

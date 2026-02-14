@@ -11,7 +11,7 @@ class Producto extends Model
         'empresa_id', 'codigo_1', 'codigo_2', 'codigo_3', 'codigo_4', 'codigo_5',
         'descripcion', 'marca', 'modelo', 'categoria', 'subcategoria', 'subcategoria_2',
         'precio_compra', 'precio_venta', 'cantidad_teorica', 'factor', 'unidad_medida',
-        'n_serie', 'tag_rfid', 'observaciones', 'seriado', 'forzado',
+        'n_serie', 'tag_rfid', 'observaciones', 'seriado', 'forzado', 'eliminado',
     ];
 
     protected function casts(): array

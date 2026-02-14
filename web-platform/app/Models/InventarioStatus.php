@@ -10,4 +10,9 @@ class InventarioStatus extends Model
     public $timestamps = false;
 
     protected $fillable = ['status'];
+
+    public function getNombreAttribute(): string
+    {
+        return $this->status;
+    }
 }

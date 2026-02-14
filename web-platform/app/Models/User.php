@@ -22,6 +22,9 @@ class User extends Authenticatable
         'acceso_web',
         'acceso_app',
         'expiracion_sesion',
+        'archivo_imagen',
+        'activo',
+        'eliminado',
     ];
 
     protected $hidden = [
@@ -36,6 +39,7 @@ class User extends Authenticatable
             'acceso_web' => 'boolean',
             'acceso_app' => 'boolean',
             'expiracion_sesion' => 'date',
+            'activo' => 'boolean',
             'eliminado' => 'boolean',
         ];
     }

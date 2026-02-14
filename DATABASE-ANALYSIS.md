@@ -11,7 +11,7 @@
 | Database | Domain | Host | Tables | Data Rows | Size |
 |----------|--------|------|--------|-----------|------|
 | `seretail_wp927` | WordPress (main site) | seretail.com.mx | 68 | ~170 | 4,532 lines |
-| `seretail_ser_activo_fijo` | Fixed Assets | activofijo.seretail.com.mx | 6 | ~63,929 | 64,410 lines |
+| `seretail_ser_activo_fijo` | Fixed Assets | activofijo.seretail.com.mx | **16** | **~577,046** | **581,030 lines** |
 | `seretail_ssm_ssr` | Inventory / SSR | ssr.seretail.com.mx | 23 | ~7,856 | 8,784 lines |
 
 **Shared IP:** 162.241.62.220
@@ -77,23 +77,27 @@
 
 ## 2. seretail_ser_activo_fijo (Fixed Assets)
 
-### Verdict: Main production database. 63K+ asset scan records. PRIMARY migration target.
+### Verdict: Main production database. 157K+ asset scans, 172K+ products, 61 users. PRIMARY migration target.
+
+> **Re-exported 2026-02-14** — File: `seretail_ser_activo_fijo (1).sql` (581,030 lines). Complete export with COMMIT, all indexes, constraints, and AUTO_INCREMENT values. All previous warnings resolved.
 
 | Property | Value |
 |----------|-------|
 | Charset | utf8mb4 (all tables) |
 | Engine | InnoDB (all tables) |
-| Foreign Keys | None (all relationships are implicit) |
+| Foreign Keys | **YES** — proper FK constraints on all major tables |
 | Soft Deletes | Yes (`eliminado` column on all tables) |
+| Total Tables | **16** |
+| Total Lines | 581,030 |
 
-### Tables (6 total)
+### Tables (16 total)
 
 #### empresas (Companies)
 
 | Column | Type | Description |
 |--------|------|-------------|
-| id | int(11) | Primary key |
-| usuario | int(11) | FK to users (not in this dump) |
+| id | int(11) | Primary key (AUTO_INCREMENT=22) |
+| usuario | int(11) | FK to usuarios.id |
 | codigo | varchar(8) | Company code (e.g., 'MX01') |
 | nombre | varchar(256) | Company name |
 | fecha_hora | datetime | Creation timestamp |
@@ -113,14 +117,14 @@
 
 | Column | Type | Description |
 |--------|------|-------------|
-| id | int(11) | Primary key |
+| id | int(11) | Primary key (AUTO_INCREMENT=1295) |
 | empresa | int(11) | FK to empresas.id |
 | sucursal | varchar(150) | Branch code (e.g., 'MX010129') |
 | ciudad | varchar(150) | City name |
 | local | varchar(150) | Local/premises info |
 | nombre | varchar(150) | Branch name (e.g., 'ADANA LINCOLN') |
 | comentarios | varchar(150) | Comments |
-| usuario | int(11) | FK to users (not in this dump) |
+| usuario | int(11) | FK to usuarios.id |
 | inicio_conteo | int(11) | Count start marker |
 | fin_conteo | int(11) | Count end marker |
 | sucursal_id | int(11) | Numeric branch ID |
@@ -150,10 +154,10 @@
 
 | Column | Type | Description |
 |--------|------|-------------|
-| id | bigint(20) | Primary key |
+| id | bigint(20) | Primary key (AUTO_INCREMENT=298284) |
 | id_inventario | int(11) | FK to inventarios.id |
-| id_usuario | int(11) | FK to users (not in this dump) |
-| id_producto | bigint(20) | FK to products (not in this dump) |
+| id_usuario | int(11) | FK to usuarios.id |
+| id_producto | bigint(20) | FK to productos.id (no constraint) |
 | traspasado | varchar(250) | 'true'/'false' — whether transferred |
 | cantidad | int(11) | Quantity (always 1 for assets) |
 | sucursal_origen | varchar(32) | Origin branch code if transferred |
@@ -181,67 +185,243 @@
 | ultima_actualizacion | datetime | Auto-updated timestamp |
 | eliminado | int(11) | Soft-delete flag |
 
-**Data: 63,186+ rows** (truncated — see warnings below)
+**Data: ~157,784 rows** (COMPLETE — previously truncated at 63K)
 
-- ID range: 136,015 — 200,595+
-- Date range: 2024-08-19 to 2025-11-23
-- 279 distinct inventory sessions referenced
-- 12 distinct users: IDs 5, 10, 13, 14, 27, 30, 33, 34, 37, 39, 40, 46
-- App versions: 1.1.0, 1.1.0.1, 1.1.2
-- Transfers: 231 rows marked as `traspasado='true'`
-- Photos: ~30,507 rows have image filenames (~48% of records)
-- GPS coordinates: ~18,965 entries with non-zero lat/lng
-- **RFID tags: EMPTY in ALL rows** — feature never used
+- ID range: up to 298,283 (AUTO_INCREMENT=298284)
 - Zone/area names: Cardio, Peso Integrado, Peso Libre, Bodega, Recepcion, Vestidores, Gerencia, Staff, Salon de Clases, Shape y Box, Site, Cuarto de Limpieza, Cabinas
+- Indexes on: eliminado, id_usuario, codigo_1, codigo_2, codigo_3, id_inventario, id_producto, n_serie, n_serie_nuevo, tagRFID
+
+#### inventario_registros_backup (Backup Copy of Asset Scans)
+
+**Data: ~156,308 rows** — Nearly identical backup of `inventario_registros`. Same schema.
+
+#### productos (Product/Asset Catalog) — NEW IN RE-EXPORT
+
+| Column | Type | Description |
+|--------|------|-------------|
+| id | bigint(20) | Primary key (AUTO_INCREMENT=464378) |
+| id_inventario | int(11) | FK to inventarios.id |
+| id_empresa | int(11) | FK to empresas.id |
+| subsidaria | varchar(50) | Subsidiary/branch code (e.g., 'MX010011') |
+| sucursal | int(1) | Branch ID (same as inventario id) |
+| codigo_1 | varchar(50) | Primary asset code (Número activo) |
+| codigo_2 | varchar(50) | Tag number (Número de tag) |
+| codigo_3 | varchar(50) | Additional code |
+| tagRFID | varchar(120) | RFID tag |
+| descripcion | longtext | Asset description |
+| n_serie | varchar(256) | Serial number |
+| nSerieAnterior | varchar(256) | Previous serial number |
+| n_serie_nuevo | varchar(256) | New serial number |
+| categoria_1 | varchar(256) | Primary category (numeric code) |
+| categoria_2 | varchar(256) | Secondary category (text label) |
+| marca | varchar(256) | Brand |
+| modelo | varchar(256) | Model |
+| tipo_activo | varchar(256) | Asset type |
+| fecha_inicio_servicio | varchar(256) | Service start date (as string) |
+| imagen1 | varchar(256) | Photo filename 1 |
+| imagen2 | varchar(256) | Photo filename 2 |
+| imagen3 | varchar(256) | Photo filename 3 |
+| cantidad_teorica | int(11) | Theoretical quantity |
+| observaciones | longtext | Notes |
+| imagen | longblob | Image blob |
+| eliminado | int(1) | Soft-delete flag |
+| no_encontrado | int(1) | Not-found flag |
+| forzado | int(1) | Forced-entry flag |
+| traspasado | int(1) | Transferred flag |
+| solictado | int(1) | Requested flag (note: typo in original schema) |
+| fecha_registro | datetime | Registration timestamp |
+| ultima_actualizacion | datetime | Auto-updated timestamp |
+
+**Data: ~172,620 rows** — Fixed asset catalog entries (gym equipment: monitors, lockers, bikes, treadmills, etc.)
+
+- Categories include: MONITOR, LOCKERS, ESCRITORIO, COMPUTADORA DE ESCRITORIO, PANTALLA DE TV, UPS NO BREAK, CAMA DE HIDROMASAJE, BICICLETA, etc.
+- Indexes on: codigo_1, codigo_2, codigo_3, eliminado, forzado, id_inventario, subsidaria, id_empresa, sucursal, no_encontrado, n_serie, n_serie_nuevo, tagRFID
+
+#### usuarios (User Accounts) — NEW IN RE-EXPORT
+
+| Column | Type | Description |
+|--------|------|-------------|
+| id | int(11) | Primary key (AUTO_INCREMENT=62) |
+| usuario | varchar(250) latin1 | Username |
+| nombres | varchar(250) latin1 | Full name |
+| password | varchar(250) latin1 | SHA-256 hash |
+| archivo_imagen | varchar(250) latin1 | Profile image filename |
+| archivo_tamano | int(11) | Image file size |
+| expiracion_sesion | date | Session expiry (default: 2999-12-31) |
+| id_rol | int(11) | FK to usuarios_roles.id |
+| inventariosAcceso | longtext | JSON/CSV of allowed inventory session IDs |
+| empresasAcceso | longtext | JSON/CSV of allowed empresa IDs |
+| activo | int(11) | Active user flag |
+| acceso_cpanel | int(11) | CPanel/web access flag |
+| acceso_app | int(11) | Mobile app access flag |
+| eliminado | int(11) | Soft-delete flag |
+
+**Data: 61 users (IDs 1-61)**
+
+Key users:
+
+| ID | Username | Name | Role | Active | Eliminated |
+|----|----------|------|------|--------|------------|
+| 1 | mgarcia | Marco García | 1 (Super Admin) | Yes | No |
+| 5 | avillegas | Alan Villegas | 1 (Super Admin) | Yes | No |
+| 11 | Lenin | Jose Luis Lenin Rodriguez Cruz | 4 (Invitado) | Yes | No |
+| 26 | mgarcia | Marco García | 1 (Super Admin) | Yes | No |
+| 35 | Supply | Supply | 4 (Invitado) | Yes | No |
+| 36 | Mmorales | Mmorales | 4 (Invitado) | Yes | No |
+| 60 | Tony | Tony | 1 (Super Admin) | Yes | No |
+| 61 | Jam | Jam | 3 (Capturista) | Yes | No |
+
+- Passwords are SHA-256 hashed (not bcrypt)
+- `inventariosAcceso` and `empresasAcceso` store comma-separated IDs for access control
+- 6 active users (activo=1, eliminado=0), 55 eliminated/inactive
+- Duplicate usernames exist (e.g., 'mgarcia' at IDs 1 and 26, 'Paniagua' at IDs 20 and 21)
+
+#### usuarios_roles (Role Definitions) — NEW IN RE-EXPORT
+
+| ID | Role Name |
+|----|-----------|
+| 1 | Super Administrador del sistema |
+| 2 | Supervisor de inventario |
+| 3 | Capturista de inventario |
+| 4 | Invitado |
+
+**Note:** Role 4 "Invitado" matches what the client calls "Supervisor Invitado" for transfer operations.
+
+#### log_sesiones (Session Audit Log) — NEW IN RE-EXPORT
+
+| Column | Type | Description |
+|--------|------|-------------|
+| id | int(11) | Primary key (AUTO_INCREMENT=4127) |
+| id_inventario | int(11) | FK to inventarios.id |
+| usuario | int(11) | FK to usuarios.id |
+| fecha_hora_entrada | datetime | Login timestamp |
+| fecha_hora_salida | datetime | Logout timestamp |
+| plataforma_dispositivo | varchar(100) latin1 | Device platform |
+| serie_dispositivo | varchar(250) latin1 | Device serial number |
+| latitud | float | GPS latitude |
+| longitud | float | GPS longitude |
+| sesion_activa | int(11) | Active session flag |
+
+**Data: ~4,126 rows** — Complete audit trail of mobile app sessions from 2022-08-13 onwards.
+
+#### ordenes_entrada (Entry/Transfer Orders) — NEW IN RE-EXPORT
+
+| Column | Type | Description |
+|--------|------|-------------|
+| id | int(11) | Primary key (AUTO_INCREMENT=11) |
+| usuario | int(11) | FK to usuarios.id (creator) |
+| nOrden | int(11) | Order number |
+| sucursalOrigen | int(11) | Origin branch (inventario ID) |
+| sucursalDestino | int(11) | Destination branch (inventario ID) |
+| motivo | varchar(256) | Reason (e.g., 'Mantenimiento', 'Daño en nuestro equipo') |
+| comentarios | longtext | Comments |
+| estatus | int(2) | FK to ordenes_entrada_estatus.id |
+| autorizadoPor | int(11) | FK to usuarios.id (authorizer) |
+| surtidoPor | int(10) | FK to usuarios.id (fulfiller) |
+| canceladoPor | int(10) | Cancelled by user |
+| rechazadoPor | int(10) | Rejected by user |
+| fechaHora | datetime | Creation timestamp |
+| fechaHoraSurtido | datetime | Fulfillment timestamp |
+| fechaHoraCancelacion | datetime | Cancellation timestamp |
+| eliminado | int(1) | Soft-delete flag |
+
+**Data: 9 rows** — Transfer orders between branches (2025-08-11 to 2025-08-13).
+
+#### ordenes_entrada_detalle (Order Line Items) — NEW IN RE-EXPORT
+
+| Column | Type | Description |
+|--------|------|-------------|
+| id | int(11) | Primary key (AUTO_INCREMENT=15) |
+| ordenEntrada | int(11) | FK to ordenes_entrada.id |
+| idRegistro | int(11) | FK to inventario_registros.id |
+| idInventario | int(11) | FK to inventarios.id |
+| estatus | int(11) | Line item status |
+| eliminado | int(11) | Soft-delete flag |
+| ultimaActualizacion | datetime | Auto-updated timestamp |
+
+**Data: 14 rows** — Individual assets linked to transfer orders.
+
+#### ordenes_entrada_estatus (Order Status Catalog) — NEW IN RE-EXPORT
+
+| ID | Status |
+|----|--------|
+| 1 | Pendiente |
+| 2 | En proceso |
+| 3 | Rechazado |
+| 4 | Surtido |
+| 5 | Cancelado |
+
+#### reporte_acumulado (Accumulated Report — Materialized View) — NEW IN RE-EXPORT
+
+Denormalized report table with pre-joined data for accumulated asset reports.
+
+**Data: ~85,538 rows** — Pre-computed report data joining inventario_registros with productos, usuarios, and inventarios. Includes area, branch name, categories, user names, GPS coordinates.
+
+**Note:** This is a materialized/cached view, not a source-of-truth table. Data is derived from the core tables.
+
+#### reporte_general (General Report — Materialized View) — NEW IN RE-EXPORT
+
+Denormalized report table for general per-session asset reports.
+
+**Data: ~182 rows** — Pre-computed report data for a single inventory session (id_inventario=951). Includes photos, GPS, serial numbers, brands.
+
+**Note:** Like `reporte_acumulado`, this is a cached report table, not a source-of-truth table.
 
 #### activos_no_encontrados (Assets Not Found)
 
 | Column | Type | Description |
 |--------|------|-------------|
-| id | int(11) | Primary key |
-| activo | bigint(20) | FK to product/asset ID |
-| usuario | int(11) | FK to user |
+| id | int(11) | Primary key (AUTO_INCREMENT=6) |
+| activo | bigint(20) | FK to productos.id |
+| usuario | int(11) | FK to usuarios.id |
 | latitud | float | GPS latitude |
 | longitud | float | GPS longitude |
 | fechaHora | datetime | Timestamp |
 
-**Data: 2 rows**
+**Data: 2 rows** (IDs 4, 5)
 
 #### activos_traspasados (Transferred Assets)
 
 | Column | Type | Description |
 |--------|------|-------------|
 | id | int(11) | Primary key |
-| activo | bigint(20) | FK to product/asset ID |
+| activo | bigint(20) | FK to productos.id |
 | sucursalOrigen | int(11) | Origin branch ID |
 | sucursalDestino | int(11) | Destination branch ID |
-| usuario | int(11) | FK to user |
+| usuario | int(11) | FK to usuarios.id |
 | fechaHora | datetime | Transfer timestamp |
 | eliminado | int(11) | Soft-delete flag |
 
-**Data: 0 rows** (empty)
+**Data: 0 rows** (empty — transfers tracked via `ordenes_entrada` instead)
 
-### Relationships (Implicit — No Foreign Key Constraints)
+### Relationships (With Foreign Key Constraints)
 
 ```
-empresas.id  <----  inventarios.empresa
-inventarios.id  <----  inventario_registros.id_inventario
-inventarios.status  ---->  inventarios_status.id
-inventario_registros.id_usuario  ---->  [users table — NOT IN DUMP]
-inventario_registros.id_producto  ---->  [products table — NOT IN DUMP]
-activos_no_encontrados.activo  ---->  [products table — NOT IN DUMP]
-activos_no_encontrados.usuario  ---->  [users table — NOT IN DUMP]
-activos_traspasados.activo  ---->  [products table — NOT IN DUMP]
-activos_traspasados.usuario  ---->  [users table — NOT IN DUMP]
+empresas.id  <----  inventarios.empresa          (FK: ON DELETE CASCADE)
+inventarios.id  <----  inventario_registros.id_inventario  (FK: ON DELETE CASCADE)
+inventarios.status  ---->  inventarios_status.id  (FK: ON DELETE NO ACTION)
+inventario_registros.id_usuario  ---->  usuarios.id  (FK: ON DELETE NO ACTION)
+productos.id  <----  activos_no_encontrados.activo  (FK: ON DELETE CASCADE)
+productos.id  <----  activos_traspasados.activo     (FK: ON DELETE CASCADE)
+productos.id_inventario  ---->  inventarios.id       (FK: ON DELETE CASCADE)
+usuarios.id  <----  log_sesiones.usuario             (FK: ON DELETE NO ACTION)
+usuarios.id  <----  ordenes_entrada.usuario          (FK: ON DELETE NO ACTION)
+usuarios.id  <----  ordenes_entrada.autorizadoPor    (FK: ON DELETE NO ACTION)
+usuarios.id_rol  ---->  usuarios_roles.id            (FK: ON DELETE NO ACTION)
+ordenes_entrada.id  <----  ordenes_entrada_detalle.ordenEntrada  (FK: ON DELETE CASCADE)
+ordenes_entrada.estatus  ---->  ordenes_entrada_estatus.id       (FK: ON DELETE NO ACTION)
 ```
 
-### WARNINGS
+### Data Quality Notes
 
-1. **TRUNCATED EXPORT:** The dump ends mid-row at ID 200,595. Missing: remaining data rows, all ALTER TABLE statements (primary keys, indexes, auto_increment values), and the closing COMMIT. **Must re-export.**
-2. **MISSING TABLES:** The `usuarios` (users) and `productos` (products/assets master) tables are NOT in this dump. The 12 user IDs and thousands of `id_producto` values reference tables not included. **Check phpMyAdmin for additional tables.**
-3. **No dedicated branches table:** Branches are stored as denormalized strings in `inventarios`.
+1. **Duplicate usernames:** 'mgarcia' (IDs 1, 26), 'Paniagua' (IDs 20, 21), 'Hector' (IDs 10, 40), 'Kenia' (IDs 28, 31), 'invitado' (IDs 8, 32), 'Gio' (IDs 27, 55)
+2. **SHA-256 passwords:** Users have SHA-256 hashed passwords (not bcrypt). Migration must re-hash or use custom auth.
+3. **No dedicated branches table:** Branches are denormalized in `inventarios` (sucursal, ciudad, local, nombre fields).
+4. **`solictado` typo:** Column name has a typo in `productos` table (missing 'i' in 'solicitado').
+5. **Materialized report tables:** `reporte_acumulado` (85K rows) and `reporte_general` (182 rows) are pre-computed cached data, not source-of-truth.
+6. **Access control via CSV strings:** `inventariosAcceso` and `empresasAcceso` in `usuarios` store comma-separated IDs, not proper join tables.
 
-### Migration Action: **CRITICAL** — Re-export this database completely. Verify all tables are included.
+### Migration Action: **READY** — Export is complete. All 16 tables present with data, indexes, constraints, and AUTO_INCREMENT values.
 
 ---
 
@@ -540,12 +720,14 @@ orden_salida.id_orden_salida  <--  orden_salida_log.orden_salida
 | Data Type | WordPress DB | Fixed Assets DB | SSR/Inventory DB |
 |-----------|-------------|-----------------|------------------|
 | Companies | - | 5 companies | 1 config record |
-| Users | 1 WP admin | 12 user IDs (no table) | 2 users + 3 roles |
-| Products/Assets | - | referenced (no table) | 4,919 products |
-| Inventory Sessions | - | 733 sessions | 2 sessions |
-| Scan Records | - | 63,186+ records | 0 records |
+| Users | 1 WP admin | **61 users + 4 roles** | 2 users + 3 roles |
+| Products/Assets | - | **172,620 asset catalog entries** | 4,919 products |
+| Inventory Sessions | - | 733 sessions (AUTO_INC=1295) | 2 sessions |
+| Scan Records | - | **157,784 records** (+156K backup) | 0 records |
 | Branches | - | 55 cities (inline) | 0 |
-| Transfers | - | 231 flagged | 0 |
+| Transfers | - | **9 orders + 14 line items** | 0 |
+| Session Logs | - | **4,126 audit entries** | 0 |
+| Report Cache | - | **85,720 cached rows** (2 tables) | 0 |
 | Photos | - | ~30,507 references | 0 |
 | RFID Data | - | Column exists, all empty | - |
 | Lot/Batch | - | - | 2,929 records |
@@ -558,7 +740,12 @@ orden_salida.id_orden_salida  <--  orden_salida_log.orden_salida
 | WordPress | 2 | marcxploit | Marco Garcia | WP Administrator (deleted?) |
 | SSR | 1 | alan | Alan Villegas | Super Admin |
 | SSR | 2 | Oscar | Oscar Cabrera | Supervisor |
-| Fixed Assets | 5,10,13,14,27,30,33,34,37,39,40,46 | Unknown | Unknown | Unknown (no table) |
+| Fixed Assets | 1 | mgarcia | Marco García | Super Admin |
+| Fixed Assets | 5 | avillegas | Alan Villegas | Super Admin |
+| Fixed Assets | 42 | Oscar | Oscar Cabrera | Supervisor |
+| Fixed Assets | 60 | Tony | Tony | Super Admin |
+| Fixed Assets | 61 | Jam | Jam | Capturista |
+| Fixed Assets | ... | (61 total users) | ... | 4 roles |
 
 ### Domains and Subdomains
 
@@ -572,18 +759,26 @@ orden_salida.id_orden_salida  <--  orden_salida_log.orden_salida
 
 ## Action Items
 
-### Immediate (Before Development)
+### ~~Immediate (Before Development)~~ — RESOLVED (2026-02-14)
 
-1. **Re-export `seretail_ser_activo_fijo`** — current export is truncated mid-row at ID 200,595. Need complete dump with all ALTER TABLE statements.
-2. **Verify missing tables** — the Fixed Assets database is missing `usuarios` and `productos` master tables. Check phpMyAdmin for all tables in that database.
-3. **Locate photo storage** — ~30,507 asset photos referenced as filenames (e.g., `408299-1.jpg`). Find where these are stored on the server (likely in a directory under activofijo.seretail.com.mx).
+1. ~~**Re-export `seretail_ser_activo_fijo`**~~ — **DONE.** New export: 581,030 lines, 16 tables, complete with COMMIT.
+2. ~~**Verify missing tables**~~ — **DONE.** `usuarios` (61 rows), `productos` (172K rows), `log_sesiones` (4K rows), `ordenes_entrada` (9 rows + 14 details), `reporte_acumulado` (85K rows), `reporte_general` (182 rows), `inventario_registros_backup` (156K rows) all present.
+3. **Locate photo storage** — ~30,507 asset photos referenced as filenames (e.g., `408299-1.jpg`). Find where these are stored on the server (likely in a directory under activofijo.seretail.com.mx). **STILL PENDING.**
 
 ### For Unified Schema Design
 
-4. **Normalize character sets** — standardize all columns to `utf8mb4` (drop latin1 overrides).
-5. **Add proper foreign key constraints** — current databases have zero referential integrity.
-6. **Convert string dates to DATE/DATETIME** — several columns store dates as varchar strings.
-7. **Reduce denormalization** — remove duplicate name columns, use proper joins.
-8. **Add proper PRIMARY KEY to `usuarios_roles`**.
-9. **Unify user accounts** — merge the 12 Fixed Assets user IDs with the 2 SSR user accounts.
-10. **Create dedicated `sucursales` (branches) table** — currently branches are inline strings in `inventarios`.
+4. **Normalize character sets** — standardize all columns to `utf8mb4` (drop latin1 overrides in usuarios, log_sesiones).
+5. ~~**Add proper foreign key constraints**~~ — **ALREADY EXISTS** in prod. Our Laravel schema already has FK constraints.
+6. **Convert string dates to DATE/DATETIME** — `fecha_inicio_servicio` in productos stored as varchar.
+7. **Reduce denormalization** — report tables (reporte_acumulado, reporte_general) are materialized views; consider generating these on-the-fly instead.
+8. ~~**Add proper PRIMARY KEY to `usuarios_roles`**~~ — Has UNIQUE KEY on `id` in prod. Our schema has proper PK.
+9. **Unify user accounts** — Merge the 61 Fixed Assets users with the 2 SSR users. Handle SHA-256 → bcrypt password migration.
+10. ~~**Create dedicated `sucursales` (branches) table**~~ — **DONE** in our Laravel schema. Will need to extract branches from denormalized `inventarios` data.
+
+### New Items (from re-export analysis)
+
+11. **Add `ordenes_entrada` system** — Transfer order management with approval workflow (Pendiente → En proceso → Surtido/Rechazado/Cancelado). Need 3 new tables + controller.
+12. **Handle duplicate usernames** — 6 duplicate username pairs in prod data. Decide: keep newest, merge, or add suffix.
+13. **Password migration strategy** — Existing passwords are SHA-256. Options: (a) force password reset, (b) dual-hash check during login, (c) re-hash on first successful login.
+14. **Access control migration** — `inventariosAcceso` and `empresasAcceso` CSV fields need to be migrated to proper pivot/join tables.
+15. **Decide on report caching** — `reporte_acumulado` (85K rows) and `reporte_general` (182 rows) are cached reports. Generate dynamically or maintain cache tables?
