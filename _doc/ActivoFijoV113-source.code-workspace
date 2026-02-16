@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "ActivoFijoV113-source"
+		},
+		{
+			"path": "ActivoFijoV200RFID-source"
+		},
+		{
+			"path": "mobile-app"
+		},
+		{
+			"path": "SERV122-source"
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "interactive"
+	}
+}

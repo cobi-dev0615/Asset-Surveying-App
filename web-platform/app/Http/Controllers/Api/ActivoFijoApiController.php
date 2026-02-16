@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\ActivoFijoInventario;
+use App\Models\ActivoFijoProducto;
 use App\Models\ActivoFijoRegistro;
 use App\Models\ActivoNoEncontrado;
 use App\Models\ActivoTraspasado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ActivoFijoApiController extends Controller
 {
@@ -21,6 +23,28 @@ class ActivoFijoApiController extends Controller
             ->get();
 
         return response()->json($inventarios);
+    }
+
+    public function productos(Request $request)
+    {
+        $empresaIds = $request->user()->empresas->pluck('id');
+
+        $query = ActivoFijoProducto::where('eliminado', false)
+            ->whereIn('empresa_id', $empresaIds);
+
+        if ($request->filled('inventario_id')) {
+            $query->where('inventario_id', $request->inventario_id);
+        }
+
+        return response()->json(
+            $query->select([
+                'id', 'inventario_id', 'empresa_id', 'codigo_1', 'codigo_2', 'codigo_3',
+                'tag_rfid', 'descripcion', 'n_serie', 'categoria_1', 'categoria_2',
+                'marca', 'modelo', 'tipo_activo',
+            ])
+            ->orderBy('id')
+            ->paginate($request->integer('per_page', 500))
+        );
     }
 
     public function upload(Request $request)
@@ -36,7 +60,7 @@ class ActivoFijoApiController extends Controller
             $count = 0;
 
             foreach ($request->registros as $data) {
-                ActivoFijoRegistro::create([
+                $registro = ActivoFijoRegistro::create([
                     'inventario_id' => $request->inventario_id,
                     'usuario_id' => $request->user()->id,
                     'id_producto' => $data['id_producto'] ?? 0,
@@ -63,6 +87,10 @@ class ActivoFijoApiController extends Controller
                     'longitud' => $data['longitud'] ?? 0,
                     'version_app' => $data['version_app'] ?? null,
                 ]);
+
+                // Save base64 images to disk
+                $this->saveBase64Images($registro, $data, $request->inventario_id);
+
                 $count++;
             }
 
@@ -76,6 +104,67 @@ class ActivoFijoApiController extends Controller
             DB::rollBack();
             return response()->json(['message' => 'Error: ' . $e->getMessage()], 500);
         }
+    }
+
+    public function uploadImagen(Request $request)
+    {
+        $request->validate([
+            'registro_id' => 'required|integer|exists:activo_fijo_registros,id',
+            'campo' => 'required|in:imagen1,imagen2,imagen3',
+        ]);
+
+        $registro = ActivoFijoRegistro::findOrFail($request->registro_id);
+
+        if ($request->hasFile('imagen')) {
+            $path = $request->file('imagen')->store(
+                'fotos/activos/' . $registro->inventario_id,
+                'public'
+            );
+            $registro->update([$request->campo => $path]);
+
+            return response()->json(['message' => 'Imagen subida.', 'path' => $path]);
+        }
+
+        if ($request->filled('imagen_base64')) {
+            $path = $this->saveBase64($request->imagen_base64, $registro->inventario_id, $request->campo);
+            if ($path) {
+                $registro->update([$request->campo => $path]);
+                return response()->json(['message' => 'Imagen subida.', 'path' => $path]);
+            }
+        }
+
+        return response()->json(['message' => 'No se proporcionó imagen.'], 422);
+    }
+
+    private function saveBase64Images(ActivoFijoRegistro $registro, array $data, int $inventarioId): void
+    {
+        foreach (['imagen1', 'imagen2', 'imagen3'] as $field) {
+            $value = $data[$field] ?? null;
+            if (!empty($value) && strlen($value) > 200) {
+                $path = $this->saveBase64($value, $inventarioId, $field);
+                if ($path) {
+                    $registro->update([$field => $path]);
+                }
+            }
+        }
+    }
+
+    private function saveBase64(string $base64, int $inventarioId, string $field): ?string
+    {
+        // Strip data URI prefix if present
+        if (str_contains($base64, ',')) {
+            $base64 = substr($base64, strpos($base64, ',') + 1);
+        }
+
+        $imageData = base64_decode($base64, true);
+        if ($imageData === false) {
+            return null;
+        }
+
+        $filename = 'fotos/activos/' . $inventarioId . '/' . uniqid() . '_' . $field . '.jpg';
+        Storage::disk('public')->put($filename, $imageData);
+
+        return $filename;
     }
 
     public function uploadNoEncontrados(Request $request)
