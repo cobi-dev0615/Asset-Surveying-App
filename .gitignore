@@ -25,5 +25,8 @@ Thumbs.db
 # Logs
 *.log
 
+# Large database dumps
+*.sql
+
 web-platform/
 mobile-app/
