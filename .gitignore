@@ -27,6 +27,7 @@ Thumbs.db
 
 # Large database dumps
 *.sql
+!_doc/*.sql
 
 web-platform/
 mobile-app/
