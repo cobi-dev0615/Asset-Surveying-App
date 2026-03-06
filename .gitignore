@@ -29,5 +29,17 @@ Thumbs.db
 *.sql
 !_doc/*.sql
 
-web-platform/
-mobile-app/
+# Laravel vendor/build
+web-platform/vendor/
+web-platform/node_modules/
+web-platform/.env
+web-platform/storage/logs/
+web-platform/storage/framework/cache/
+web-platform/storage/framework/sessions/
+web-platform/storage/framework/views/
+
+# Android build/local
+mobile-app/.gradle/
+mobile-app/build/
+mobile-app/app/build/
+mobile-app/local.properties
