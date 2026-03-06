@@ -1,0 +1,451 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Simple Stock Mobile</title>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="../plugins/fontawesome-free-5.14.0-web/css/all.css">
+    <link rel="stylesheet" href="../plugins/MDBPro4.19.1/css/bootstrap.min.css">
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="../css/font-awesome/font-awesome.min.css">
+
+    <link rel="stylesheet" href="assets/icon-line/css/simple-line-icons.css">
+
+    <link rel="stylesheet" href="assets/icon-hs/style.css">
+
+    <link rel="stylesheet" href="assets/hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" href="assets/malihu-scrollbar/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="assets/fancybox/jquery.fancybox.min.css">
+    <!-- CSS Unify -->
+    <link rel="stylesheet" href="assets/css/unify.css">
+    <!-- Custom Styles -->
+    <style type="text/css">
+
+        :not(pre) > code[class*="language-"],
+        pre[class*="language-"] {
+            background: #212529;
+        }
+
+        pre[class*="language-"] {
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="u-body--header-side-static-left">
+    <main>
+        <!-- Sidebar Navigation -->
+        <header id="js-header" class="u-header u-header--side" data-header-position="left" data-header-breakpoint="lg">
+            <div class="u-header__sections-container g-bg-white g-brd-right--lg g-brd-gray-light-v4 g-py-0 g-px-10--lg">
+                <div class="u-header__section u-header__section--light">
+                    <nav class="navbar navbar-expand-lg">
+                        <div class="container">
+                            <!-- Responsive Toggle Button -->
+                            <!-- Sidebar Footer -->
+                            <div class="d-none d-lg-block w-100 g-brd-top g-brd-gray-light-v4 g-pt-0">
+                                <!--<ul class="list-inline g-mb-10">
+                                <li class="list-inline-item mr-10" data-toggle="tooltip" data-placement="top" title="" data-original-title="Dribbble">
+                                <a target="_blank" href="https://dribbble.com/htmlstream" class="g-color-gray-dark-v4 g-color-pink--hover">
+                                <i class="fa fa-dribbble"></i>
+                                </a>
+                                </li>
+                                <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook">
+                                <a target="_blank" href="https://www.facebook.com/htmlstream" class="g-color-gray-dark-v4 g-color-facebook--hover">
+                                <i class="fa fa-facebook"></i>
+                                </a>
+                                </li>
+                                <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="" data-original-title="Instagram">
+                                <a target="_blank" href="https://www.instagram.com/htmlstream/" class="g-color-gray-dark-v4 g-color-instagram--hover">
+                                <i class="fa fa-instagram"></i>
+                                </a>
+                                </li>
+                                <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="" data-original-title="Github">
+                                <a target="_blank" href="https://github.com/htmlstream" class="g-color-gray-dark-v4 g-color-black--hover">
+                                <i class="fa fa-github"></i>
+                                </a>
+                                </li>
+                                <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter">
+                                <a target="_blank" href="https://twitter.com/htmlstream" class="g-color-gray-dark-v4 g-color-twitter--hover">
+                                <i class="fa fa-twitter"></i>
+                                </a>
+                                </li>
+                                </ul>-->
+
+                                <p class="mb-0"><!--2017 &copy; All Rights Reserved.--></p>
+                            </div>
+                            <!-- Sidebar Footer -->
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <!-- End Sidebar Navigation -->
+        <!-- Topbar -->
+        <section>
+            <div class="container d-none d-lg-block">
+                <div class="row align-items-center g-mt-30">
+                    <div class="col-lg-6 g-mb-20 g-mb-0--lg">
+                        <ul class="list-inline mb-0">
+                            <li>
+                                <a class="u-link-v5 g-color-gray-dark-v2 g-color-primary--hover" target="_blank" href="https://simplestockmobile.com">
+                                    <i class="fa fa-external-link g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> Simple Stock Mobile
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6 text-left text-lg-right">
+                        <p class="mb-0">With love <i class="fa fa-heart g-color-red g-mx-5"></i> Código Fractal.</p>
+                        <ul class="list-inline mb-0" hidden>
+                            <li class="list-inline-item mr-10" data-toggle="tooltip" data-placement="top" title="" data-original-title="Dribbble">
+                                <a href="#" class="g-color-gray-dark-v4 g-color-pink--hover">
+                                    <i class="fa fa-dribbble"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook">
+                                <a href="#" class="g-color-gray-dark-v4 g-color-facebook--hover">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="" data-original-title="Instagram">
+                                <a href="#" class="g-color-gray-dark-v4 g-color-instagram--hover">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter">
+                                <a href="#" class="g-color-gray-dark-v4 g-color-twitter--hover">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Topbar -->
+        <hr class="d-none d-lg-block g-brd-gray-light-v4 g-mb-40">
+        <div class="container-fluid">
+            <!-- Introduction -->
+            <!-- File Structures -->
+            <section id="catalogo">
+                <div class="container">
+                    <div class="g-py-20 g-line-height-1_8">
+                        <h2 class="h1 g-color-gray-dark-v2 g-font-weight-300 g-mb-30"></h2>
+                        <!-- Download Package -->
+                        <div class="g-mb-50">
+                            <h3 class="h4 g-color-gray-dark-v2 g-font-weight-600 g-mb-20">IMPORTACIÓN DE CATÁLOGO DE PRODUCTOS</h3>
+                            <p>
+                                1.- Para poder importar los datos de nuestro catálogo de productos desde un archivo de Excel debe contener los datos del siguiente formulario:
+                                <ul class="list-unstyled mb-0">
+                                    <li class="g-mb-5"><i class="fa fa-check"></i> <strong class="text-danger">Codigo1:</strong> Es el código principal del producto y el que será leido mediante su código de barras.</li>
+                                    <li class="g-mb-5"><i class="fa fa-check"></i> <strong>Codigo2:</strong> Código alterno con el que se puede buscar el producto.</li>
+                                    <li class="g-mb-5"><i class="fa fa-check"></i> <strong>Codigo3:</strong> Código alterno con el que se puede buscar el producto.</li>
+                                    <li class="g-mb-5"><i class="fa fa-check"></i> <strong class="text-danger">Descripcion:</strong> Descripción o nombre del producto para la fácil identificación del producto durante el proceso de inventario.</li>
+                                    <li class="g-mb-5"><i class="fa fa-check"></i> <strong>PrecioVenta:</strong> Precio de venta del producto en números enteros o decimales.</li>
+                                    <li class="g-mb-5"><i class="fa fa-check"></i> <strong>CantidadTeorica:</strong> Cantidad teórica con la que se compararán los resultados en la sección de reportes.</li>
+                                </ul>
+                            </p>
+                            <p>
+                                <div class="row">
+                                    <!--
+                                    <div class="img-thumbnail">
+                                    <a href="image001.jpg" data-fancybox="images">
+                                    <img src="image001.jpg" alt="" style="width:100%">
+
+                                    </a>
+                                    </div>
+                                    -->
+
+                                    <div class="col g-mb-30">
+                                        <a class="js-fancybox" href="javascript:;" data-type="image" data-src="catalogo.png" data-animate-in="zoomIn" data-animate-out="zoomOut" data-speed="1000" data-overlay-bg="rgba(0, 0, 0, 0.5)">
+                                            <img class="img-fluid" src="catalogo.png" alt="Image Description">
+                                        </a>
+                                    </div>
+
+                                    <!--<a href="https://simplestockmobile.com/docs/SSMAndroid/CatalogoPruebaAndroid.xlsx" class="btn btn-success btn-block" id="lbl_tutorial">
+                                        <i class="fas fa-cloud-download-alt"></i> DESCARGAR PLANTILLA DE EJEMPLO
+                                    </a>-->
+                                </div>
+
+                            </p>
+                            <!-- Taglines -->
+                            <div class="g-brd-around g-brd-gray-light-v4 g-brd-left-2 g-brd-lightred-left rounded g-pa-15 g-mb-50" role="alert">
+                                <h5 class="g-color-lightred">Importante!</h5>
+
+                                <ul>
+                                    <li>El catálogo debe tener el formato mostrado en la imagen respetando los nombres de las cabeceras con minúsculas, mayúsculas y sin espacios.</li>
+                                    <li>
+                                        Las columnas <strong class="text-danger">Codigo1</strong> y <strong class="text-danger">Descripcion</strong> no deben estar vacíos ya que la aplicación tomará en cuenta esta información al momento de realizar la toma de inventario, por el contrario; las columnas <strong>Codigo2</strong>, <strong>Codigo3</strong> y <strong>PrecioVenta</strong> y <strong>CantidadTeorica</strong> si pueden estar vacíos.
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- End Taglines -->
+                            <p>
+                                2.- Una vez creado el archivo anterior debemos guardarlo en la memoria de nuestro dispositivo Android, no importando la ruta siempre que lo identifiquemos entre todos los archivos de nuestro dispositivo.
+                            </p>
+                            <p>
+                                3.- Dentro de la pantalla de importación debemos dar clic en el botón “Seleccionar archivo”, buscarlo en la ruta donde lo guardamos y seleccionarlo, después de esto la aplicación nos mostrará una vista previa del catálogo.
+                            </p>
+
+                            <!-- Grid row -->
+                            <!--
+                            <div class="row">
+                            <div class="col-md-4">
+                            <div class="img-thumbnail">
+                            <a href="Screenshot_20200110-151246.png" data-fancybox="images">
+                            <img src="Screenshot_20200110-151246.png" alt="" style="width:100%">
+
+                            </a>
+                            </div>
+                            </div>
+                            <div class="col-md-4">
+                            <div class="img-thumbnail">
+                            <a href="Screenshot_20200110-151738.png" data-fancybox="images">
+                            <img src="Screenshot_20200110-151738.png" alt="" style="width:100%">
+
+                            </a>
+                            </div>
+                            </div>
+                            <div class="col-md-4">
+                            <div class="img-thumbnail">
+                            <a href="Screenshot_20200110-151521.png" data-fancybox="images">
+                            <img src="Screenshot_20200110-151521.png" alt="" style="width:100%">
+
+                            </a>
+                            </div>
+                            </div>
+                            </div>
+                            -->
+
+                            <div class="row">
+                                <div class="col-md-4 g-mb-30">
+                                    <a class="js-fancybox" href="javascript:;" data-type="image" data-src="Screenshot_20200110-151246.png" data-animate-in="zoomIn" data-animate-out="zoomOut" data-speed="1000" data-overlay-bg="rgba(0, 0, 0, 0.5)">
+                                        <img class="img-fluid" src="Screenshot_20200110-151246.png" alt="Image Description">
+                                    </a>
+                                </div>
+
+                                <div class="col-md-4 g-mb-30">
+                                    <a class="js-fancybox" href="javascript:;" data-src="Screenshot_20200110-151738.png" data-animate-in="bounceIn" data-animate-out="bounceOut" data-speed="1000" data-overlay-bg="rgba(0, 0, 0, 1)">
+                                        <img class="img-fluid" src="Screenshot_20200110-151738.png" alt="Image Description">
+                                    </a>
+                                </div>
+
+                                <div class="col-md-4 g-mb-30">
+                                    <a class="js-fancybox" href="javascript:;" data-src="Screenshot_20200110-151521.png" data-animate-in="zoomIn" data-animate-out="zoomOut" data-speed="1000" data-overlay-bg="rgba(0, 0, 0, 1)">
+                                        <img class="img-fluid" src="Screenshot_20200110-151521.png" alt="Image Description">
+                                    </a>
+                                </div>
+                            </div>
+                            <!--End Grid row -->
+                            <p>
+                                4.- Una vez cargada la vista previa solo damos clic en el botón <strong>“Importar catálogo”</strong> y aceptando la advertencia que nos mostrará la aplicación, posteriormente el proceso de importación comenzará y el tiempo de duración puede variar dependiendo de la cantidad de productos que tengamos capturados en nuestro archivo.
+                            </p>
+                            <!-- Grid row -->
+                            <div class="row">
+                                <!--
+                                <div class="col-md-4">
+                                <div class="img-thumbnail">
+                                <a href="Screenshot_20200113-135037.png" data-fancybox="images">
+                                <img src="Screenshot_20200113-135037.png" alt="" style="width:100%">
+
+                                </a>
+                                </div>
+                                </div>
+                                <div class="col-md-4">
+                                <div class="img-thumbnail">
+                                <a href="Screenshot_20200113-135045.png" data-fancybox="images">
+                                <img src="Screenshot_20200113-135045.png" alt="" style="width:100%">
+
+                                </a>
+                                </div>
+                                </div>
+
+                                -->
+
+                                <div class="col-md-4 g-mb-30">
+                                    <a class="js-fancybox" href="javascript:;" data-src="Screenshot_20200113-135037.png" data-animate-in="bounceIn" data-animate-out="bounceOut" data-speed="1000" data-overlay-bg="rgba(0, 0, 0, 1)">
+                                        <img class="img-fluid" src="Screenshot_20200113-135037.png" alt="Image Description">
+                                    </a>
+                                </div>
+
+                                <div class="col-md-4 g-mb-30">
+                                    <a class="js-fancybox" href="javascript:;" data-src="Screenshot_20200113-135045.png" data-animate-in="bounceIn" data-animate-out="bounceOut" data-speed="1000" data-overlay-bg="rgba(0, 0, 0, 1)">
+                                        <img class="img-fluid" src="Screenshot_20200113-135045.png" alt="Image Description">
+                                    </a>
+                                </div>
+
+
+                            </div>
+                            <!--End Grid row -->
+                            <!-- Taglines -->
+                            <div class="g-brd-around g-brd-gray-light-v4 g-brd-left-2 g-brd-lightred-left rounded g-pa-15 g-mb-50" role="alert">
+                                <h5 class="g-color-lightred">Importante!</h5>
+                                <p class="mb-0">
+                                    La aplicación detectará cuando un producto de nuestro catálogo se encuentre repetido basandose en la columna <strong class="text-danger">Codigo1</strong> la cual deberá ser el código principal de nuestro producto y eliminará estos registros dejando solamente <strong>uno</strong> con el fin de depurar nuestro catálogo optimizando el tiempo de respuesta de la aplicación.
+                                </p>
+                            </div>
+                            <!-- End Taglines -->
+                            <p>
+                                5.- Para validar que nuestro archivo fue importado correctamente debemos regresar a la pantalla principal de la aplicación y dar clic en el botón <strong>“Catálogo de productos”</strong> donde podremos consultar la información de los productos.
+                            </p>
+                            <!-- Grid row -->
+                            <div class="row">
+                                <!--
+                                <div class="col-md-4">
+                                <div class="img-thumbnail">
+                                <a href="Screenshot_20200110-123335.png" data-fancybox="images">
+                                <img src="Screenshot_20200110-123335.png" alt="" style="width:100%">
+
+                                </a>
+                                </div>
+                                </div>
+                                <div class="col-md-4">
+                                <div class="img-thumbnail">
+                                <a href="Screenshot_20200110-123629.png" data-fancybox="images">
+                                <img src="Screenshot_20200110-123629.png" alt="" style="width:100%">
+
+                                </a>
+                                </div>
+                                </div>
+                                -->
+
+                                <div class="col-md-4 g-mb-30">
+                                    <a class="js-fancybox" href="javascript:;" data-src="Screenshot_20200110-123335.png" data-animate-in="bounceIn" data-animate-out="bounceOut" data-speed="1000" data-overlay-bg="rgba(0, 0, 0, 1)">
+                                        <img class="img-fluid" src="Screenshot_20200110-123335.png" alt="Image Description">
+                                    </a>
+                                </div>
+                                <div class="col-md-4 g-mb-30">
+                                    <a class="js-fancybox" href="javascript:;" data-src="Screenshot_20200110-123629.png" data-animate-in="bounceIn" data-animate-out="bounceOut" data-speed="1000" data-overlay-bg="rgba(0, 0, 0, 1)">
+                                        <img class="img-fluid" src="Screenshot_20200110-123629.png" alt="Image Description">
+                                    </a>
+                                </div>
+
+                            </div>
+                            <!--End Grid row -->
+
+
+                        </div>
+                        <!-- End Download Package -->
+                        <!-- End HTML Folder -->
+                    </div>
+                </div>
+            </section>
+            <!-- File Structures -->
+
+
+            <hr class="g-brd-gray-light-v4 g-my-80">
+            <!-- End of Documentation -->
+            <section id="go-end-of-documentation">
+                <div class="container">
+                    <div class="g-py-20 g-line-height-1_8">
+                        <h1 class="g-color-gray-dark-v2 g-font-weight-300 g-mb-30">Fin del manual</h1>
+                        <p class="lead g-color-gray-dark-v2 g-font-weight-600">A nombre de Código Fractal; ¡Gracias por usar Simple Stock Mobile!</p>
+                        <p>
+                            Si tiene alguna pregunta, no dude en ponerse en contacto con nosotros en <a href="mailto:contacto@codigofractal.com"> contacto@codigofractal.com </a> y haremos todo lo posible para responderle en 24 horas. Puede llevar un poco más de tiempo, pero tratamos de no hacer que espere más de 48 horas. También puede dejarnos un mensaje a través de nuestras páginas sociales: <!--<a target="_blank" class="u g-color-facebook" href="https://www.facebook.com/htmlstream">Facebook</a> y--> <a target="_blank" class="g-color-twitter" href="https://twitter.com/CodigoFractalMX">Twitter</a>
+                        </p>
+                        <hr class="g-brd-gray-light-v4">
+                        <!-- Footer -->
+                        <div class="d-md-flex justify-content-md-between g-py-20">
+                            <p class="g-mb-10 g-mb-0--md"><!--2017 &copy; All Rights Reserved.--></p>
+                            <p class="g-mx-30--md g-mb-10 g-mb-0--md">With love <i class="fa fa-heart g-color-red g-mx-5"></i> Código Fractal.</p>
+                            <!--<ul class="list-inline g-mb-0">
+                            <li class="list-inline-item mr-10" data-toggle="tooltip" data-placement="top" title="" data-original-title="Dribbble">
+                            <a target="_blank" href="https://dribbble.com/htmlstream" class="g-color-gray-dark-v4 g-color-pink--hover">
+                            <i class="fa fa-dribbble"></i>
+                            </a>
+                            </li>
+                            <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook">
+                            <a target="_blank" href="https://www.facebook.com/htmlstream" class="g-color-gray-dark-v4 g-color-facebook--hover">
+                            <i class="fa fa-facebook"></i>
+                            </a>
+                            </li>
+                            <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="" data-original-title="Instagram">
+                            <a target="_blank" href="https://www.instagram.com/htmlstream/" class="g-color-gray-dark-v4 g-color-instagram--hover">
+                            <i class="fa fa-instagram"></i>
+                            </a>
+                            </li>
+                            <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="" data-original-title="Github">
+                            <a target="_blank" href="https://github.com/htmlstream" class="g-color-gray-dark-v4 g-color-black--hover">
+                            <i class="fa fa-github"></i>
+                            </a>
+                            </li>
+                            <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter">
+                            <a target="_blank" href="https://twitter.com/htmlstream" class="g-color-gray-dark-v4 g-color-twitter--hover">
+                            <i class="fa fa-twitter"></i>
+                            </a>
+                            </li>
+                            </ul>-->
+                        </div>
+                        <!-- Footer -->
+                    </div>
+                </div>
+            </section>
+            <!-- End of Documentation -->
+        </div>
+    </main>
+    <!-- JS Global Compulsory -->
+    <script type="text/javascript" src="../plugins/MDBPro4.19.1/js/jquery.min.js"></script>
+    <script src="assets/jquery-migrate/jquery-migrate.min.js"></script>
+
+    <script type="text/javascript" src="../plugins/MDBPro4.19.1/js/popper.min.js"></script>
+    <script type="text/javascript" src="../plugins/MDBPro4.19.1/js/bootstrap.min.js"></script>
+    <!-- JS Implementing Plugins -->
+    <!-- <script src="assets/jquery.easing/js/jquery.easing.js"></script> -->
+    <script src="assets/malihu-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <!-- JS Unify -->
+    <script src="assets/js/hs.core.js"></script>
+    <script src="assets/js/components/hs.header-side.js"></script>
+    <!-- <script src="assets/js/components/hs.scroll-nav.js"></script> -->
+    <script src="assets/js/helpers/hs.hamburgers.js"></script>
+    <script src="assets/js/components/hs.scrollbar.js"></script>
+    <script src="assets/js/components/hs.tabs.js"></script>
+    <script src="assets/fancybox/jquery.fancybox.min.js"></script>
+
+    <!-- JS Unify -->
+    <script src="assets/js/components/hs.popup.js"></script>
+    <!-- JS Plugins Init. -->
+    <script>
+        ; (function ($) {
+            'use strict';
+            $(document).on('ready', function () {
+                // Header
+                $.HSCore.components.HSHeaderSide.init($('#js-header'));
+                $.HSCore.helpers.HSHamburgers.init('.hamburger');
+
+                // Initialization of HSScrollNav
+                // $.HSCore.components.HSScrollNav.init($('#js-scroll-nav'), {
+                //   duration: 700,
+                //   easing: 'easeOutExpo'
+                // });
+
+                // Initialization of HSScrollBar component
+                $.HSCore.components.HSScrollBar.init($('.js-scrollbar'));
+
+                // Tabs
+                $.HSCore.components.HSTabs.init('[role="tablist"]');
+
+                // initialization of popups
+                $.HSCore.components.HSPopup.init('.js-fancybox');
+
+            });
+
+            $(window).on('resize', function () {
+                setTimeout(function () {
+                    // Tabs
+                    $.HSCore.components.HSTabs.init('[role="tablist"]');
+                }, 200);
+            });
+        })(jQuery);
+
+        // Google Maps
+        function initMap() {
+            $.HSCore.components.HSGMap.init('.js-g-map');
+        }
+    </script>
+    <!-- End JS Plugins Init. -->
+</body>
+</html>

@@ -27,7 +27,9 @@ Thumbs.db
 
 # Large database dumps
 *.sql
-!_doc/*.sql
+
+# Claude Code config
+.claude/
 
 # Laravel vendor/build
 web-platform/vendor/

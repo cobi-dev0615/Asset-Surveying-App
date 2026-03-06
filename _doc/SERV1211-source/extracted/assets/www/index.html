@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+    <!-- Bootstrap core CSS -->
+    <!-- MDB CSS -->
+    <link rel="stylesheet" href="plugins/fontawesome-free-5.14.0-web/css/all.min.css">
+    <!---->
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/mdb.lite.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/style.css">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="css/mycss/mscss.css">
+    <style>
+    </style>
+    <title>Inicio</title>
+</head>
+
+<body class="">
+
+    <!--header-->
+
+    <header class="navbar fixed-top bg-white">
+        <h6 class="mt-2 mb-2 text-center">&nbsp;</h6>
+
+    </header>
+    <div class="container-fluid py-5">
+
+        <p class="text-center">
+            <img src="images/logo.png" width="256" />
+        </p>
+
+        <i class="fa fa-user"></i> Usuario:
+        <input type="text" data-clear-btn="true" name="txt_usuario" id="txt_usuario" value="">
+
+        <i class="fa fa-key"></i> Contraseña:
+        <input type="password" data-clear-btn="true" name="txt_password" id="txt_password" value="">
+
+
+        <button class="btn btn-sm btn-info btn-block" id="btn_login">
+            <i class="fa fa-user"></i> Entrar
+        </button>
+
+        <div id="pruebas" hidden>
+            <button class="ui-btn ui-btn-b ui-corner-all" id="btn_pruebas">Pruebas</button>
+        </div>
+
+
+        <div id="mensaje"></div>
+
+        <!---->
+
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal_info" tabindex="-1" role="dialog" aria-labelledby="modal_titulo" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+
+            <!--Content-->
+            <div class="modal-content">
+                <!--Header-->
+                <!--<div class="modal-header">
+                    <p class="heading lead" id="lbl_info_header"><i class="fa fa-info-circle"></i> Acerca de </p>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                    </button>
+                </div>-->
+                <!--Body-->
+                <div class="modal-body">
+                    <div class="text-center">
+                        <img src="images/logoSSM2a.png" width="60" />
+                        <p>
+                            Simple Stock Mobile es un producto desarrollado y licenciado por <strong>Código Fractal</strong>.
+                            <br />
+                            <a href="https://www.simplestockmobile.com/index.html#acercade" target="_blank">www.simplestockmobile.com</a>
+                        </p>
+
+                        <button class="btn btn-dark " data-dismiss="modal">Aceptar</button>
+
+                    </div>
+                </div>
+
+                <!--Footer-->
+                <!--<div class="modal-footer justify-content-center">
+                    <button class="btn btn-dark " data-dismiss="modal"><i class="fa fa-check"></i> Aceptar</button>
+                </div>-->
+            </div>
+            <!--/.Content-->
+
+        </div>
+    </div>
+
+    <footer id="footer" class="navbar fixed-bottom bg-white border-top shadow-sm">
+
+        <h6 class="mt-2 mb-2 text-muted text-center">
+            <small id="lbl_footer">
+            </small>
+        </h6>
+
+        <button class="btn btn-sm btn-info" id="" data-toggle="modal" data-target="#modal_info">
+            <i class="fa fa-info-circle"></i> Acerca de
+        </button>
+
+    </footer>
+
+    <!--scripts-->
+    <script src="cordova.js"></script>
+    <script src="scripts/platformOverrides.js"></script>
+
+    <!--MDB-->
+    <script type="text/javascript" src="plugins/MDBPro4.19.1/js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="plugins/MDBPro4.19.1/js/popper.min.js"></script>-->
+    <script type="text/javascript" src="plugins/MDBPro4.19.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="plugins/MDBPro4.19.1/js/mdb.lite.min.js"></script>
+
+    <script src="plugins/loadingOverlay/loadingoverlay.min.js"></script>
+    <script src="plugins/localStorageDB-master/localstoragedb.min.js"></script>
+
+    <script src="scripts/mscripts/sha256.js"></script>
+    <script src="scripts/mscripts/general.js"></script>
+    <script src="scripts/mscripts/bd.js"></script>
+    <!--<script src="scripts/mscripts/licencia.js"></script>-->
+    <script src="scripts/mscripts/index.js"></script>
+
+    <script>
+
+    </script>
+
+</body>
+</html>

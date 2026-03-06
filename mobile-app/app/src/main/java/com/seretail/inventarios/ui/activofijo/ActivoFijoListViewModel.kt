@@ -22,7 +22,7 @@ data class ActivoFijoListUiState(
     val error: String? = null,
     val compareMode: Boolean = false,
     val selectedForCompare: Set<Long> = emptySet(),
-    val lastActiveSessionId: Long? = null,
+    val searchQuery: String = "",
 )
 
 @HiltViewModel
@@ -36,10 +36,6 @@ class ActivoFijoListViewModel @Inject constructor(
     val uiState: StateFlow<ActivoFijoListUiState> = _uiState
 
     init {
-        viewModelScope.launch {
-            val lastSessionId = preferencesManager.activeActivoFijoSessionId.first()
-            _uiState.value = _uiState.value.copy(lastActiveSessionId = lastSessionId)
-        }
         // Observe local DB (updates automatically when sync inserts data)
         viewModelScope.launch {
             activoFijoRepository.observeSessions().collect { sessions ->
@@ -93,6 +89,22 @@ class ActivoFijoListViewModel @Inject constructor(
 
     fun clearCreatedSession() {
         _uiState.value = _uiState.value.copy(createdSessionId = null)
+    }
+
+    fun onSearchQueryChanged(query: String) {
+        _uiState.value = _uiState.value.copy(searchQuery = query)
+    }
+
+    fun filteredSessions(): List<ActivoFijoSessionEntity> {
+        val state = _uiState.value
+        if (state.searchQuery.isBlank()) return state.sessions
+        val q = state.searchQuery.lowercase()
+        return state.sessions.filter {
+            it.nombre.lowercase().contains(q) ||
+                it.empresaNombre?.lowercase()?.contains(q) == true ||
+                it.sucursalNombre?.lowercase()?.contains(q) == true ||
+                it.estado.lowercase().contains(q)
+        }
     }
 
     fun toggleCompareMode() {

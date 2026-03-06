@@ -1,0 +1,309 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+    <!-- Bootstrap core CSS -->
+    <!-- MDB CSS -->
+    <link rel="stylesheet" href="plugins/fontawesome-free-5.14.0-web/css/all.min.css">
+    <!---->
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/mdb.lite.min.css">
+    <link rel="stylesheet" href="plugins/MDBPro4.19.1/css/style.css">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="css/mycss/mscss.css" />
+    <style></style>
+    <title>Panel de activación</title>
+</head>
+
+<body class="">
+
+    <!--Navbar -->
+    <nav class="pl-2 pr-2 py-0 navbar elegant-color-dark lighten-1 text-center fixed-top">
+        <ul class="navbar-nav nav-flex-icons">
+            <li class="nav-item" id="btnRegresar">
+                <a class="nav-link waves-effect z-depth-0 btn btn-sm btn-floating m-1 p-0">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </li>
+        </ul>
+        <span class="navbar-text ml-auto white-text">
+            <i class="fas fa-key"></i> Activación del producto
+        </span>
+        <ul class="navbar-nav ml-auto nav-flex-icons">
+            <li class="nav-item">
+                <a class="nav-link waves-effect z-depth-0 btn btn-sm btn-floating m-1 p-0">
+                    &nbsp; &nbsp;
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!--/.Navbar -->
+
+
+    <!--container-->
+    <div class="container py-5">
+
+        <div class="form-group">
+
+
+            <button class="btn btn-dark btn-block" id="" data-toggle="modal" data-target="#modal_activacion">
+                <i class="fas fa-check"></i> Activar producto
+            </button>
+
+            <!--<button class="btn btn-secondary btn-block" id="btnEliminarLicencia">
+            <i class="fas fa-sign-out-alt"></i> No gracias mi inventario no vale la inversión
+            </button>-->
+
+            <label id="mensaje" class="not-displayed"></label>
+
+        </div>
+
+    </div>
+
+    <!-- Modal activación -->
+
+    <div class="modal fade" id="modal_activacion" tabindex="-1" role="dialog" aria-labelledby="modal_titulo"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-full-width" role="document">
+
+            <!--Content-->
+            <div class="modal-content modal-content-full-width">
+                <!--Header-->
+                <div class="modal-header modal-header-full-width">
+                    <h6 class="modal-title">
+                        <i class="fa fa-key"></i> Activar producto
+                    </h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!--Body-->
+                <div class="modal-body text-center small">
+
+                    <div class="form-group">
+                        <strong>
+                            Capture su código de activación y dé clic en el botón 'Activar producto'.
+                        </strong>
+                    </div>
+                    <div class="form-group">
+                        <input type="search" class="form-control" id="txt_codigo" placeholder="Código de activación"
+                            autocomplete="off" style="text-transform: uppercase;" required>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-dark btn-block" id="btn_valida_licencia">
+                            <i class="fa fa-key"></i> Activar producto
+                        </button>
+                    </div>
+                    <div class="alert alert-warning">
+                        <h4><b><i class="fa fa-warning"></i> ¡Importante!</b></h4>
+                        <p>
+                        <ul class="list-group list-group-flush text-justify">
+                            <li class="">La activación del producto requiere conexión a Internet en el dispositivo.</li>
+                            <li class="">
+                                Puede usar su código de activación solamente en un equipo, a menos que haya adquirido
+                                una licencia para varios dispositivos.
+                            </li>
+                            <li class=""> Cualquier intento de usar el mismo código de activación en más dispositivos de
+                                los permitidos podría ocasionar que su código sea bloqueado.</li>
+                        </ul>
+                        </p>
+
+                    </div>
+                </div>
+
+
+                <!--Footer-->
+                <div class="modal-footer modal-footer-full-width">
+
+                </div>
+            </div>
+            <!--/.Content-->
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalEmailGmail" tabindex="-1" role="dialog" aria-labelledby="modal_titulo"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-full-width" role="document">
+
+            <!--Content-->
+            <div class="modal-content modal-content-full-width">
+                <!--Header-->
+                <div class="modal-header modal-header-full-width">
+                    <h6 class="modal-title">
+                        <i class="fas fa-envelope"></i> Correo electrónico / E-mail
+                    </h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!--Body-->
+                <div class="modal-body text-center small">
+
+                    <div class="form-group">
+                        <strong>
+                            Capture el correo electrónico dónde enviaremos la información de su licencia.
+                        </strong>
+                    </div>
+                    <div class="form-group">
+                        <input type="search" class="form-control" id="txtEmailGmail" placeholder="E-mail"
+                            autocomplete="off" required>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-dark-green" id="btnAceptarEmail">
+                            <i class="fas fa-check"></i> CONTINUAR
+                        </button>
+                    </div>
+                    <div class="alert alert-warning">
+                        <h4><b><i class="fa fa-warning"></i> ¡Importante!</b></h4>
+                        <p>
+                        <ul class="list-group list-group-flush text-justify">
+                            <li class="">La información de la licencia será enviada a este correo electrónico, verifíque
+                                que esté bien escrito.</li>
+                            <li class="">
+                                Podrá usar el código de activación que le enviaremos a su correo solamente en este
+                                equipo.
+                            </li>
+                            <li class=""> Cualquier intento de usar el mismo código de activación en más dispositivos de
+                                los permitidos podría ocasionar que su código sea bloqueado.</li>
+                        </ul>
+                        </p>
+
+                    </div>
+                </div>
+                <!--Footer-->
+
+            </div>
+            <!--/.Content-->
+
+        </div>
+    </div>
+
+
+    <!--Métodos de pago-->
+    <div class="modal fade" id="modalMetodoPago" tabindex="-1" role="dialog" aria-labelledby="modal_titulo"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+
+            <!--Content-->
+            <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header">
+                    <h6 class="modal-title">
+                        <i class="fa fa-usd"></i> Selecciona el método de pago
+                    </h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!--Body-->
+                <div class="modal-body text-center small">
+
+
+
+                </div>
+
+
+                <!--Footer-->
+                <!--<div class="modal-footer text-center">
+
+                </div>-->
+            </div>
+            <!--/.Content-->
+
+        </div>
+    </div>
+    <!--Form pedido-->
+    <div data-role="popup" id="popup_pedido" data-overlay-theme="b" data-theme="a" data-dismissible="false"
+        data-position-to="#contenido" hidden>
+        <a href="#" data-rel="back"
+            class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+        <div data-role="header">
+            <h2 id="">Solicitud de licencia</h2>
+        </div>
+        <form onsubmit="return false">
+
+            <div role="main" class="ui-content">
+                <label style="font-size:12px; color:red;" id="lbl_alerta"><i class="fa fa-warning"></i> Capture los
+                    datos de solicitud para hacerle llegar los datos de pago para su licencia.</label>
+
+                <label style="font-size: 12px;">Empresa*</label>
+                <input type="text" data-clear-btn="true" id="txt_empresa" data-mini="true" value="" required />
+
+                <label style="font-size: 12px;">Nombre completo de contacto*</label>
+                <input type="text" data-clear-btn="true" id="txt_nombre" data-mini="true" value="" required />
+
+                <label style="font-size: 12px;">Teléfono*</label>
+                <input type="text" data-clear-btn="true" id="txt_telefono" data-mini="true" value="" required />
+
+                <label style="font-size: 12px;">E-mail*</label>
+                <input type="text" data-clear-btn="true" id="txt_email" data-mini="true" value="" required />
+
+
+                <label style="font-size: 12px; color:maroon;">Capture el número de equipos donde desea activar la
+                    aplicación</label>
+
+
+                <fieldset class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <label style="font-size: 12px;">Cantidad</label>
+                        <input type="number" data-clear-btn="true" id="txt_cantidad" data-mini="true" min="1" max="999"
+                            value="1" required />
+                    </div>
+                    <div class="ui-block-b">
+                        <label style="font-size: 12px;">Importe a pagar</label>
+                        <input type="text" data-clear-btn="false" id="lbl_total_ssm" data-mini="true"
+                            value="80.00 $ USD" style="font-weight:bold; color:maroon;" readonly />
+                    </div>
+                </fieldset>
+
+                <a href="#" class="ui-btn ui-corner-all ui-mini ui-btn-b" id="brn_enviar_solicitud"><i
+                        class="fa fa-save"></i> Enviar solicitud</a>
+            </div>
+
+        </form>
+
+
+
+    </div>
+    <!---->
+    <!--footer-->
+    <!--<footer id="footer" class="fixed-bottom bg-white border-top shadow-sm">
+        <h6 class="mt-2 mb-2 text-muted text-center">
+            <small id="lbl_footer"></small>
+        </h6>
+    </footer>-->
+    <!--scripts-->
+
+
+    <script src="cordova.js"></script>
+    <script src="scripts/platformOverrides.js"></script>
+
+    <!--
+    <script src="plugins/jquery/jquery-3.4.1.min.js"></script>
+    <script src="plugins/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    -->
+    <!--MDB-->
+    <script type="text/javascript" src="plugins/MDBPro4.19.1/js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="plugins/MDBPro4.19.1/js/popper.min.js"></script>-->
+    <script type="text/javascript" src="plugins/MDBPro4.19.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="plugins/MDBPro4.19.1/js/mdb.lite.min.js"></script>
+
+    <script src="plugins/loadingOverlay/loadingoverlay.min.js"></script>
+
+    <script src="plugins/localStorageDB-master/localstoragedb.min.js"></script>
+    <script src="scripts/mscripts/sha256.js"></script>
+    <script src="scripts/mscripts/general.js"></script>
+    <script src="scripts/mscripts/bd.js"></script>
+    <script src="scripts/mscripts/licencia.js"></script>
+    <!---->
+    <script src="scripts/mscripts/panel_activacion.js"></script>
+
+</body>
+
+</html>
