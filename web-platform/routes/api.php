@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/empresas/{empresa}/productos', [SyncController::class, 'productos']);
     Route::get('/empresas/{empresa}/lotes', [SyncController::class, 'lotesCaducidades']);
     Route::get('/statuses', [SyncController::class, 'statuses']);
+    Route::get('/dashboard-stats', [SyncController::class, 'dashboardStats']);
 
     // Inventory (Product counting)
     Route::get('/inventarios', [InventarioApiController::class, 'index']);
