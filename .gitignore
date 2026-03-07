@@ -40,8 +40,5 @@ web-platform/storage/framework/cache/
 web-platform/storage/framework/sessions/
 web-platform/storage/framework/views/
 
-# Android build/local
-mobile-app/.gradle/
-mobile-app/build/
-mobile-app/app/build/
-mobile-app/local.properties
+# Mobile app has its own repo (Asset-Surveying-mobile-App)
+mobile-app/
